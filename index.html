@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curtain Call - Inquiries</title>
+  <style>
+    @font-face {
+      font-family: 'Bebop';
+      src: url('BEBOP.TTF') format('truetype');
+    }
+
+    body {
+      background: black;
+      color: white;
+      font-family: Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header-banner {
+      background: url('HeaderCharacterTile.png') repeat-x top;
+      height: 65px;
+    }
+    .site-header {
+      background: #4da6ff;
+      color: red;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      padding: 10px;
+    }
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .curtain {
+      height: auto;
+    }
+    .sidebar {
+      position: relative;
+      width: 200px;
+      padding: 85px 20px 20px 20px;
+      font-family: 'Bebop', cursive;
+      font-size: 22px;
+      color: yellow;
+    }
+    .spotlight-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 405px;
+      height: 270px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 0;
+      transition: background-image 0.3s;
+      pointer-events: none;
+    }
+    .menu-item {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: yellow;
+      transition: color 0.3s;
+    }
+    .menu-item.active,
+    .menu-item:hover {
+      color: black;
+    }
+    .form-container {
+      background: black;
+      padding: 20px;
+      width: 400px;
+    }
+    .form-container h2 {
+      font-weight: bold;
+      color: white;
+    }
+    .form-container p {
+      color: red;
+      font-size: 12px;
+    }
+    .form-container label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .form-container select,
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="file"],
+    .form-container textarea {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      background: #111;
+      color: white;
+      border: 1px solid #555;
+    }
+    .form-container textarea {
+      height: 100px;
+    }
+    .section-title {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .small-description {
+      color: gray;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+    .form-container button {
+      background: red;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-banner"></div>
+  <div class="site-header">Curtain Call <span style="color:#ccc">blinds and shades</span></div>
+
+  <div class="main-wrapper">
+    <img src="CurtainLeft.png" alt="Left Curtain" class="curtain">
+
+    <div class="sidebar">
+      <div id="spotlight" class="spotlight-bg"></div>
+      <div class="menu-item" data-spotlight="spotlight-home.png">Home</div>
+      <div class="menu-item active" data-spotlight="spotlight-inquiries.png" data-default="true">Inquiries</div>
+      <div class="menu-item" data-spotlight="spotlight-reviews.png">Reviews</div>
+      <div class="menu-item" data-spotlight="spotlight-galleries.png">Gallery</div>
+    </div>
+
+    <div class="form-container">
+  <h2>Submit a New Inquiry</h2>
+  <p>Please provide as thorough information as possible, so we can accurately quote a price for the desired job. All data is 100% encrypted and anonymous!</p>
+
+  <label for="jobType">Job Type</label>
+  <select id="jobType">
+    <option selected>Job Type</option>
+    <option>Single Unit Blind</option>
+    <option>Single Unit Shade</option>
+    <option>Single Unit Open</option>
+    <option>Multi Unit Blind</option>
+    <option>Multi Unit Shade</option>
+    <option>Multi Unit Open</option>
+  </select>
+
+  <label for="urgency">Urgency</label>
+  <select id="urgency">
+    <option selected>Urgency</option>
+    <option>6 month+</option>
+    <option>1-5 months</option>
+    <option>2-3 weeks</option>
+    <option>1 week</option>
+    <option>ASAP</option>
+  </select>
+
+  <label for="cleanup">Clean-up (Optional)</label>
+  <select id="cleanup">
+    <option selected>Clean-up (Optional)</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label for="businessName">Business Name</label>
+  <input type="text" id="businessName" placeholder="Business Name">
+
+  <label for="yourAddress">Your Address</label>
+  <input type="text" id="yourAddress" placeholder="Your Address">
+
+  <label for="jobAddress">Job Address</label>
+  <input type="text" id="jobAddress" placeholder="Job Address">
+
+  <label for="budget">Budget</label>
+  <input type="text" id="budget" placeholder="Budget">
+
+  <div class="section-title">Identifying Info</div>
+  <div class="small-description">Provide as much possible information about the problem site so our team can diagnose a solution.</div>
+
+  <label for="photos">Photo(s)</label>
+  <input type="file" id="photos">
+
+  <textarea placeholder="Enter any other relevant information here"></textarea>
+
+  <div class="section-title">Your Info</div>
+
+  <label for="email">Email Address</label>
+  <input type="email" id="email" placeholder="Email Address">
+
+  <label for="name">Name</label>
+  <input type="text" id="name" placeholder="Name">
+
+  <label for="phone">Phone (Optional)</label>
+  <input type="text" id="phone" placeholder="Phone (Optional)">
+
+  <label for="reference">Reference Number (Optional)</label>
+  <input type="text" id="reference" placeholder="Reference Number (Optional)">
+
+  <button>Submit Inquiry</button>
+</div>
+
+    <img src="CurtainRight.png" alt="Right Curtain" class="curtain">
+  </div>
+
+  <script>
+    const menuItems = document.querySelectorAll('.menu-item');
+    const spotlight = document.getElementById('spotlight');
+    const defaultItem = document.querySelector('[data-default="true"]');
+
+    // Set default state on load
+    spotlight.style.backgroundImage = `url(${defaultItem.dataset.spotlight})`;
+    defaultItem.classList.add('active');
+
+    menuItems.forEach(item => {
+      item.addEventListener('mouseover', () => {
+        spotlight.style.backgroundImage = `url(${item.dataset.spotlight})`;
+        item.classList.add('hovered');
+      });
+      item.addEventListener('mouseout', () => {
+        spotlight.style.backgroundImage = `url(${defaultItem.dataset.spotlight})`;
+        item.classList.remove('hovered');
+      });
+    });
+  
+    document.querySelector("button").addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const data = {
+        jobType: document.getElementById("jobType").value,
+        urgency: document.getElementById("urgency").value,
+        cleanup: document.getElementById("cleanup").value,
+        businessName: document.getElementById("businessName").value,
+        yourAddress: document.getElementById("yourAddress").value,
+        jobAddress: document.getElementById("jobAddress").value,
+        budget: document.getElementById("budget").value,
+        email: document.getElementById("email").value,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        reference: document.getElementById("reference").value
+      };
+
+      try {
+        const res = await fetch("/.netlify/functions/submitInquiry", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          alert("Thank you. We’ll be in contact soon.");
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error submitting form.");
+      }
+    });
+</script>
+</body>
+</html>
