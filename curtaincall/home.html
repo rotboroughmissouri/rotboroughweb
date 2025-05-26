@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curtain Call - Home</title>
+  <style>
+    @font-face {
+      font-family: 'Bebop';
+      src: url('../assets/BEBOP.TTF') format('truetype');
+    }
+
+    body {
+      background: black;
+      color: white;
+      font-family: Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header-banner {
+      background: url('../assets/HeaderCharacterTile.png') repeat-x top;
+      height: 65px;
+    }
+    .site-header {
+      background: #4da6ff;
+      color: red;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      padding: 10px;
+    }
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .curtain {
+      height: auto;
+    }
+    .sidebar {
+      position: relative;
+      width: 200px;
+      padding: 85px 20px 20px 20px;
+      font-family: 'Bebop', cursive;
+      font-size: 22px;
+      color: yellow;
+    }
+    .spotlight-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 405px;
+      height: 270px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 0;
+      transition: background-image 0.3s;
+      pointer-events: none;
+    }
+    .menu-item {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: yellow;
+      transition: color 0.3s;
+    }
+    .menu-item.active,
+    .menu-item:hover {
+      color: black;
+    }
+    .menu-item a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .content-container {
+      background: black;
+      padding: 20px;
+      width: 400px;
+      text-align: center;
+    }
+    .content-container img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+    .content-container p {
+      color: white;
+      font-family: Georgia, serif;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-banner"></div>
+  <div class="site-header">Curtain Call <span style="color:#ccc">blinds and shades</span></div>
+
+  <div class="main-wrapper">
+    <img src="../assets/CurtainLeft.png" alt="Left Curtain" class="curtain">
+
+    <div class="sidebar">
+      <div id="spotlight" class="spotlight-bg"></div>
+      <div class="menu-item active" data-spotlight="../assets/spotlight-home.png" data-default="true">
+        <a href="home.html">Home</a>
+      </div>
+      <div class="menu-item" data-spotlight="../assets/spotlight-inquiries.png">
+        <a href="inquiries.html">Inquiries</a>
+      </div>
+      <div class="menu-item" data-spotlight="../assets/spotlight-reviews.png">
+        <a href="#">Reviews</a>
+      </div>
+      <div class="menu-item" data-spotlight="../assets/spotlight-galleries.png">
+        <a href="#">Gallery</a>
+      </div>
+    </div>
+
+    <div class="content-container">
+      <img src="../assets/cclogo.JPG" alt="Curtain Call Logo">
+      <p>Hello, welcome to Curtain Call, Rotborough's premier choice for window coverings.</p>
+    </div>
+
+    <img src="../assets/CurtainRight.png" alt="Right Curtain" class="curtain">
+  </div>
+
+  <script>
+    const spotlight = document.getElementById('spotlight');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const defaultItem = document.querySelector('[data-default="true"]');
+
+    function setSpotlight(item) {
+      spotlight.style.backgroundImage = `url('${item.dataset.spotlight}')`;
+      menuItems.forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+    }
+
+    setSpotlight(defaultItem);
+
+    menuItems.forEach(item => {
+      item.addEventListener('mouseenter', () => setSpotlight(item));
+      item.addEventListener('mouseleave', () => setSpotlight(defaultItem));
+    });
+  </script>
+</body>
+</html>
