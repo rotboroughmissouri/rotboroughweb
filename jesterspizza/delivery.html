@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jester Pizza - Royal Delivery</title>
+  <style>
+    @font-face {
+      font-family: 'Remedy';
+      src: url('../assets/Remedy Regular.ttf') format('truetype');
+    }
+    body {
+      background: url('../assets/JesterTileBg.png') repeat;
+      margin: 0;
+      padding: 0;
+      font-family: serif;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-buttons img {
+      height: 90px;
+    }
+    .main {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .main h1 {
+      font-family: 'Remedy', cursive;
+      font-size: 48px;
+      color: goldenrod;
+      margin: 10px 0;
+    }
+    .main h2 {
+      font-size: 20px;
+      color: darkred;
+      text-decoration: underline;
+      margin: 10px 0;
+    }
+    .main p {
+      font-style: italic;
+      margin: 10px 0 30px;
+      font-size: 14px;
+    }
+    .pizza-builder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pizza-image {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+    .pizza-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+    }
+    .toppings-select {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 5px 10px;
+      margin-top: 20px;
+    }
+    select, button {
+      padding: 5px;
+    }
+    #orderCodeDisplay {
+      margin-top: 20px;
+      font-family: monospace;
+      font-size: 28px;
+      background: white;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: inline-block;
+      transform: scale(0);
+      transition: transform 1s ease;
+    }
+    #orderCodeDisplay.show {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/jesterpizzalogo.png" alt="Jester Pizza Logo" height="120" />
+    <div class="nav-buttons">
+      <a href="delivery.html"><img src="../assets/JesterNavDelivery.png" alt="Delivery" /></a>
+      <a href="#"><img src="../assets/JesterNavMenu.png" alt="Menu" /></a>
+      <a href="#"><img src="../assets/JesterNavHistory.png" alt="History" /></a>
+      <a href="#"><img src="../assets/JesterNavLocations.png" alt="Locations" /></a>
+    </div>
+  </div>
+
+  <div class="main">
+    <h1>Royal Delivery</h1>
+    <h2>Phone: 1-800-▙▄▓▒░▚✱⌇𐐘</h2>
+    <p>For personalized Pizzas, please use our revolutionary Pizza Builder below. Then simply provide your order code to us with your phone’s dial pad!</p>
+
+
+    <div class="pizza-builder">
+      <div class="pizza-image">
+        <img src="../assets/Pizza Base.png" alt="Base Pizza" />
+        <img id="Pepperoni" style="display:none" src="../assets/PepporoniNormal.png" />
+        <img id="Peppers" style="display:none" src="../assets/PeppersNormal.png" />
+        <img id="Anchovies" style="display:none" src="../assets/AnchoviesNormal.png" />
+        <img id="Sauce" style="display:none" src="../assets/Sauce2.png" />
+        <img id="Pineapple" style="display:none" src="../assets/PineappleNormal.png" />
+        <img id="Mushroom" style="display:none" src="../assets/MushroomNormal.png" />
+        <img id="Red Pepper Flakes" style="display:none" src="../assets/RedPepperFlakesNormal.png" />
+        <img id="Olives" style="display:none" src="../assets/OlivesNormal.png" />
+        <img id="Liver" style="display:none" src="../assets/LiverNormal.png" />
+        <img id="Sprinkles" style="display:none" src="../assets/SprinklesNormal.png" />
+      </div>
+
+      <div class="toppings-select">
+        <label>Pepperoni</label>
+        <select id="PepperoniSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Peppers</label>
+        <select id="PeppersSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Anchovies</label>
+        <select id="AnchoviesSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Sauce</label>
+        <select id="SauceSelect"><option value="0">None</option><option value="1">Mayonaise</option><option value="2">Gravy</option><option value="3">Strawberry</option></select>
+        <label>Pineapple</label>
+        <select id="PineappleSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Mushroom</label>
+        <select id="MushroomSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Red Pepper Flakes</label>
+        <select id="Red Pepper FlakesSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Olives</label>
+        <select id="OlivesSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Liver Bites</label>
+        <select id="LiverSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+        <label>Jester's Funny-Fetti Sprinkles</label>
+        <select id="SprinklesSelect"><option value="0">None</option><option value="1">Light</option><option value="2">Normal</option><option value="3">Extra</option></select>
+      </div>
+
+      <button onclick="displayOrderCode()">Finish and Order</button>
+      <div id="orderCodeDisplay">Order Code:</div>
+    </div>
+  </div>
+
+  <script>
+    const toppingKeys = ["Pepperoni", "Peppers", "Anchovies", "Sauce", "Pineapple", "Mushroom", "Red Pepper Flakes", "Olives", "Liver", "Sprinkles"];
+    const toppingImages = {};
+    toppingKeys.forEach(name => toppingImages[name] = document.getElementById(name));
+
+    function updateToppingsOnly() {
+      toppingKeys.forEach(name => {
+        const value = document.getElementById(name + "Select").value;
+        toppingImages[name].style.display = "block";
+        toppingImages[name].src = `../assets/${name.replace(/'/g, '').replace(/ /g, '') + ["None", "Light", "Normal", "Extra"][value]}.png`;
+      });
+    }
+
+    function displayOrderCode() {
+      let code = "";
+      toppingKeys.forEach(name => {
+        const value = document.getElementById(name + "Select").value;
+        code += value;
+      });
+
+      const codeBox = document.getElementById("orderCodeDisplay");
+      codeBox.textContent = "Order Code: " + code;
+      codeBox.classList.add("show");
+    }
+
+    toppingKeys.forEach(name => {
+      document.getElementById(name + "Select").addEventListener("change", updateToppingsOnly);
+    });
+
+    window.onload = updateToppingsOnly;
+  </script>
+</body>
+</html>
