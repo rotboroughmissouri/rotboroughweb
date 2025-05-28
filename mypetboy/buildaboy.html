@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build A Boy</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      background: url('../assets/skybg_tile.png') repeat;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .header {
+      margin-top: 20px;
+    }
+    .header img:first-child {
+      width: 20%;
+      height: auto;
+    }
+    .nav {
+      margin-top: 20px;
+    }
+    .nav img {
+      margin: 0 20px;
+      cursor: pointer;
+    }
+    .avatar-container {
+      position: relative;
+      display: inline-block;
+      margin-top: 40px;
+    }
+    .avatar-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .avatar-container img.base {
+      position: relative;
+    }
+    .controls {
+      margin-top: 350px;
+    }
+    .footer {
+      margin-top: 40px;
+    }
+    .footer img {
+      display: block;
+      margin: 0 auto;
+    }
+    .safety {
+      font-family: "Comic Sans MS", cursive;
+      font-size: 12px;
+      color: red;
+      text-decoration: underline;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="home.html"><img src="../assets/mpblogo.png" alt="My Pet Boy Logo" /></a>
+    <img src="../assets/rageboyexclusive.png" alt="Exclusively for RageBoy 2000 GX" />
+  </div>
+  <div class="nav">
+    <a href="screenshots.html"><img src="../assets/screenshotbtn.png" alt="Screenshots" /></a>
+    <a href="buildaboy.html"><img src="../assets/buildaboybtn.png" alt="Build a Boy" /></a>
+    <a href="#"><img src="../assets/boyfoundationbtn.png" alt="Boy Friendship Foundation" /></a>
+  </div>
+
+  <div class="avatar-container" id="avatarDisplay">
+    <img src="../assets/BoyBase.png" class="base" alt="Boy Base" />
+    <img src="../assets/Hat_1.png" id="hatLayer" alt="Hat" />
+  </div>
+
+  <div class="controls">
+    <label for="hatSelect">Choose a hat:</label>
+    <select id="hatSelect">
+      <option value="Hat_1">Top Hat</option>
+      <option value="Hat_2">Boy Cap</option>
+    </select>
+    <br /><br />
+    <button onclick="generatePDF()">Print Your Boy</button>
+  </div>
+
+  <div class="footer">
+    <img src="../assets/footer_logo.png" alt="Footer Logos" />
+    <div class="safety" onclick="location.href='safety.html'">SAFETY WARNING</div>
+  </div>
+
+  <script>
+    const hatSelect = document.getElementById("hatSelect");
+    const hatLayer = document.getElementById("hatLayer");
+
+    hatSelect.addEventListener("change", () => {
+      hatLayer.src = `../assets/${hatSelect.value}.png`;
+    });
+
+    async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+
+  const avatarElement = document.getElementById("avatarDisplay");
+
+  try {
+    const canvas = await html2canvas(avatarElement, {
+      backgroundColor: null,
+      useCORS: true
+    });
+    const imgData = canvas.toDataURL("image/png");
+
+    doc.setFontSize(10);
+    doc.text("Your Custom BOY", 40, 30);
+    doc.addImage(imgData, "PNG", 100, 60, canvas.width * 0.5, canvas.height * 0.5);
+
+    doc.save("MyPetBoy_Printout.pdf");
+  } catch (error) {
+    console.error("PDF generation failed:", error);
+    alert("Failed to generate PDF. Check console for details.");
+  }
+}
+  </script>
+</body>
+</html>
+
