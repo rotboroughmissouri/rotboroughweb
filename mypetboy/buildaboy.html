@@ -62,6 +62,10 @@
   </style>
 </head>
 <body>
+<div id="svgLayers" style="display: none;">
+  <img id="svgBase" src="../assets/BoyBase_Print.svg" />
+  <img id="svgHat" src="../assets/Hat1_Print.svg" />
+</div>
   <div class="header">
     <a href="home.html"><img src="../assets/mpblogo.png" alt="My Pet Boy Logo" /></a>
     <img src="../assets/rageboyexclusive.png" alt="Exclusively for RageBoy 2000 GX" />
@@ -97,31 +101,47 @@
     const hatLayer = document.getElementById("hatLayer");
 
     hatSelect.addEventListener("change", () => {
-      hatLayer.src = `../assets/${hatSelect.value}.png`;
-    });
+  hatLayer.src = `../assets/${hatSelect.value}.png`;
 
-    async function generatePDF() {
+  // Also switch SVG
+  const svgHat = document.getElementById("svgHat");
+  const svgFile = hatSelect.value === "Hat_1" ? "Hat1_Print.svg" : "Hat2_Print.svg";
+  svgHat.src = `../assets/${svgFile}`;
+});
+
+async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-  const avatarElement = document.getElementById("avatarDisplay");
+  // Get SVG elements
+  const svgBase = document.getElementById("svgBase");
+  const svgHat = document.getElementById("svgHat");
 
-  try {
-    const canvas = await html2canvas(avatarElement, {
-      backgroundColor: null,
-      useCORS: true
-    });
-    const imgData = canvas.toDataURL("image/png");
+  // Wait for images to load (in case they aren't cached)
+  await Promise.all([
+    new Promise(res => { svgBase.onload = res; svgBase.src = svgBase.src; }),
+    new Promise(res => { svgHat.onload = res; svgHat.src = svgHat.src; })
+  ]);
 
-    doc.setFontSize(10);
-    doc.text("Your Custom BOY", 40, 30);
-    doc.addImage(imgData, "PNG", 100, 60, canvas.width * 0.5, canvas.height * 0.5);
+  // Convert SVGs to canvas
+  const baseCanvas = await html2canvas(svgBase, { backgroundColor: null });
+  const hatCanvas = await html2canvas(svgHat, { backgroundColor: null });
 
-    doc.save("MyPetBoy_Printout.pdf");
-  } catch (error) {
-    console.error("PDF generation failed:", error);
-    alert("Failed to generate PDF. Check console for details.");
-  }
+  // Convert to image data
+  const baseImg = baseCanvas.toDataURL("image/png");
+  const hatImg = hatCanvas.toDataURL("image/png");
+
+  // Positioning and scaling
+  const x = 100;
+  const y = 60;
+  const scale = 0.5;
+
+  doc.setFontSize(10);
+  doc.text("Your Custom BOY", 40, 30);
+  doc.addImage(baseImg, "PNG", x, y, baseCanvas.width * scale, baseCanvas.height * scale);
+  doc.addImage(hatImg, "PNG", x, y, hatCanvas.width * scale, hatCanvas.height * scale);
+
+  doc.save("MyPetBoy_Printout.pdf");
 }
   </script>
 </body>
