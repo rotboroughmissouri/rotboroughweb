@@ -112,35 +112,46 @@
       svgHat.src = `../assets/${pngFile}`;
     });
 
-    async function generatePDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-      const svgBase = document.getElementById("svgBase");
-      const svgHat = document.getElementById("svgHat");
+  const hatOption = document.getElementById("hatSelect").value;
+  const basePrintPath = "../assets/BoyBase_Print.png";
+  const hatPrintPath = hatOption === "Hat_1" ? "../assets/Hat1_Print.png" : "../assets/Hat2_Print.png";
 
-      await Promise.all([
-        new Promise((res) => { svgBase.onload = res; svgBase.src = svgBase.src; }),
-        new Promise((res) => { svgHat.onload = res; svgHat.src = svgHat.src; })
-      ]);
+  // Load images as HTMLImageElements
+  const loadImage = (src) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous"; // Needed in Netlify for reliable loading
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error("Failed to load image: " + src));
+      img.src = src;
+    });
+  };
 
-      const baseCanvas = await html2canvas(svgBase, { backgroundColor: null });
-      const hatCanvas = await html2canvas(svgHat, { backgroundColor: null });
+  try {
+    const [baseImgEl, hatImgEl] = await Promise.all([
+      loadImage(basePrintPath),
+      loadImage(hatPrintPath),
+    ]);
 
-      const baseImg = baseCanvas.toDataURL("image/png");
-      const hatImg = hatCanvas.toDataURL("image/png");
+    const x = 100;
+    const y = 60;
+    const scale = 0.5;
 
-      const x = 100;
-      const y = 60;
-      const scale = 0.5;
+    doc.setFontSize(10);
+    doc.text("Your Custom BOY", 40, 30);
+    doc.addImage(baseImgEl, "PNG", x, y, baseImgEl.width * scale, baseImgEl.height * scale);
+    doc.addImage(hatImgEl, "PNG", x, y, hatImgEl.width * scale, hatImgEl.height * scale);
 
-      doc.setFontSize(10);
-      doc.text("Your Custom BOY", 40, 30);
-      doc.addImage(baseImg, "PNG", x, y, baseCanvas.width * scale, baseCanvas.height * scale);
-      doc.addImage(hatImg, "PNG", x, y, hatCanvas.width * scale, hatCanvas.height * scale);
-
-      doc.save("MyPetBoy_Printout.pdf");
-    }
+    doc.save("MyPetBoy_Printout.pdf");
+  } catch (err) {
+    console.error("PDF generation error:", err);
+    alert("Something went wrong creating your PDF.");
+  }
+}
   </script>
 </body>
 </html>
