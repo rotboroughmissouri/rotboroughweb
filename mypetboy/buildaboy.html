@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Build A Boy</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     body {
       background: url('../assets/skybg_tile.png') repeat;
@@ -35,8 +34,8 @@
     }
     .avatar-container img {
       position: absolute;
-      top: 0;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .avatar-container img.base {
       position: relative;
@@ -58,9 +57,6 @@
       text-decoration: underline;
       margin-top: 5px;
       cursor: pointer;
-    }
-    #svgLayers {
-      display: none;
     }
   </style>
 </head>
@@ -95,63 +91,54 @@
     <div class="safety" onclick="location.href='safety.html'">SAFETY WARNING</div>
   </div>
 
-  <!-- Hidden PNG assets for print -->
-  <div id="svgLayers">
-    <img id="svgBase" src="../assets/BoyBase_Print.png" />
-    <img id="svgHat" src="../assets/Hat1_Print.png" />
-  </div>
-
   <script>
     const hatSelect = document.getElementById("hatSelect");
     const hatLayer = document.getElementById("hatLayer");
-    const svgHat = document.getElementById("svgHat");
 
     hatSelect.addEventListener("change", () => {
       hatLayer.src = `../assets/${hatSelect.value}.png`;
-      const pngFile = hatSelect.value === "Hat_1" ? "Hat1_Print.png" : "Hat2_Print.png";
-      svgHat.src = `../assets/${pngFile}`;
     });
 
-async function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-  const hatOption = document.getElementById("hatSelect").value;
-  const basePrintPath = "../assets/BoyBase_Print.png";
-  const hatPrintPath = hatOption === "Hat_1" ? "../assets/Hat1_Print.png" : "../assets/Hat2_Print.png";
+      const hatOption = hatSelect.value;
+      const basePrintPath = "../assets/BoyBase_Print.png";
+      const hatPrintPath = hatOption === "Hat_1" ? "../assets/Hat1_Print.png" : "../assets/Hat2_Print.png";
 
-  // Load images as HTMLImageElements
-  const loadImage = (src) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = "anonymous"; // Needed in Netlify for reliable loading
-      img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error("Failed to load image: " + src));
-      img.src = src;
-    });
-  };
+      const loadImage = (src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error("Failed to load image: " + src));
+          img.src = src;
+        });
+      };
 
-  try {
-    const [baseImgEl, hatImgEl] = await Promise.all([
-      loadImage(basePrintPath),
-      loadImage(hatPrintPath),
-    ]);
+      try {
+        const [baseImgEl, hatImgEl] = await Promise.all([
+          loadImage(basePrintPath),
+          loadImage(hatPrintPath)
+        ]);
 
-    const x = 100;
-    const y = 60;
-    const scale = 0.5;
+        const x = 40;
+        const yBase = 60;
+        const yHat = yBase + baseImgEl.height * 0.5 + 10;
+        const scale = 0.5;
 
-    doc.setFontSize(10);
-    doc.text("Your Custom BOY", 40, 30);
-    doc.addImage(baseImgEl, "PNG", x, y, baseImgEl.width * scale, baseImgEl.height * scale);
-    doc.addImage(hatImgEl, "PNG", x, y, hatImgEl.width * scale, hatImgEl.height * scale);
+        doc.setFontSize(10);
+        doc.text("Your Custom BOY", 40, 30);
+        doc.addImage(baseImgEl, "PNG", x, yBase, baseImgEl.width * scale, baseImgEl.height * scale);
+        doc.addImage(hatImgEl, "PNG", x, yHat, hatImgEl.width * scale, hatImgEl.height * scale);
 
-    doc.save("MyPetBoy_Printout.pdf");
-  } catch (err) {
-    console.error("PDF generation error:", err);
-    alert("Something went wrong creating your PDF.");
-  }
-}
+        doc.save("MyPetBoy_Printout.pdf");
+      } catch (err) {
+        console.error("PDF generation error:", err);
+        alert("Something went wrong creating your PDF.");
+      }
+    }
   </script>
 </body>
 </html>
