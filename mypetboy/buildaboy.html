@@ -59,13 +59,12 @@
       margin-top: 5px;
       cursor: pointer;
     }
+    #svgLayers {
+      display: none;
+    }
   </style>
 </head>
 <body>
-<div id="svgLayers" style="display: none;">
-  <img id="svgBase" src="../assets/BoyBase_Print.svg" />
-  <img id="svgHat" src="../assets/Hat1_Print.svg" />
-</div>
   <div class="header">
     <a href="home.html"><img src="../assets/mpblogo.png" alt="My Pet Boy Logo" /></a>
     <img src="../assets/rageboyexclusive.png" alt="Exclusively for RageBoy 2000 GX" />
@@ -96,54 +95,52 @@
     <div class="safety" onclick="location.href='safety.html'">SAFETY WARNING</div>
   </div>
 
+  <!-- Hidden SVG assets for print -->
+  <div id="svgLayers">
+    <img id="svgBase" src="../assets/BoyBase_Print.svg" />
+    <img id="svgHat" src="../assets/Hat1_Print.svg" />
+  </div>
+
   <script>
     const hatSelect = document.getElementById("hatSelect");
     const hatLayer = document.getElementById("hatLayer");
+    const svgHat = document.getElementById("svgHat");
 
     hatSelect.addEventListener("change", () => {
-  hatLayer.src = `../assets/${hatSelect.value}.png`;
+      hatLayer.src = `../assets/${hatSelect.value}.png`;
+      const svgFile = hatSelect.value === "Hat_1" ? "Hat1_Print.svg" : "Hat2_Print.svg";
+      svgHat.src = `../assets/${svgFile}`;
+    });
 
-  // Also switch SVG
-  const svgHat = document.getElementById("svgHat");
-  const svgFile = hatSelect.value === "Hat_1" ? "Hat1_Print.svg" : "Hat2_Print.svg";
-  svgHat.src = `../assets/${svgFile}`;
-});
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-async function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
+      const svgBase = document.getElementById("svgBase");
+      const svgHat = document.getElementById("svgHat");
 
-  // Get SVG elements
-  const svgBase = document.getElementById("svgBase");
-  const svgHat = document.getElementById("svgHat");
+      await Promise.all([
+        new Promise((res) => { svgBase.onload = res; svgBase.src = svgBase.src; }),
+        new Promise((res) => { svgHat.onload = res; svgHat.src = svgHat.src; })
+      ]);
 
-  // Wait for images to load (in case they aren't cached)
-  await Promise.all([
-    new Promise(res => { svgBase.onload = res; svgBase.src = svgBase.src; }),
-    new Promise(res => { svgHat.onload = res; svgHat.src = svgHat.src; })
-  ]);
+      const baseCanvas = await html2canvas(svgBase, { backgroundColor: null });
+      const hatCanvas = await html2canvas(svgHat, { backgroundColor: null });
 
-  // Convert SVGs to canvas
-  const baseCanvas = await html2canvas(svgBase, { backgroundColor: null });
-  const hatCanvas = await html2canvas(svgHat, { backgroundColor: null });
+      const baseImg = baseCanvas.toDataURL("image/png");
+      const hatImg = hatCanvas.toDataURL("image/png");
 
-  // Convert to image data
-  const baseImg = baseCanvas.toDataURL("image/png");
-  const hatImg = hatCanvas.toDataURL("image/png");
+      const x = 100;
+      const y = 60;
+      const scale = 0.5;
 
-  // Positioning and scaling
-  const x = 100;
-  const y = 60;
-  const scale = 0.5;
+      doc.setFontSize(10);
+      doc.text("Your Custom BOY", 40, 30);
+      doc.addImage(baseImg, "PNG", x, y, baseCanvas.width * scale, baseCanvas.height * scale);
+      doc.addImage(hatImg, "PNG", x, y, hatCanvas.width * scale, hatCanvas.height * scale);
 
-  doc.setFontSize(10);
-  doc.text("Your Custom BOY", 40, 30);
-  doc.addImage(baseImg, "PNG", x, y, baseCanvas.width * scale, baseCanvas.height * scale);
-  doc.addImage(hatImg, "PNG", x, y, hatCanvas.width * scale, hatCanvas.height * scale);
-
-  doc.save("MyPetBoy_Printout.pdf");
-}
+      doc.save("MyPetBoy_Printout.pdf");
+    }
   </script>
 </body>
 </html>
-
