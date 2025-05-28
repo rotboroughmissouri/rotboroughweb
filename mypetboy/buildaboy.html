@@ -95,10 +95,10 @@
     <div class="safety" onclick="location.href='safety.html'">SAFETY WARNING</div>
   </div>
 
-  <!-- Hidden SVG assets for print -->
+  <!-- Hidden PNG assets for print -->
   <div id="svgLayers">
-    <img id="svgBase" src="../assets/BoyBase_Print.svg" />
-    <img id="svgHat" src="../assets/Hat1_Print.svg" />
+    <img id="svgBase" src="../assets/BoyBase_Print.png" />
+    <img id="svgHat" src="../assets/Hat1_Print.png" />
   </div>
 
   <script>
@@ -108,8 +108,8 @@
 
     hatSelect.addEventListener("change", () => {
       hatLayer.src = `../assets/${hatSelect.value}.png`;
-      const svgFile = hatSelect.value === "Hat_1" ? "Hat1_Print.svg" : "Hat2_Print.svg";
-      svgHat.src = `../assets/${svgFile}`;
+      const pngFile = hatSelect.value === "Hat_1" ? "Hat1_Print.png" : "Hat2_Print.png";
+      svgHat.src = `../assets/${pngFile}`;
     });
 
     async function generatePDF() {
