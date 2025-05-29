@@ -163,10 +163,10 @@
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
       const basePrintPath = "../assets/BoyBase_Print.png";
-      const hatPrintPath = `../assets/${hatSelect.value}_Print.png`;
-      const topPrintPath = `../assets/${topSelect.value}_Print.png`;
-      const bottomPrintPath = `../assets/${bottomSelect}_Print.png`;
-      const shoesPrintPath = `../assets/${shoesSelect.value.}_Print.png`;
+      const hatPrintPath = `../assets/$(hatSelect.value)_Print.png`;
+      const topPrintPath = `../assets/$(topSelect.value.replace)_Print.png`;
+      const bottomPrintPath = `../assets/$(bottomSelect.value.replace)_Print.png`;
+      const shoesPrintPath = `../assets/$(shoesSelect.value.replace)_Print.png`;
 
       const loadImage = (src) => {
         return new Promise((resolve, reject) => {
