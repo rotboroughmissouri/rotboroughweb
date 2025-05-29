@@ -162,42 +162,36 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-      const basePrintPath = "../assets/BoyBase_Print.png";
-      const hatPrintPath = `../assets/${hatSelect.value}_Print.png`;
-      const topPrintPath = `../assets/${topSelect.value}_Print.png`;
-      const bottomPrintPath = `../assets/${bottomSelect.value}_Print.png`;
-      const shoesPrintPath = `../assets/${shoesSelect.value}_Print.png`;
+      const assets = [
+        { name: "BoyBase_Print", x: 40, y: 60 },
+        { name: `${hatSelect.value}_Print`, x: 40, y: 60 },
+        { name: `${topSelect.value}_Print`, x: 40, y: 60 },
+        { name: `${bottomSelect.value}_Print`, x: 40, y: 60 },
+        { name: `${shoesSelect.value}_Print`, x: 40, y: 60 }
+      ];
 
-      const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
-          const img = new Image();
-          img.crossOrigin = "anonymous";
-          img.onload = () => resolve(img);
-          img.onerror = () => reject(new Error("Failed to load image: " + src));
-          img.src = src;
-        });
-      };
+      const loadImage = (src) => new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Failed to load image: " + src));
+        img.src = src;
+      });
 
       try {
-        const [baseImgEl, hatImgEl, topImgEl, bottomImgEl, shoesImgEl] = await Promise.all([
-          loadImage(basePrintPath),
-          loadImage(hatPrintPath),
-          loadImage(topPrintPath),
-          loadImage(bottomPrintPath),
-          loadImage(shoesPrintPath),
-        ]);
+        const loadedImages = await Promise.all(
+          assets.map(asset => loadImage(`../assets/${asset.name}.png`))
+        );
 
+        const scale = 0.5;
         const x = 40;
         const y = 60;
-        const scale = 0.5;
-
         doc.setFontSize(10);
         doc.text("Your Custom BOY", x, 30);
-        doc.addImage(baseImgEl, "PNG", x, y, baseImgEl.width * scale, baseImgEl.height * scale);
-        doc.addImage(hatImgEl, "PNG", x, y, hatImgEl.width * scale, hatImgEl.height * scale);
-        doc.addImage(topImgEl, "PNG", x, y, topImgEl.width * scale, topImgEl.height * scale);
-        doc.addImage(bottomImgEl, "PNG", x, y, bottomImgEl.width * scale, bottomImgEl.height * scale);
-        doc.addImage(shoesImgEl, "PNG", x, y, shoesImgEl.width * scale, shoesImgEl.height * scale);
+
+        loadedImages.forEach((img, i) => {
+          doc.addImage(img, "PNG", x, y, img.width * scale, img.height * scale);
+        });
 
         doc.save("MyPetBoy_Printout.pdf");
       } catch (err) {
