@@ -72,8 +72,11 @@
   </div>
 
   <div class="avatar-container" id="avatarDisplay">
-    <img src="../assets/BoyBase.png" class="base" alt="Boy Base" />
+    <img src="../assets/BoyBaseNew.png" class="base" alt="Boy Base" id="baseLayer" />
     <img src="../assets/Hat_1.png" id="hatLayer" alt="Hat" />
+    <img src="../assets/FarmTop.png" id="topLayer" alt="Top" />
+    <img src="../assets/FarmPants.png" id="bottomLayer" alt="Bottom" />
+    <img src="../assets/BoyShoes.png" id="shoesLayer" alt="Shoes" />
   </div>
 
   <div class="controls">
@@ -81,6 +84,46 @@
     <select id="hatSelect">
       <option value="Hat_1">Top Hat</option>
       <option value="Hat_2">Boy Cap</option>
+	  <option value="BagHat">Bag</option>
+	  <option value="BandageHat">Bandages</option>
+	  <option value="BeachHat">Shade Hat</option>
+	  <option value="DressHat">Bowler</option>
+	  <option value="FarmHat">Ear Tag</option>
+	  <option value="SleepHat">Sleeping Cap</option>
+	  <option value="SodaHat">Udder Busters</option>
+    </select>
+    <br /><br />
+    <label for="topSelect">Choose a top:</label>
+    <select id="topSelect">
+      <option value="FarmTop">Boy Shirt</option>
+	  <option value="DressTop">Dress Shirt</option>
+	  <option value="BasketballTop">Jersey</option>
+	  <option value="BeachTop">Beach Top</option>
+	  <option value="DrunkTop">Drinking Shirt</option>
+	  <option value="JailTop">Inmate Shirt</option>
+	  <option value="SleepTop">Pajamas</option>
+    </select>
+    <br /><br />
+    <label for="bottomSelect">Choose pants:</label>
+    <select id="bottomSelect">
+      <option value="FarmPants">Farm Pants</option>
+	  <option value="BasketballPants">Basketball Shorts</option>
+	  <option value="BeachPants">Beach Floatie</option>
+	  <option value="DressPants">Dress Pants</option>
+	  <option value="JailPants">Inmate Pants</option>
+	  <option value="SleepPants">Pajamas</option>
+	  <option value="UnluckyPants">Embarassing!</option>
+    </select>
+    <br /><br />
+    <label for="shoesSelect">Choose shoes:</label>
+    <select id="shoesSelect">
+      <option value="BoyShoes">Boy's Shoes</option>
+	  <option value="BasketballShoes">Basketball Shoes</option>
+	  <option value="BeachShoes">Flip Flops</option>
+	  <option value="DressShoes">Dress Shoes</option>
+	  <option value="JailShoes">Inmate Shoes</option>
+	  <option value="SleepShoes">Slippers</option>
+	  <option value="UnluckyShoes">Unlucky!</option>
     </select>
     <br /><br />
     <button onclick="generatePDF()">Print Your Boy</button>
@@ -93,19 +136,37 @@
 
   <script>
     const hatSelect = document.getElementById("hatSelect");
+    const topSelect = document.getElementById("topSelect");
+    const bottomSelect = document.getElementById("bottomSelect");
+    const shoesSelect = document.getElementById("shoesSelect");
+
     const hatLayer = document.getElementById("hatLayer");
+    const topLayer = document.getElementById("topLayer");
+    const bottomLayer = document.getElementById("bottomLayer");
+    const shoesLayer = document.getElementById("shoesLayer");
 
     hatSelect.addEventListener("change", () => {
       hatLayer.src = `../assets/${hatSelect.value}.png`;
+    });
+    topSelect.addEventListener("change", () => {
+      topLayer.src = `../assets/${topSelect.value}.png`;
+    });
+    bottomSelect.addEventListener("change", () => {
+      bottomLayer.src = `../assets/${bottomSelect.value}.png`;
+    });
+    shoesSelect.addEventListener("change", () => {
+      shoesLayer.src = `../assets/${shoesSelect.value}.png`;
     });
 
     async function generatePDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
-      const hatOption = hatSelect.value;
       const basePrintPath = "../assets/BoyBase_Print.png";
-      const hatPrintPath = hatOption === "Hat_1" ? "../assets/Hat1_Print.png" : "../assets/Hat2_Print.png";
+      const hatPrintPath = `../assets/${hatSelect.value.replace("_","")}Print.png`;
+      const topPrintPath = `../assets/${topSelect.value.replace("_","")}Print.png`;
+      const bottomPrintPath = `../assets/${bottomSelect.value.replace("_","")}Print.png`;
+      const shoesPrintPath = `../assets/${shoesSelect.value.replace("_","")}Print.png`;
 
       const loadImage = (src) => {
         return new Promise((resolve, reject) => {
@@ -118,20 +179,25 @@
       };
 
       try {
-        const [baseImgEl, hatImgEl] = await Promise.all([
+        const [baseImgEl, hatImgEl, topImgEl, bottomImgEl, shoesImgEl] = await Promise.all([
           loadImage(basePrintPath),
-          loadImage(hatPrintPath)
+          loadImage(hatPrintPath),
+          loadImage(topPrintPath),
+          loadImage(bottomPrintPath),
+          loadImage(shoesPrintPath),
         ]);
 
         const x = 40;
-        const yBase = 60;
-        const yHat = yBase + baseImgEl.height * 0.5 + 10;
+        const y = 60;
         const scale = 0.5;
 
         doc.setFontSize(10);
-        doc.text("Your Custom BOY", 40, 30);
-        doc.addImage(baseImgEl, "PNG", x, yBase, baseImgEl.width * scale, baseImgEl.height * scale);
-        doc.addImage(hatImgEl, "PNG", x, yHat, hatImgEl.width * scale, hatImgEl.height * scale);
+        doc.text("Your Custom BOY", x, 30);
+        doc.addImage(baseImgEl, "PNG", x, y, baseImgEl.width * scale, baseImgEl.height * scale);
+        doc.addImage(hatImgEl, "PNG", x, y, hatImgEl.width * scale, hatImgEl.height * scale);
+        doc.addImage(topImgEl, "PNG", x, y, topImgEl.width * scale, topImgEl.height * scale);
+        doc.addImage(bottomImgEl, "PNG", x, y, bottomImgEl.width * scale, bottomImgEl.height * scale);
+        doc.addImage(shoesImgEl, "PNG", x, y, shoesImgEl.width * scale, shoesImgEl.height * scale);
 
         doc.save("MyPetBoy_Printout.pdf");
       } catch (err) {
