@@ -163,11 +163,11 @@
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
       const assets = [
-        { name: "BoyBase_Print", x: 40, y: 60 },
-        { name: `${hatSelect.value}_Print`, x: 40, y: 60 },
-        { name: `${topSelect.value}_Print`, x: 40, y: 60 },
-        { name: `${bottomSelect.value}_Print`, x: 40, y: 60 },
-        { name: `${shoesSelect.value}_Print`, x: 40, y: 60 }
+        `BoyBase_Print`,
+        `${hatSelect.value}_Print`,
+        `${topSelect.value}_Print`,
+        `${bottomSelect.value}_Print`,
+        `${shoesSelect.value}_Print`
       ];
 
       const loadImage = (src) => new Promise((resolve, reject) => {
@@ -179,19 +179,30 @@
       });
 
       try {
-        const loadedImages = await Promise.all(
-          assets.map(asset => loadImage(`../assets/${asset.name}.png`))
-        );
+        const loadedImages = await Promise.all(assets.map(name => loadImage(`../assets/${name}.png`)));
 
-        const scale = 0.5;
-        const x = 40;
-        const y = 60;
+        let x = 40, y = 60;
+        const spacing = 20;
+        const maxWidth = doc.internal.pageSize.getWidth() - 40;
+        const maxHeight = doc.internal.pageSize.getHeight() - 60;
+
         doc.setFontSize(10);
         doc.text("Your Custom BOY", x, 30);
 
-        loadedImages.forEach((img, i) => {
-          doc.addImage(img, "PNG", x, y, img.width * scale, img.height * scale);
-        });
+        for (const img of loadedImages) {
+          if (x + img.width > maxWidth) {
+            x = 40;
+            y += img.height + spacing;
+          }
+          if (y + img.height > maxHeight) {
+            doc.addPage();
+            x = 40;
+            y = 60;
+            doc.text("Your Custom BOY (cont.)", x, 30);
+          }
+          doc.addImage(img, "PNG", x, y, img.width, img.height);
+          x += img.width + spacing;
+        }
 
         doc.save("MyPetBoy_Printout.pdf");
       } catch (err) {
