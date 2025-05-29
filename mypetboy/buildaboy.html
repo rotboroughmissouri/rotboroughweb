@@ -77,6 +77,7 @@
     <img src="../assets/FarmTop.png" id="topLayer" alt="Top" />
     <img src="../assets/FarmPants.png" id="bottomLayer" alt="Bottom" />
     <img src="../assets/BoyShoes.png" id="shoesLayer" alt="Shoes" />
+    <img src="../assets/TongueAccessory.png" id="accessoryLayer" alt="Accessory" />
   </div>
 
   <div class="controls">
@@ -84,46 +85,57 @@
     <select id="hatSelect">
       <option value="Hat_1">Top Hat</option>
       <option value="Hat_2">Boy Cap</option>
-	  <option value="BagHat">Bag</option>
-	  <option value="BandageHat">Bandages</option>
-	  <option value="BeachHat">Shade Hat</option>
-	  <option value="DressHat">Bowler</option>
-	  <option value="FarmHat">Ear Tag</option>
-	  <option value="SleepHat">Sleeping Cap</option>
-	  <option value="SodaHat">Udder Busters</option>
+      <option value="BagHat">Bag</option>
+      <option value="BandageHat">Bandages</option>
+      <option value="BeachHat">Shade Hat</option>
+      <option value="DressHat">Bowler</option>
+      <option value="FarmHat">Ear Tag</option>
+      <option value="SleepHat">Sleeping Cap</option>
+      <option value="SodaHat">Udder Busters</option>
     </select>
     <br /><br />
     <label for="topSelect">Choose a top:</label>
     <select id="topSelect">
       <option value="FarmTop">Boy Shirt</option>
-	  <option value="DressTop">Dress Shirt</option>
-	  <option value="BasketballTop">Jersey</option>
-	  <option value="BeachTop">Beach Top</option>
-	  <option value="DrunkTop">Drinking Shirt</option>
-	  <option value="JailTop">Inmate Shirt</option>
-	  <option value="SleepTop">Pajamas</option>
+      <option value="DressTop">Dress Shirt</option>
+      <option value="BasketballTop">Jersey</option>
+      <option value="BeachTop">Beach Top</option>
+      <option value="DrunkTop">Drinking Shirt</option>
+      <option value="JailTop">Inmate Shirt</option>
+      <option value="SleepTop">Pajamas</option>
     </select>
     <br /><br />
     <label for="bottomSelect">Choose pants:</label>
     <select id="bottomSelect">
       <option value="FarmPants">Farm Pants</option>
-	  <option value="BasketballPants">Basketball Shorts</option>
-	  <option value="BeachPants">Beach Floatie</option>
-	  <option value="DressPants">Dress Pants</option>
-	  <option value="JailPants">Inmate Pants</option>
-	  <option value="SleepPants">Pajamas</option>
-	  <option value="UnluckyPants">Embarassing!</option>
+      <option value="BasketballPants">Basketball Shorts</option>
+      <option value="BeachPants">Beach Floatie</option>
+      <option value="DressPants">Dress Pants</option>
+      <option value="JailPants">Inmate Pants</option>
+      <option value="SleepPants">Pajamas</option>
+      <option value="UnluckyPants">Embarassing!</option>
     </select>
     <br /><br />
     <label for="shoesSelect">Choose shoes:</label>
     <select id="shoesSelect">
       <option value="BoyShoes">Boy's Shoes</option>
-	  <option value="BasketballShoes">Basketball Shoes</option>
-	  <option value="BeachShoes">Flip Flops</option>
-	  <option value="DressShoes">Dress Shoes</option>
-	  <option value="JailShoes">Inmate Shoes</option>
-	  <option value="SleepShoes">Slippers</option>
-	  <option value="UnluckyShoes">Unlucky!</option>
+      <option value="BasketballShoes">Basketball Shoes</option>
+      <option value="BeachShoes">Flip Flops</option>
+      <option value="DressShoes">Dress Shoes</option>
+      <option value="JailShoes">Inmate Shoes</option>
+      <option value="SleepShoes">Slippers</option>
+      <option value="UnluckyShoes">Unlucky!</option>
+    </select>
+    <br /><br />
+    <label for="accessorySelect">Choose accessory:</label>
+    <select id="accessorySelect">
+      <option value="TongueAccessory">Tongue</option>
+	  <option value="DrunkAccessory">Bad Boy!</option>
+	  <option value="BasketballAccessory">Fan Boy</option>
+	  <option value="FarmAccessory">Pierced</option>
+	  <option value="BeachAccessory">Cool Boy</option>
+	  <option value="SleepAccessory">Spa Day</option>
+	  <option value="CigaretteAccessory">Smokin!</option>
     </select>
     <br /><br />
     <button onclick="generatePDF()">Print Your Boy</button>
@@ -139,11 +151,13 @@
     const topSelect = document.getElementById("topSelect");
     const bottomSelect = document.getElementById("bottomSelect");
     const shoesSelect = document.getElementById("shoesSelect");
+    const accessorySelect = document.getElementById("accessorySelect");
 
     const hatLayer = document.getElementById("hatLayer");
     const topLayer = document.getElementById("topLayer");
     const bottomLayer = document.getElementById("bottomLayer");
     const shoesLayer = document.getElementById("shoesLayer");
+    const accessoryLayer = document.getElementById("accessoryLayer");
 
     hatSelect.addEventListener("change", () => {
       hatLayer.src = `../assets/${hatSelect.value}.png`;
@@ -157,6 +171,9 @@
     shoesSelect.addEventListener("change", () => {
       shoesLayer.src = `../assets/${shoesSelect.value}.png`;
     });
+    accessorySelect.addEventListener("change", () => {
+      accessoryLayer.src = `../assets/${accessorySelect.value}.png`;
+    });
 
     async function generatePDF() {
       const { jsPDF } = window.jspdf;
@@ -167,7 +184,8 @@
         `${hatSelect.value}_Print`,
         `${topSelect.value}_Print`,
         `${bottomSelect.value}_Print`,
-        `${shoesSelect.value}_Print`
+        `${shoesSelect.value}_Print`,
+        `${accessorySelect.value}_Print`
       ];
 
       const loadImage = (src) => new Promise((resolve, reject) => {
