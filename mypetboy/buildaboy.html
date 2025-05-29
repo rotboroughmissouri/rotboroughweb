@@ -130,15 +130,10 @@
     <label for="accessorySelect">Choose accessory:</label>
     <select id="accessorySelect">
       <option value="TongueAccessory">Tongue</option>
-	  <option value="DrunkAccessory">Bad Boy!</option>
-	  <option value="BasketballAccessory">Fan Boy</option>
-	  <option value="FarmAccessory">Pierced</option>
-	  <option value="BeachAccessory">Cool Boy</option>
-	  <option value="SleepAccessory">Spa Day</option>
-	  <option value="CigaretteAccessory">Smokin!</option>
     </select>
     <br /><br />
     <button onclick="generatePDF()">Print Your Boy</button>
+    <button onclick="saveImage()">Save Your Boy</button>
   </div>
 
   <div class="footer">
@@ -233,6 +228,17 @@
         alert("Something went wrong creating your PDF.");
       }
     }
+
+    function saveImage() {
+      const avatar = document.getElementById("avatarDisplay");
+      html2canvas(avatar).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'MyPetBoy.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
