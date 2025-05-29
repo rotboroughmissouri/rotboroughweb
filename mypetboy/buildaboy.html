@@ -181,26 +181,31 @@
       try {
         const loadedImages = await Promise.all(assets.map(name => loadImage(`../assets/${name}.png`)));
 
-        let x = 40, y = 60;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 40;
         const spacing = 20;
-        const maxWidth = doc.internal.pageSize.getWidth() - 40;
-        const maxHeight = doc.internal.pageSize.getHeight() - 60;
+        let x = margin, y = margin + 20;
+        let rowHeight = 0;
 
         doc.setFontSize(10);
-        doc.text("Your Custom BOY", x, 30);
+        doc.text("Your Custom BOY", margin, margin);
 
         for (const img of loadedImages) {
-          if (x + img.width > maxWidth) {
-            x = 40;
-            y += img.height + spacing;
+          if (x + img.width > pageWidth - margin) {
+            x = margin;
+            y += rowHeight + spacing;
+            rowHeight = 0;
           }
-          if (y + img.height > maxHeight) {
+          if (y + img.height > pageHeight - margin) {
             doc.addPage();
-            x = 40;
-            y = 60;
-            doc.text("Your Custom BOY (cont.)", x, 30);
+            x = margin;
+            y = margin + 20;
+            rowHeight = 0;
+            doc.text("Your Custom BOY (cont.)", margin, margin);
           }
           doc.addImage(img, "PNG", x, y, img.width, img.height);
+          rowHeight = Math.max(rowHeight, img.height);
           x += img.width + spacing;
         }
 
