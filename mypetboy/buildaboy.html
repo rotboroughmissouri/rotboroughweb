@@ -180,6 +180,16 @@
     });
 
     async function generatePDF() {
+	const comboKey = `${topSelect.value}|${hatSelect.value}|${bottomSelect.value}|${shoesSelect.value}|${accessorySelect.value}`;
+
+if (comboKey === "BeachTop|BandageHat|UnluckyPants|JailShoes|*") {
+  // Secret combo detected - override!
+  const link = document.createElement('a');
+  link.href = "../assets/Secret1.pdf";
+  link.download = "Secret1.pdf";
+  link.click();
+  return; // Exit early to avoid normal PDF generation
+}
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "letter" });
 
@@ -191,6 +201,7 @@
         `${shoesSelect.value}_Print`,
         `${accessorySelect.value}_Print`
       ];
+	  
 
       const loadImage = (src) => new Promise((resolve, reject) => {
         const img = new Image();
