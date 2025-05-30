@@ -180,9 +180,9 @@
     });
 
     async function generatePDF() {
-	const comboKey = `${topSelect.value}|${hatSelect.value}|${bottomSelect.value}|${shoesSelect.value}|${accessorySelect.value}`;
+	const comboKey = `${topSelect.value}|${hatSelect.value}|${bottomSelect.value}|${shoesSelect.value}`;
 
-if (comboKey === "BeachTop|BandageHat|UnluckyPants|JailShoes|*") {
+if (comboKey === "BeachTop|BandageHat|UnluckyPants|JailShoes") {
   // Secret combo detected - override!
   const link = document.createElement('a');
   link.href = "../assets/Secret1.pdf";
