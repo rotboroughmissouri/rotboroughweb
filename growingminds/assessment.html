@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growing Minds Diagnostic Quiz</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question-img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    .option img {
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+    }
+    .result-message {
+      font-size: 1.2em;
+      margin-top: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div id="start-screen">
+      <h1>Growing Minds Diagnostic Quiz</h1>
+      <button onclick="startQuiz()">Begin Test</button>
+    </div>
+    <div id="quiz-screen" class="hidden">
+      <img id="question-img" class="question-img" src="" alt="Question Image">
+      <p id="question-text"></p>
+      <form id="options-form"></form>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+    <div id="result-screen" class="hidden">
+      <h2>Results</h2>
+      <p class="result-message" id="result-message"></p>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        img: "../assets/Q1.png",
+        text: "Vasey wins a Rotplay sweepstakes contest after mailing in cereal box tops! Vasey has two choices for his prize: either a free Rageboy console and every game he wants, or get to star in an official Rageboy commercial on TV. Which one should Vasey choose?",
+        options: [
+          { text: "Free videogames! Being on TV would make me nervous", img: "../assets/B1.png", score: -1 },
+          { text: "Be on the commercial - videogames are cool but I'll be famous!", img: "../assets/A1.png", score: 1 },
+          { text: "Not sure, I need time to think about it", img: "../assets/C1.png", score: 0 }
+        ]
+      },
+      {
+        img: "../assets/Q2.png",
+        text: "Vasey's school is having a play, and Vasey auditions. Vasey doesn't get the star role, but can choose to play a less important character. What would you do if you were Vasey?",
+        options: [
+          { text: "Perform in the play and do the best he can - if I do a good job, I can be a star without the role!", img: "../assets/A2.png", score: 1 },
+          { text: "Don't show up to the play - if I can't be the star, I don't want to be in it or watch at all.", img: "../assets/B2.png", score: 1 },
+          { text: "Don't perform in the play but watch - I don't feel comfortable performing in a play anyways.", img: "../assets/C2.png", score: -2 }
+        ]
+      },
+	  {
+        img: "../assets/Q3.png",
+        text: "Vasey has to create a presentation for his school's science fair. He is assigned two partners, Lily and Bud, to complete the project with. They decide to split the project into 3 parts. Which part of the project would you be in charge of if you were Vasey?",
+        options: [
+          { text: "Conducting the experiment - collecting data and solving problems is interesting to me!", img: "../assets/A3.png", score: -1 },
+          { text: "Designing the display board - I love art!", img: "../assets/B3.png", score: 0 },
+          { text: "Presenting to the class - the poster or experiment don't matter if you can't make other people interested!", img: "../assets/C3.png", score: 1 }
+        ]
+      },
+	  {
+        img: "../assets/Q4.png",
+        text: "Vasey's parents are out of town on a vacation and decide that Vasey is old enough to not have a babysitter. Vasey normally isn't allowed to stay up past his bedtime, but since no one is home, they decide it's okay to stay up a little later and play their favorite game, Burger Boy. How do you think Vasey feels doing this?",
+        options: [
+          { text: "Nervous - someone could catch him and he'd get in big trouble!", img: "../assets/A4.png", score: 1 },
+          { text: "Happy - it's no big deal, he'll still make sure to wake up on time for school", img: "../assets/B4.png", score: 0 },
+          { text: "Guilty - even though no one is watching, it feels bad to break the rules.", img: "../assets/C4.png", score: -1 }
+        ]
+      },
+	  {
+        img: "../assets/Q5.png",
+        text: "Vasey hears a rumor from his friend Bud that his school is testing out secret hallway cameras to see how students behave when they think no one is looking. The next day, Vasey notices a small black dot in the hallway ceiling that wasn’t there before. What should Vasey do?",
+        options: [
+          { text: "Make silly faces at the camera - If someone is watching, they'll think Vasey’s funny.", img: "../assets/A5.png", score: 1 },
+          { text: "Walk normally - even if it’s a camera, he’s not doing anything wrong.", img: "../assets/B5.png", score: 0 },
+          { text: "Avoid that hallway - what if they’re spying?", img: "../assets/C5.png", score: -1 }
+        ]
+      },
+	  {
+        img: "../assets/Q6.png",
+        text: "Vasey is sleeping over at his friend Bud's house. Bud has a Boy the Cow stuffed animal right next to the air mattress vasey is sleeping on. When they turn the lights off to go to sleep, Vasey can't help but feel like the stuffed animal is watching him. What should Vasey do?",
+        options: [
+          { text: "Nothing - it's just a stuffed animal. Go to sleep.", img: "../assets/A6.png", score: 0 },
+          { text: "Get up and move the stuffed animal somewhere it can't see him - it gives him the creeps!", img: "../assets/B6.png", score: -1 },
+          { text: "Try whispering something to it - maybe it'll answer back, but even if it doesn't Bud will think it's funny!", img: "../assets/C6.png", score: +1 }
+        ]
+      },
+	  {
+        img: "../assets/Q7.png",
+        text: "Vasey is watching his favorite TV show, Boy's Friendship Ranch. Vasey's little brother, Mason, takes the remote and changes the channel. He sits on the remote so Vasey can't get it back. What would you do if you were Vasey?",
+        options: [
+          { text: "Run to your mom's room and tell her what Mason did - she'll handle it when she sees how upset you are.", img: "../assets/A7.png", score: 0 },
+          { text: "Hit Mason and take the remote back - that's only fair since he made Vasey angry.", img: "../assets/B7.png", score: +1 },
+          { text: "Take a deep breath and try to think of a better solution.", img: "../assets/C7.png", score: -1 }
+        ]
+      },
+	  {
+        img: "../assets/Q8.png",
+        text: "Vasey is walking to the bus stop from the park when a bully starts picking on him! The bully says he’s gonna hit Vasey if he doesn’t give Vasey his money, your parent’s gave it to you for bus fare, without it you won't be able to get home! If you were in Vasey’s shoes, what would you do?",
+        options: [
+          { text: "Run away as fast as possible! Violence is never the answer, and it's better to be safe than sorry!", img: "../assets/A8.png", score: 0 },
+          { text: "Give the bully the money, and walk home.", img: "../assets/B8.png", score: -1 },
+          { text: "Throw sand in his eye and walk to the bus stop, if he comes after you again, throw more sand in his eye.", img: "../assets/C8.png", score: -1 }
+        ]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let totalScore = 0;
+
+    function startQuiz() {
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('quiz-screen').classList.remove('hidden');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const question = questions[currentQuestionIndex];
+      document.getElementById('question-img').src = question.img;
+      document.getElementById('question-text').textContent = question.text;
+      const form = document.getElementById('options-form');
+      form.innerHTML = '';
+
+      question.options.forEach((opt, idx) => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.innerHTML = `
+          <input type="radio" name="option" id="opt${idx}" value="${opt.score}" required>
+          <label for="opt${idx}">
+            <img src="${opt.img}" alt="Option">
+            ${opt.text}
+          </label>
+        `;
+        form.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) return;
+      totalScore += parseInt(selected.value);
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        let resultMsg = '';
+        if (totalScore <= -3) resultMsg = 'Urgent help needed';
+        else if (totalScore <= 4) resultMsg = 'Help could be needed';
+        else resultMsg = 'No help needed';
+        document.getElementById('result-message').textContent = resultMsg;
+      }
+    }
+  </script>
+</body>
+</html>
