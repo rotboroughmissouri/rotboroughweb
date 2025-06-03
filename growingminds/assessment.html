@@ -224,7 +224,7 @@
           msg = 'We are very concerned your child is damaged. Please contact Growing Minds immediately to enroll.';
         } else if (totalScore >= -4 && totalScore <= -2) {
           gif = '../assets/somethingswrong.gif';
-          msg = 'We think something is wrong with your child. We would strongly advice enrolling in Growing Minds.';
+          msg = 'Uh-oh! Your child's score indicates some behavioral issues. No, it’s not that big of a deal, don’t worry! This is actually a good thing. This result indicates to us that we may need to conduct further tests in person at a Growing Minds Facility. You and your child can come by anytime, or call to schedule an appointment. Thank you!';
         } else if (totalScore >= -1 && totalScore <= 3) {
           gif = '../assets/couldbebetter.gif';
           msg = 'Test results were inconclusive, but there are some concerns. If issues with your child persist, please contact Growing Minds to take an in person test.';
@@ -233,7 +233,7 @@
           msg = "Good news, there doesn't appear to be anything wrong with your child! We don't suggest enrolling, any behavioral issues are likely normal.";
         } else {
           gif = '../assets/superstar.gif';
-          msg = 'Wow! The test results indicate your child has very normal behavior and is certainly not in need of any help. You are clearly parent of the year!';
+          msg = 'ALRIGHT! You got a perfect score, nothing to worry about! We’d like to thank you for allowing your child to participate in this test! A member of our recruitment staff will reach out to you via email! Thanks again, you rock!';
         }
 
         document.getElementById('result-gif').src = gif;
