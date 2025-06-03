@@ -58,6 +58,18 @@
     .hidden {
       display: none;
     }
+    .result-buttons {
+      margin-top: 20px;
+    }
+    .result-buttons img {
+      cursor: pointer;
+      width: 120px;
+      margin: 10px;
+    }
+    .ticket-number {
+      margin-top: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +89,11 @@
       <div class="result-container">
         <img id="result-gif" src="" alt="Result GIF">
         <p class="result-message" id="result-message"></p>
+      </div>
+      <div id="result-buttons" class="result-buttons hidden">
+        <img src="../assets/ContactGM.gif" alt="Contact Growing Minds" onclick="window.location.href='YOUR_LINK_HERE'">
+        <img src="../assets/TicketGM.gif" alt="Generate Ticket" onclick="generateTicket()">
+        <div id="ticket-output" class="ticket-number"></div>
       </div>
     </div>
   </div>
@@ -221,7 +238,17 @@
 
         document.getElementById('result-gif').src = gif;
         document.getElementById('result-message').textContent = msg;
+
+        if (totalScore <= 3) {
+          document.getElementById('result-buttons').classList.remove('hidden');
+        }
       }
+    }
+
+    function generateTicket() {
+      const randomDigits = Math.floor(Math.random() * 100000000).toString().padStart(6, '0');
+      const ticket = randomDigits + '4198';
+      document.getElementById('ticket-output').textContent = `Ticket #: ${ticket}`;
     }
   </script>
 </body>
