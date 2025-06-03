@@ -36,9 +36,24 @@
       height: 100px;
       margin-right: 10px;
     }
+    .result-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .result-container img {
+      width: 300px;
+      height: auto;
+      margin-right: 20px;
+    }
     .result-message {
       font-size: 1.2em;
-      margin-top: 20px;
+      background: #e0e0e0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 150px;
+      text-align: left;
     }
     .hidden {
       display: none;
@@ -59,7 +74,10 @@
     </div>
     <div id="result-screen" class="hidden">
       <h2>Results</h2>
-      <p class="result-message" id="result-message"></p>
+      <div class="result-container">
+        <img id="result-gif" src="" alt="Result GIF">
+        <p class="result-message" id="result-message"></p>
+      </div>
     </div>
   </div>
 
@@ -116,7 +134,7 @@
         options: [
           { text: "Nothing - it's just a stuffed animal. Go to sleep.", img: "../assets/A6.png", score: 0 },
           { text: "Get up and move the stuffed animal somewhere it can't see him - it gives him the creeps!", img: "../assets/B6.png", score: -1 },
-          { text: "Try whispering something to it - maybe it'll answer back, but even if it doesn't Bud will think it's funny!", img: "../assets/C6.png", score: +1 }
+          { text: "Try whispering something to it - maybe it'll answer back, but even if it doesn't Bud will think it's funny!", img: "../assets/C6.png", score: 1 }
         ]
       },
 	  {
@@ -124,7 +142,7 @@
         text: "Vasey is watching his favorite TV show, Boy's Friendship Ranch. Vasey's little brother, Mason, takes the remote and changes the channel. He sits on the remote so Vasey can't get it back. What would you do if you were Vasey?",
         options: [
           { text: "Run to your mom's room and tell her what Mason did - she'll handle it when she sees how upset you are.", img: "../assets/A7.png", score: 0 },
-          { text: "Hit Mason and take the remote back - that's only fair since he made Vasey angry.", img: "../assets/B7.png", score: +1 },
+          { text: "Hit Mason and take the remote back - that's only fair since he made Vasey angry.", img: "../assets/B7.png", score: 1 },
           { text: "Take a deep breath and try to think of a better solution.", img: "../assets/C7.png", score: -1 }
         ]
       },
@@ -134,7 +152,7 @@
         options: [
           { text: "Run away as fast as possible! Violence is never the answer, and it's better to be safe than sorry!", img: "../assets/A8.png", score: 0 },
           { text: "Give the bully the money, and walk home.", img: "../assets/B8.png", score: -1 },
-          { text: "Throw sand in his eye and walk to the bus stop, if he comes after you again, throw more sand in his eye.", img: "../assets/C8.png", score: -1 }
+          { text: "Throw sand in his eye and walk to the bus stop, if he comes after you again, throw more sand in his eye.", img: "../assets/C8.png", score: 1 }
         ]
       }
     ];
@@ -180,11 +198,29 @@
       } else {
         document.getElementById('quiz-screen').classList.add('hidden');
         document.getElementById('result-screen').classList.remove('hidden');
-        let resultMsg = '';
-        if (totalScore <= -3) resultMsg = 'Urgent help needed';
-        else if (totalScore <= 4) resultMsg = 'Help could be needed';
-        else resultMsg = 'No help needed';
-        document.getElementById('result-message').textContent = resultMsg;
+
+        let gif = '';
+        let msg = '';
+
+        if (totalScore <= -5) {
+          gif = '../assets/damaged.gif';
+          msg = 'We are very concerned your child is damaged. Please contact Growing Minds immediately to enroll.';
+        } else if (totalScore >= -4 && totalScore <= -2) {
+          gif = '../assets/somethingswrong.gif';
+          msg = 'We think something is wrong with your child. We would strongly advice enrolling in Growing Minds.';
+        } else if (totalScore >= -1 && totalScore <= 3) {
+          gif = '../assets/couldbebetter.gif';
+          msg = 'Test results were inconclusive, but there are some concerns. If issues with your child persist, please contact Growing Minds to take an in person test.';
+        } else if (totalScore >= 4 && totalScore <= 6) {
+          gif = '../assets/a-okay.gif';
+          msg = "Good news, there doesn't appear to be anything wrong with your child! We don't suggest enrolling, any behavioral issues are likely normal.";
+        } else {
+          gif = '../assets/superstar.gif';
+          msg = 'Wow! The test results indicate your child has very normal behavior and is certainly not in need of any help. You are clearly parent of the year!';
+        }
+
+        document.getElementById('result-gif').src = gif;
+        document.getElementById('result-message').textContent = msg;
       }
     }
   </script>
