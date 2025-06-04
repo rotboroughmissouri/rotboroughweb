@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NXHealth</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('../assets/MatrixTile.png');
+      background-size: auto;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .container {
+      width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .banner {
+      width: 100%;
+    }
+    .main-content {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .text-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .textbox {
+      position: relative;
+    }
+    .textbox img {
+      width: 100%;
+    }
+    .textbox p {
+      position: absolute;
+      top: 65px;
+      left: 55px;
+      right: 30px;
+      color: #00ffff;
+      font-size: 14px;
+    }
+    .ad {
+      margin-left: 20px;
+    }
+    .ad img {
+      height: 100%;
+      max-height: 580px;
+    }
+    .recall {
+      margin-top: 40px;
+      text-align: center;
+      font-family: serif;
+      font-size: 18px;
+      color: pink;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    #recallBox {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: black;
+      border: 2px solid #00ffff;
+      padding: 20px;
+      z-index: 1000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="../assets/NXHBanner.png" alt="NXH Banner" class="banner">
+
+    <div class="main-content">
+      <div class="text-column">
+        <div class="textbox">
+          <img src="../assets/fanclub_textbox.png" alt="Fanclub">
+          <p>Join the most elite fan network in the world. Perks include insider NXH drops, surprise deliveries, and direct messages from corporate leadership.</p>
+        </div>
+        <div class="textbox">
+		<a href="newproducts.html">
+          <img src="../assets/newproducts_textbox.png" alt="New Products">
+		  </a>
+          <p>Introducing NXTreme Milk: the only sports milk with 600mg of caffeine. Available in Vanilla, Bloody Vanilla, and Bovine Cream Pie.</p>
+        </div>
+        <div class="textbox">
+          <img src="../assets/meettheceo_textbox.png" alt="Meet the CEO">
+          <p>Alfred Sacksman, innovator and former scientist of the Amazon. Creator of God Milk. Believer in a brighter tomorrow through genetic milk optimization.</p>
+        </div>
+      </div>
+      <div class="ad">
+        <img src="../assets/nxhAd.png" alt="NXH Ad">
+      </div>
+    </div>
+
+    <div class="recall" onclick="document.getElementById('recallBox').style.display='block'">
+      RECALL INFORMATION
+    </div>
+
+    <div id="recallBox">
+      <!-- Placeholder recall overlay box -->
+      <p>[RECALL INFORMATION PLACEHOLDER]</p>
+    </div>
+  </div>
+</body>
+</html>
