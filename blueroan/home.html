@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Roan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: serif;
+      background: url('../assets/woodtile.png') repeat;
+      color: #000;
+    }
+
+    .header {
+      position: relative;
+      height: 160px;
+      background: url('../assets/nightskytile.png') repeat-x;
+      overflow: hidden;
+    }
+
+    #horseContainer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 80px;
+	  background: transparent;
+    }
+
+    #horse {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-100%);
+      width: 80px;
+      height: 54px;
+	  background: transparent;
+    }
+    #horse img {
+      width: 200%;
+      height: auto;
+	  background: transparent;
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      margin-top: 0px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .nav-menu {
+      position: absolute;
+      left: 200px;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .nav-menu img {
+      margin-bottom: 0px;
+    }
+
+    .textbox {
+      background: url('../assets/br_textbox.png') no-repeat center center;
+      background-size: contain;
+      width: 640px;
+      height: 720px;
+      padding: 90px;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 18px;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div id="horseContainer">
+      <div id="horse"><img id="horseFrame" src="../assets/BRHorse/BRHorse0000.png" alt="Horse"></div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="nav-menu">
+      <img src="../assets/chains.png" alt="Chains">
+      <img src="../assets/br_nav_top.png" alt="Top Logo">
+      <img src="../assets/br_nav_menu.png" alt="Menu">
+      <img src="../assets/br_nav_music.png" alt="Music">
+      <img src="../assets/br_nav_contact.png" alt="Contact">
+      <img src="../assets/br_nav_map.png" alt="Map">
+    </div>
+    <div class="textbox">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus commodo, purus at imperdiet dictum, orci turpis tincidunt diam, sed fermentum sapien nisl eget ligula.</p>
+    </div>
+  </div>
+
+  <script>
+    const walkFrames = [
+      "BRHorse0000.png", "BRHorse0001.png", "BRHorse0002.png", "BRHorse0003.png",
+      "BRHorse0004.png", "BRHorse0005.png", "BRHorse0006.png", "BRHorse0007.png"
+    ];
+
+    const stopFrames = [
+      "BRHorse0008.png", "BRHorse0009.png", "BRHorse0010.png", "BRHorse0011.png", "BRHorse0012.png"
+    ];
+
+    const horse = document.getElementById('horse');
+    const horseFrame = document.getElementById('horseFrame');
+
+    let frameIndex = 0;
+    let x = 0;
+    const endX = window.innerWidth / 2 - 40; // 80px / 2 to center
+    const walkDuration = 4000; // 4 seconds
+    const fps = 8;
+    const totalFrames = walkDuration / (1000 / fps);
+    const stepSize = endX / totalFrames;
+
+    function animateRun() {
+      const runInterval = setInterval(() => {
+        x += stepSize;
+        frameIndex = (frameIndex + 1) % walkFrames.length;
+        horseFrame.src = `../assets/BRHorse/${walkFrames[frameIndex]}`;
+        horse.style.left = `${x}px`;
+
+        if (x >= endX) {
+          clearInterval(runInterval);
+          animateStop();
+        }
+      }, 1000 / fps);
+    }
+
+    function animateStop() {
+      let stopIndex = 0;
+      const stopInterval = setInterval(() => {
+        horseFrame.src = `../assets/BRHorse/${stopFrames[stopIndex]}`;
+        stopIndex++;
+        if (stopIndex === stopFrames.length) {
+          clearInterval(stopInterval);
+        }
+      }, 1000 / fps);
+    }
+
+    animateRun();
+  </script>
+</body>
+</html>
