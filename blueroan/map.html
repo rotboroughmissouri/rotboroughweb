@@ -76,23 +76,9 @@
       font-size: 18px;
       z-index: 1;
     }
-	
-	.content-wrapper {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	#secretButton {
-		margin-top: 20px;
-		padding: 10px 20px;
-		font-size: 16px;
-		cursor: pointer;
-	}
-
   </style>
 </head>
 <body>
-  <audio id="chainSound" src="../assets/chains.wav" preload="auto"></audio>
   <div class="header">
     <div id="horseContainer">
       <div id="horse"><img id="horseFrame" src="../assets/BRHorse/BRHorse0000.png" style="position: absolute;" data-busy="false" alt="Horse"></div>
@@ -108,14 +94,10 @@
 	  <a href="contact.html"><img src="../assets/br_nav_contact.png" alt="Contact"></a>
 	  <a href="map.html"><img src="../assets/br_nav_map.png" alt="Map"></a>
     </div>
-    <div class="content-wrapper">
-		<div class="textbox">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-		</div>
-		<button id="secretButton" style="display: none;">Secret</button>
-	</div>
+    <div class="textbox">
+      <p>Map Placeholder</p>
+    </div>
   </div>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -124,7 +106,7 @@
     let x = 0;
     let idle = false;
     let clickable = false;
-	let horseGone = false;
+
     const runFrames = [
       'BRHorse0000.png', 'BRHorse0001.png', 'BRHorse0002.png', 'BRHorse0003.png',
       'BRHorse0004.png', 'BRHorse0005.png', 'BRHorse0006.png', 'BRHorse0007.png'
@@ -136,9 +118,6 @@
     const clickFrames = [
       'BRHorse0012.png', 'BRHorse0013.png', 'BRHorse0014.png', 'BRHorse0015.png'
     ];
-	const chainFrames = [
-		'chains0001.png', 'chains0002.png', 'chains0003.png', 'chains0004.png'
-	];
 
     function updateRun() {
       horse.src = `../assets/brhorse/${runFrames[frame % runFrames.length]}`;
@@ -207,59 +186,10 @@ function startIdle(skipAnimation = false) {
         }
       }, 125);
     }
-	
-	function runHorseAway() {
-		animateChains();
-		  if (horseGone || !clickable) return; // Prevent repeated clicks
-		  idle = false;
-		  clickable = false;
-		  horseGone = true;
-		document.getElementById('secretButton').style.display = 'block';
-		  let frame = 0;
-		  let posX = parseFloat(horse.style.left) || window.innerWidth / 2 - 40;
 
-		  const runAwayInterval = setInterval(() => {
-			horse.src = `../assets/brhorse/${runFrames[frame % runFrames.length]}`;
-			posX += 30; // Speed to the right
-			horse.style.left = `${posX}px`;
-			frame++;
-
-			if (posX > window.innerWidth) {
-			  clearInterval(runAwayInterval);
-			  horse.style.display = 'none';
-			  console.log('Horse is gone. horseGone =', horseGone);
-			  // Future triggers can check horseGone === true
-			}
-		  }, 125);
-		}
-const chainSound = document.getElementById('chainSound');
-	function animateChains() {
-			chainSound.currentTime = 0; // rewind if it's already playing
-			chainSound.play();          // 🔊 play the sound
-		  const chainImg = document.querySelector('.nav-menu img[src$="chains.png"]');
-		  let chainIndex = 0;
-		  let frameCount = 0;
-		  const totalFrames = chainFrames.length * 4; // 4 loops
-
-		  const originalSrc = '../assets/chains.png';
-
-		  const chainAnim = setInterval(() => {
-			chainImg.src = `../assets/${chainFrames[chainIndex % chainFrames.length]}`;
-			chainIndex++;
-			frameCount++;
-			if (frameCount >= totalFrames) {
-			  clearInterval(chainAnim);
-			  chainImg.src = originalSrc;
-			}
-		  }, 100); // 10 fps
-		}
-	horse.addEventListener('click', playClickAnimation);
-	const runInterval = setInterval(updateRun, 125);
-	const chains = document.querySelector('.nav-menu img[src$="chains.png"]');
-	chains.addEventListener('click', runHorseAway);
-});
-		  
-	
+    horse.addEventListener('click', playClickAnimation);
+    const runInterval = setInterval(updateRun, 125);
+  });
 </script>
   
   
