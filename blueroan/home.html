@@ -130,9 +130,17 @@
       }
     }
 
-    function startIdle() {
-  let idleIndex = 0;
+function startIdle(skipAnimation = false) {
   idle = true;
+
+  if (skipAnimation) {
+    horse.src = `../assets/brhorse/${idleFrames[idleFrames.length - 1]}`; // Show final idle frame only
+    clickable = true;
+    horse.style.cursor = 'pointer';
+    return;
+  }
+
+  let idleIndex = 0;
   horse.src = `../assets/brhorse/${idleFrames[0]}`;
   const idleInterval = setInterval(() => {
     if (!idle) {
@@ -171,7 +179,7 @@
               reverseIndex--;
               if (reverseIndex < 0) {
                 clearInterval(backward);
-                startIdle();
+                startIdle(true); // Skip full idle replay
               }
             }, 125);
           }, 2000);
