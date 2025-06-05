@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blue Roan</title>
   <style>
+  
     body {
       margin: 0;
       font-family: serif;
@@ -80,7 +81,7 @@
 <body>
   <div class="header">
     <div id="horseContainer">
-      <div id="horse"><img id="horseFrame" src="../assets/BRHorse/BRHorse0000.png" alt="Horse"></div>
+      <div id="horse"><img id="horseFrame" src="../assets/BRHorse/BRHorse0000.png" style="position: absolute;" data-busy="false" alt="Horse"></div>
     </div>
   </div>
 
@@ -98,53 +99,91 @@
     </div>
   </div>
 
-  <script>
-    const walkFrames = [
-      "BRHorse0000.png", "BRHorse0001.png", "BRHorse0002.png", "BRHorse0003.png",
-      "BRHorse0004.png", "BRHorse0005.png", "BRHorse0006.png", "BRHorse0007.png"
-    ];
-
-    const stopFrames = [
-      "BRHorse0008.png", "BRHorse0009.png", "BRHorse0010.png", "BRHorse0011.png", "BRHorse0012.png"
-    ];
-
-    const horse = document.getElementById('horse');
-    const horseFrame = document.getElementById('horseFrame');
-
-    let frameIndex = 0;
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const horse = document.getElementById('horseFrame');
+    let frame = 0;
     let x = 0;
-    const endX = window.innerWidth / 2 - 40; // 80px / 2 to center
-    const walkDuration = 4000; // 4 seconds
-    const fps = 8;
-    const totalFrames = walkDuration / (1000 / fps);
-    const stepSize = endX / totalFrames;
+    let idle = false;
+    let clickable = false;
 
-    function animateRun() {
-      const runInterval = setInterval(() => {
-        x += stepSize;
-        frameIndex = (frameIndex + 1) % walkFrames.length;
-        horseFrame.src = `../assets/BRHorse/${walkFrames[frameIndex]}`;
-        horse.style.left = `${x}px`;
+    const runFrames = [
+      'BRHorse0000.png', 'BRHorse0001.png', 'BRHorse0002.png', 'BRHorse0003.png',
+      'BRHorse0004.png', 'BRHorse0005.png', 'BRHorse0006.png', 'BRHorse0007.png'
+    ];
+    const idleFrames = [
+      'BRHorse0008.png', 'BRHorse0009.png', 'BRHorse0010.png', 'BRHorse0011.png',
+      'BRHorse0012.png'
+    ];
+    const clickFrames = [
+      'BRHorse0012.png', 'BRHorse0013.png', 'BRHorse0014.png', 'BRHorse0015.png'
+    ];
 
-        if (x >= endX) {
-          clearInterval(runInterval);
-          animateStop();
-        }
-      }, 1000 / fps);
+    function updateRun() {
+      horse.src = `../assets/brhorse/${runFrames[frame % runFrames.length]}`;
+      x += window.innerWidth / (8 * 4);
+      horse.style.left = `${x}px`;
+      frame++;
+      if (x >= window.innerWidth / 2 - 40) {
+        clearInterval(runInterval);
+        startIdle();
+      }
     }
 
-    function animateStop() {
-      let stopIndex = 0;
-      const stopInterval = setInterval(() => {
-        horseFrame.src = `../assets/BRHorse/${stopFrames[stopIndex]}`;
-        stopIndex++;
-        if (stopIndex === stopFrames.length) {
-          clearInterval(stopInterval);
+    function startIdle() {
+  let idleIndex = 0;
+  idle = true;
+  horse.src = `../assets/brhorse/${idleFrames[0]}`;
+  const idleInterval = setInterval(() => {
+    if (!idle) {
+      clearInterval(idleInterval);
+      return;
+    }
+    horse.src = `../assets/brhorse/${idleFrames[idleIndex]}`;
+    idleIndex++;
+    if (idleIndex >= idleFrames.length) {
+      clearInterval(idleInterval);
+      horse.src = `../assets/brhorse/${idleFrames[idleFrames.length - 1]}`; // Stay on final frame
+    }
+  }, 125);
+
+  setTimeout(() => {
+    clickable = true;
+    horse.style.cursor = 'pointer';
+  }, 1000);
+}
+
+    function playClickAnimation() {
+      if (!clickable) return;
+      clickable = false;
+      idle = false;
+
+      let index = 0;
+      const forward = setInterval(() => {
+        horse.src = `../assets/brhorse/${clickFrames[index]}`;
+        index++;
+        if (index === clickFrames.length) {
+          clearInterval(forward);
+          setTimeout(() => {
+            let reverseIndex = clickFrames.length - 1;
+            const backward = setInterval(() => {
+              horse.src = `../assets/brhorse/${clickFrames[reverseIndex]}`;
+              reverseIndex--;
+              if (reverseIndex < 0) {
+                clearInterval(backward);
+                startIdle();
+              }
+            }, 125);
+          }, 2000);
         }
-      }, 1000 / fps);
+      }, 125);
     }
 
-    animateRun();
-  </script>
+    horse.addEventListener('click', playClickAnimation);
+    const runInterval = setInterval(updateRun, 125);
+  });
+</script>
+  
+  
 </body>
 </html>
