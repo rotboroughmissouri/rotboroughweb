@@ -67,6 +67,31 @@
     let facing = 'N';
     let previousState = null;
 
+    const preloadedImages = new Set();
+
+    function preloadAllGifs() {
+      for (let col = 1; col <= 6; col++) {
+        for (let row = 1; row <= 6; row++) {
+          for (let dir of directions) {
+            const still = `${col}.${row}.${dir}.gif`;
+            const img = new Image();
+            img.src = still;
+            preloadedImages.add(still);
+            for (let col2 = 1; col2 <= 6; col2++) {
+              for (let row2 = 1; row2 <= 6; row2++) {
+                for (let dir2 of directions) {
+                  const trans = `${col}.${row}.${dir}_to_${col2}.${row2}.${dir2}.gif`;
+                  const timg = new Image();
+                  timg.src = trans;
+                  preloadedImages.add(trans);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     async function updateView() {
       const view = document.getElementById('mazeView');
       const toCol = position.col;
@@ -155,6 +180,7 @@
     document.getElementById('leftBtn').onclick = turnLeft;
     document.getElementById('rightBtn').onclick = turnRight;
 
+    preloadAllGifs();
     updateView();
   </script>
 
