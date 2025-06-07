@@ -58,20 +58,9 @@
 
     let position = { col: 4, row: 6 }; // START at 4,6
     let facing = 'N';
-    let previousState = null;
-    const imageCache = {};
+    let isPaused = false;
 
-    async function preloadImage(src) {
-      if (imageCache[src]) return imageCache[src];
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(imageCache[src] = src);
-        img.onerror = () => resolve(null);
-        img.src = src;
-      });
-    }
-
-    async function updateView() {
+    async function updateView(fromState = null) {
       const view = document.getElementById('mazeView');
       const toCol = position.col;
       const toRow = position.row;
@@ -79,20 +68,24 @@
 
       let filename = `${toCol}.${toRow}.${toFacing}.gif`;
 
-      if (previousState) {
-        const [fromCol, fromRow, fromFacing] = previousState;
+      if (fromState) {
+        const [fromCol, fromRow, fromFacing] = fromState;
         const transitionName = `${fromCol}.${fromRow}.${fromFacing}_to_${toCol}.${toRow}.${toFacing}.gif`;
-        const transitionPreload = await preloadImage(transitionName);
-        if (transitionPreload) {
-          filename = transitionName;
-        } else {
-          await preloadImage(filename); // preload fallback too
+        try {
+          const response = await fetch(transitionName, { method: 'HEAD' });
+          if (response.ok) {
+            filename = transitionName;
+          }
+        } catch (e) {
+          // fallback silently
         }
-      } else {
-        await preloadImage(filename);
       }
 
       view.src = filename;
+      await new Promise(resolve => {
+        view.onload = () => resolve();
+        view.onerror = () => resolve();
+      });
 
       const cellKey = `${toCol},${toRow}`;
       const available = maze[cellKey] || [];
@@ -102,47 +95,60 @@
       const right = directions[(fIndex + 1) % 4];
       const forward = toFacing;
 
-      document.getElementById('leftBtn').disabled = !available.includes(left);
-      document.getElementById('rightBtn').disabled = !available.includes(right);
-      document.getElementById('forwardBtn').disabled = !available.includes(forward);
+      document.getElementById('leftBtn').disabled = !available.includes(left) || isPaused;
+      document.getElementById('rightBtn').disabled = !available.includes(right) || isPaused;
+      document.getElementById('forwardBtn').disabled = !available.includes(forward) || isPaused;
 
       document.getElementById('statusText').textContent = `Current Position: (${toCol}, ${toRow}) Facing: ${toFacing}`;
+    }
 
-      previousState = [toCol, toRow, toFacing];
+    async function performMove(updateFn) {
+      if (isPaused) return;
+      isPaused = true;
+      const currentState = [position.col, position.row, facing];
+      updateFn();
+      await updateView(currentState);
+      setTimeout(() => {
+        isPaused = false;
+        updateView();
+      }, 5000);
     }
 
     function moveForward() {
-      switch (facing) {
-        case 'N': position.row--; break;
-        case 'S': position.row++; break;
-        case 'E': position.col++; break;
-        case 'W': position.col--; break;
-      }
-      updateView();
+      performMove(() => {
+        switch (facing) {
+          case 'N': position.row--; break;
+          case 'S': position.row++; break;
+          case 'E': position.col++; break;
+          case 'W': position.col--; break;
+        }
+      });
     }
 
     function turnLeft() {
-      const i = directions.indexOf(facing);
-      facing = directions[(i + 3) % 4];
-      switch (facing) {
-        case 'N': position.row--; break;
-        case 'S': position.row++; break;
-        case 'E': position.col++; break;
-        case 'W': position.col--; break;
-      }
-      updateView();
+      performMove(() => {
+        const i = directions.indexOf(facing);
+        facing = directions[(i + 3) % 4];
+        switch (facing) {
+          case 'N': position.row--; break;
+          case 'S': position.row++; break;
+          case 'E': position.col++; break;
+          case 'W': position.col--; break;
+        }
+      });
     }
 
     function turnRight() {
-      const i = directions.indexOf(facing);
-      facing = directions[(i + 1) % 4];
-      switch (facing) {
-        case 'N': position.row--; break;
-        case 'S': position.row++; break;
-        case 'E': position.col++; break;
-        case 'W': position.col--; break;
-      }
-      updateView();
+      performMove(() => {
+        const i = directions.indexOf(facing);
+        facing = directions[(i + 1) % 4];
+        switch (facing) {
+          case 'N': position.row--; break;
+          case 'S': position.row++; break;
+          case 'E': position.col++; break;
+          case 'W': position.col--; break;
+        }
+      });
     }
 
     document.getElementById('forwardBtn').onclick = moveForward;
