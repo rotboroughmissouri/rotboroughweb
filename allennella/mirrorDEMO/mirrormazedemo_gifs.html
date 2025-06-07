@@ -67,41 +67,6 @@
     let facing = 'N';
     let previousState = null;
 
-    const preloadCache = new Set();
-
-    function preloadImage(src) {
-      if (!preloadCache.has(src)) {
-        const img = new Image();
-        img.src = src;
-        preloadCache.add(src);
-      }
-    }
-
-    function preloadNextImages() {
-      const cellKey = `${position.col},${position.row}`;
-      const available = maze[cellKey] || [];
-
-      const fIndex = directions.indexOf(facing);
-      const options = {
-        'N': { row: position.row - 1, col: position.col },
-        'E': { row: position.row, col: position.col + 1 },
-        'S': { row: position.row + 1, col: position.col },
-        'W': { row: position.row, col: position.col - 1 },
-      };
-
-      for (let dir of available) {
-        const newDir = dir;
-        let newFacing = newDir;
-        let newPos = options[newDir];
-        if (newPos) {
-          const staticName = `${newPos.col}.${newPos.row}.${newFacing}.gif`;
-          const transitionName = `${position.col}.${position.row}.${facing}_to_${newPos.col}.${newPos.row}.${newFacing}.gif`;
-          preloadImage(staticName);
-          preloadImage(transitionName);
-        }
-      }
-    }
-
     async function updateView() {
       const view = document.getElementById('mazeView');
       const toCol = position.col;
@@ -141,8 +106,6 @@
       document.getElementById('statusText').textContent = `Current Position: (${toCol}, ${toRow}) Facing: ${toFacing}`;
 
       previousState = [toCol, toRow, toFacing];
-
-      preloadNextImages();
     }
 
     function temporarilyHideControls() {
