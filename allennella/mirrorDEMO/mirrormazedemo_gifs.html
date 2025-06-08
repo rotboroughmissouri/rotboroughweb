@@ -30,6 +30,11 @@
       font-size: 18px;
       color: #0f0;
     }
+    #narrationText {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #0ff;
+    }
     #controls {
       transition: opacity 0.3s;
     }
@@ -51,6 +56,7 @@
   </div>
 
   <div id="statusText"></div>
+  <div id="narrationText"></div>
 
   <script>
     const directions = ['N', 'E', 'S', 'W'];
@@ -61,6 +67,26 @@
       '4,1': ['E'], '4,2': ['W', 'E'], '4,3': ['E', 'S'], '4,4': ['N', 'W'], '4,5': ['E', 'S'], '4,6': ['N', 'W'],
       '5,1': ['W', 'E', 'S'], '5,2': ['W', 'N', 'S'], '5,3': ['N', 'W'], '5,4': ['E', 'S'], '5,5': ['W', 'N'], '5,6': ['E'],
       '6,1': ['W', 'S'], '6,2': ['N', 'S'], '6,3': ['N', 'S'], '6,4': ['W', 'N', 'S'], '6,5': ['N', 'S'], '6,6': ['N', 'W']
+    };
+
+    const narration = {
+      '4,6': "I did not know where the man in the mirror came from. Only that he was me. His touch kept me warm, made me feel safe, as a mother’s hug does to her child.",
+	  '3,6': "Every part of my body was flush with my Love. This love, once a whisper, soon became an uproarious chorus of warmth and inner peace.",
+	  '2,6': "It wasn't long before all external needs; namely my hunger, my thirst and my need to blink, soon became a thing of the past. Soon I no longer even needed to breathe.",
+	  '2,5': "After shedding these trivialities it was then when what became apparent. Yet here I stood looking at the floor like a child, longing for my mother.",
+	  '3,5': "Months must have passed before I took another step. I just sat in this maternal warmth and did not move, My joints almost snapped as I walked forward.",
+	  '3,4': "They had grown just as comfortable as I have in their positions. With each crack of their animation I looked forward and saw what I believed to be a village and I took my rest there. Until…",
+	  '4,4': "In the morning I found the mirror from my room had been in the sand before me. I don’t know how it got there, but I remember that it shined like the sun.",
+	  '4,3': "The other members of the village came to face the mirror. They had asked me if I knew what it was. I told them yes, and they looked at me as if I was the oracle of the world.",
+	  '5,3': "They asked me what it was called. I told them it was a mirror and just like when I initially stepped into it, they were mesmerized.",
+	  '5,2': "One of the village children walked up to the mirror and said that the mirror was like a new best friend, brought up from the ground to be with us.",
+	  '5,1': "While I initially thought these words were cute, I would soon only have these words to remember him by.",
+	  '6,1': "I don’t recall how many of us went to bed that night, but what I do know is that by morning only five of us remained. The boy was among the missing.",
+	  '6,2': "The area which once occupied the single mirror now was a hallway of mirrors. No one moved or said anything to each other the rest of the day. The sun had not moved at all.",
+	  '6,3': "I remember thinking how strange that was but before I could think too deeply on it I had heard the voice of the boy coming from the hall of mirrors.",
+	  '6,4': "In 3 days time it was just me and the village scribe. I woke up, and met with him on the penultimate day and we had a friendly chat.",
+	  '6,5': "He asked me if mirrors did this to everyone. I looked at him woefully when I noticed tears began to pool in his eyes, and it was then I remembered it was his son who had vanished.",
+	  '6,6': "The next morning he was gone. And come the morning, the door to the hallway was opened. I spent my last day, walking through what was now the maze of mirrors yelling out in anguish. I began to cry and fall to my knees. I was laying down sobbing when the echo of the boy’s voice. It led me to the corner of the maze to an open door… In the mirror was my bedroom… I took one step toward it… and down I fell…",
     };
 
     let position = { col: 4, row: 6 }; // START at 4,6
@@ -139,6 +165,7 @@
       document.getElementById('forwardBtn').disabled = !available.includes(forward);
 
       document.getElementById('statusText').textContent = `Current Position: (${toCol}, ${toRow}) Facing: ${toFacing}`;
+      document.getElementById('narrationText').textContent = narration[cellKey] || "The mirrored halls stretch endlessly in every direction.";
 
       previousState = [toCol, toRow, toFacing];
 
