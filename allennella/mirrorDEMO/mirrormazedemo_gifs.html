@@ -42,23 +42,129 @@
       opacity: 0;
       pointer-events: none;
     }
+    #introScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    #introScreen input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    #gameScreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+	    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
+      color: #fff;
+      border: 2px solid #0ff;
+      padding: 20px;
+      z-index: 200;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Mirror Maze Demo</h1>
-  <img id="mazeView" src="" alt="Maze View"/>
-
-  <div id="controls">
-    <button id="leftBtn">Left</button>
-    <button id="forwardBtn">Forward</button>
-    <button id="rightBtn">Right</button>
+  <div id="introScreen">
+    <h2>Enter Your Birth Info</h2>
+    <input type="number" id="birthMonth" placeholder="Birth Month" min="1" max="12">
+    <input type="number" id="birthDay" placeholder="Birth Day" min="1" max="31">
+    <button onclick="startMaze()">Enter</button>
   </div>
 
-  <div id="statusText"></div>
-  <div id="narrationText"></div>
+  <div id="gameScreen" style="display: none;">
+    <h1>Mirror Maze Demo</h1>
+    <img id="mazeView" src="" alt="Maze View"/>
+
+    <div id="controls">
+      <button id="leftBtn">Left</button>
+      <button id="forwardBtn">Forward</button>
+      <button id="rightBtn">Right</button>
+    </div>
+
+    <div id="statusText"></div>
+    <div id="narrationText"></div>
+  </div>
+  
+  <div id="popup"></div>
 
   <script>
+    let birthMonth = "";
+    let birthDay = "";
+    let birthSign = "";
+
+    function getAstrologicalSign(month, day) {
+      const signs = [
+        { sign: "Capricorn", start: [12, 22], end: [1, 19] },
+        { sign: "Aquarius", start: [1, 20], end: [2, 18] },
+        { sign: "Pisces", start: [2, 19], end: [3, 20] },
+        { sign: "Aries", start: [3, 21], end: [4, 19] },
+        { sign: "Taurus", start: [4, 20], end: [5, 20] },
+        { sign: "Gemini", start: [5, 21], end: [6, 20] },
+        { sign: "Cancer", start: [6, 21], end: [7, 22] },
+        { sign: "Leo", start: [7, 23], end: [8, 22] },
+        { sign: "Virgo", start: [8, 23], end: [9, 22] },
+        { sign: "Libra", start: [9, 23], end: [10, 22] },
+        { sign: "Scorpio", start: [10, 23], end: [11, 21] },
+        { sign: "Sagittarius", start: [11, 22], end: [12, 21] },
+      ];
+
+      for (let s of signs) {
+        const [startMonth, startDay] = s.start;
+        const [endMonth, endDay] = s.end;
+        if (
+          (month === startMonth && day >= startDay) ||
+          (month === endMonth && day <= endDay) ||
+          (startMonth > endMonth && (month === startMonth || month === endMonth) &&
+            ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)))
+        ) {
+          return s.sign;
+        }
+      }
+      return "Unknown";
+    }
+
+        function showPopup(message) {
+      const popup = document.getElementById('popup');
+      popup.textContent = message;
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 5000);
+    }
+	
+	function startMaze() {
+      birthMonth = parseInt(document.getElementById('birthMonth').value);
+      birthDay = parseInt(document.getElementById('birthDay').value);
+      if (!birthMonth || !birthDay || birthMonth < 1 || birthMonth > 12 || birthDay < 1 || birthDay > 31) {
+        alert('Please enter a valid birth month and day.');
+        return;
+      }
+      birthSign = getAstrologicalSign(birthMonth, birthDay);
+      console.log("Astrological Sign:", birthSign); // stored for later use
+
+      document.getElementById('introScreen').style.display = 'none';
+      document.getElementById('gameScreen').style.display = 'flex';
+      updateView();
+    }
+
     const directions = ['N', 'E', 'S', 'W'];
     const maze = {
       '1,1': ['S'], '1,2': ['N', 'S'], '1,3': ['N', 'S'], '1,4': ['N', 'E'], '1,5': ['S', 'E'], '1,6': ['N'],
@@ -89,7 +195,7 @@
 	  '6,6': "The next morning he was gone. And come the morning, the door to the hallway was opened. I spent my last day, walking through what was now the maze of mirrors yelling out in anguish. I began to cry and fall to my knees. I was laying down sobbing when the echo of the boy’s voice. It led me to the corner of the maze to an open door… In the mirror was my bedroom… I took one step toward it… and down I fell…",
     };
 
-    let position = { col: 4, row: 6 }; // START at 4,6
+    let position = { col: 4, row: 6 };
     let facing = 'N';
     let previousState = null;
 
@@ -106,7 +212,6 @@
     function preloadNextImages() {
       const cellKey = `${position.col},${position.row}`;
       const available = maze[cellKey] || [];
-
       const fIndex = directions.indexOf(facing);
       const options = {
         'N': { row: position.row - 1, col: position.col },
@@ -139,22 +244,21 @@
       if (previousState) {
         const [fromCol, fromRow, fromFacing] = previousState;
         const transitionName = `${fromCol}.${fromRow}.${fromFacing}_to_${toCol}.${toRow}.${toFacing}.gif`;
-
         try {
           const response = await fetch(transitionName, { method: 'HEAD' });
           if (response.ok) {
             filename = transitionName;
           }
-        } catch (e) {
-          // fallback silently
-        }
+        } catch (e) {}
       }
 
       view.src = filename;
 
       const cellKey = `${toCol},${toRow}`;
+      if (cellKey === '5,6') {
+        setTimeout(() => showPopup(`Your astrological sign is: ${birthSign}`), 20000);
+      }
       const available = maze[cellKey] || [];
-
       const fIndex = directions.indexOf(toFacing);
       const left = directions[(fIndex + 3) % 4];
       const right = directions[(fIndex + 1) % 4];
@@ -168,7 +272,6 @@
       document.getElementById('narrationText').textContent = narration[cellKey] || "The mirrored halls stretch endlessly in every direction.";
 
       previousState = [toCol, toRow, toFacing];
-
       preloadNextImages();
     }
 
@@ -218,8 +321,6 @@
     document.getElementById('forwardBtn').onclick = moveForward;
     document.getElementById('leftBtn').onclick = turnLeft;
     document.getElementById('rightBtn').onclick = turnRight;
-
-    updateView();
   </script>
 
 </body>
