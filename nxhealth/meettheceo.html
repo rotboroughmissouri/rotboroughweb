@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NXHealth Products</title>
+  <title>NXHealth - Meet the CEO</title>
   <style>
     body {
       margin: 0;
@@ -28,35 +28,83 @@
       width: 140px;
       cursor: pointer;
     }
-    .product-row {
-      display: flex;
-      align-items: center;
-      margin: 30px 0;
-      position: relative;
+    
+    /* Name Prompt Styles */
+    .name-prompt {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 3px solid #00ffff;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1000;
     }
-    .product-gif {
-      width: 240px;
-      margin-right: -160px;
-      z-index: 1;
+    
+    .name-prompt h2 {
+      color: #00ffff;
+      margin-bottom: 20px;
+      font-size: 24px;
     }
-    .product-bg {
-      width: 600px;
-      height: 220px;
-      background: url('../assets/product_textbox.png') no-repeat;
-      background-size: contain;
-      display: flex;
-      align-items: center;
-      padding: 20px 40px;
-      box-sizing: border-box;
-      margin-left: 100px;
+    
+    .name-prompt input {
+      padding: 10px;
+      font-size: 18px;
+      width: 250px;
+      margin: 10px;
+      border: 2px solid #00ffff;
+      background: #222;
+      color: white;
+      border-radius: 5px;
     }
-    .product-text {
-      flex-grow: 1;
-      font-size: 0.7em;
+    
+    .name-prompt button {
+      padding: 12px 30px;
+      font-size: 18px;
+      background: #00ffff;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
     }
-    .product-img {
-      width: 100px;
-      margin-left: 20px;
+    
+    .name-prompt button:hover {
+      background: #00cccc;
+    }
+    
+    /* Main Content Styles */
+    .main-content {
+      display: none;
+      padding: 40px;
+      font-size: 16px;
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.7);
+      margin: 40px 20px;
+      border-radius: 10px;
+    }
+    
+    .main-content h1 {
+      color: #00ffff;
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    
+    .main-content p {
+      margin-bottom: 20px;
+    }
+    
+    .user-name {
+      color: #00ffff;
+      font-weight: bold;
+    }
+    
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -65,8 +113,70 @@
     <a href="nxhealthhome.html"><img src="../assets/backarrow.png" alt="Back" class="back-arrow"></a>
     <img src="../assets/NXHBanner.png" alt="NXH Banner" class="banner">
 
-   
+    <!-- Name Prompt -->
+    <div id="namePrompt" class="name-prompt">
+      <h2>What's Your Name?</h2>
+      <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="50">
+      <br>
+      <button onclick="submitName()">ENTER</button>
+    </div>
 
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+      <h1>Behind the genius…</h1>
+      <p id="ceoText"></p>
+    </div>
   </div>
+
+  <script>
+    function submitName() {
+      const nameInput = document.getElementById('nameInput');
+      const userName = nameInput.value.trim();
+      
+      if (!userName) {
+        alert('Please enter your name!');
+        return;
+      }
+      
+      // Hide the prompt
+      document.getElementById('namePrompt').style.display = 'none';
+      
+      // Show main content with personalized text
+      document.getElementById('mainContent').style.display = 'block';
+      
+      // Generate the personalized CEO text
+      const ceoText = generateCEOText(userName);
+      document.getElementById('ceoText').innerHTML = ceoText;
+    }
+    
+    function generateCEOText(name) {
+      // Special case for "chet" (any capitalization)
+      if (name.toLowerCase() === 'chet') {
+        return 'I wouldn\'t do that if I were you.';
+      }
+      
+      const text = `Hey there! What's your name? Speak up, I can't hear you pal. <span class="user-name">${name}</span>? Pleasure to meet you <span class="user-name">${name}</span>. My name? You really wanna know? Well. What an interesting question… Name's Alfred Sacksman, but you can call me "Al". Only YOU though, alright? I don't need the other ones finding out I talk to you like this okay? They'll just get jealous, they won't understand… Anyway, now that you're here, (congratulations on making it this far by the way!) Why don't we get to know each other? What's your name?<br><br>
+
+Well <span class="user-name">${name}</span>. Let me be the first to say WELCOME to MY WORLD! NXHealth was started by a strapping young buck who was an innovator, artist, idealist, thinker, game changer, creative, and best of all, a person just like yourself. He used His handy-dandy stick-to-it-iveness to launch his dreams and fuel the future. But he had an idea… Something different. Something novel. He had a BIG idea. An idea so big, most people didn't believe in him. But you know who did? You did. And together we built an empire. And that empire was built on the foundation of providing health and wellness products that not only redefined everything the world knew about health but challenged the status quo by offering the pinnacle of science and medicine, to create products for everyone to enjoy. But where did this all start? Well my friend, I'm glad you asked…<br><br>
+
+In the early 1980s (thank you by the way!) I came home from college to find my parents gravely afflicted with what doctors later diagnosed as early adult onset dementia. I was HEARTBROKEN to say the least. My father was always a driving force behind everything I did and to see him wither away like that KILLED MY HEART. My mother had no fairer fate on my heavy soul. Seeing the woman who handcrafted my spirit being slowly reduced to a shell was too much for my soul to bear. So I took a break from it all and decided to travel the world in search of answers! Crazy right? Well crazier STILL, I found the answers I was looking for in PERU of all places! Yes the land of the INCAS and what did the ancient geniuses have to say? Well the same stuff they've been saying since, oh I don't know… FOREVER? The wisdom I gathered told me what we already know yet seldom apply. HEALTH IS WEALTH. But in this age of technology and computers how can we make change that moves as quickly as the modern age? Well the friend I made in the jungles of Peru told me… HACK YOUR BODY… WOW! Isn't that just a kick in the you-know-what! And so we founded NXHealth together. You and me. That's right YOU and ME! And I gotta be honest. I'm forever grateful because…<br><br>
+
+From crib to coffin NXHealth products are enjoyed by all ages, creeds, and classes. We set out to handcraft this generational brand from the ground up hands down. And all I gotta say to you <span class="user-name">${name}</span>, is a resounding thank you! And let the word be known… Without you we wouldn't be where we are right now. So thank you soooooooo much. I look forward to continuing to push the envelope further with you so that we can provide the next generation of artists, athletes, thinkers and dreamers, with the brain and body fuel THEY NEED to build the world with us. Because here at NXHealth, WE want you not only to exceed your limits, but to HACK YOUR BODY!!!`;
+      
+      return text;
+    }
+    
+    // Allow Enter key to submit name
+    document.getElementById('nameInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        submitName();
+      }
+    });
+    
+    // Focus on input when page loads
+    window.addEventListener('load', function() {
+      document.getElementById('nameInput').focus();
+    });
+  </script>
 </body>
 </html>
