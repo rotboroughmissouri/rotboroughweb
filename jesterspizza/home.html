@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jester Pizza - Royal Delivery</title>
+  <style>
+    @font-face {
+      font-family: 'Remedy';
+      src: url('../assets/Remedy Regular.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'RemedyI';
+      src: url('../assets/RemedyI.otf') format('opentype');
+    }
+    body {
+      background: url('../assets/JesterTileBg.png') repeat;
+      margin: 0;
+      padding: 0;
+      font-family: serif;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-buttons img {
+      height: 90px;
+    }
+    .main {
+      margin: 20px 40px;
+    }
+    
+    .content-container {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .left-content {
+      flex: 2;
+      max-width: 600px;
+    }
+    
+    .right-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 300px;
+    }
+    
+    .castle-banner {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    
+    .main-title {
+      font-family: 'RemedyI', cursive;
+      font-size: 48px;
+      color: #416cff;
+      margin: 10px 0 20px 0;
+      text-shadow: 2px 2px 0px black;
+    }
+    
+    .main-text {
+      color: #f226ff;
+      font-size: 16px;
+      line-height: 1.4;
+      text-align: justify;
+    }
+    
+    .pizza-showcase {
+      text-align: center;
+    }
+    
+    .pizza-showcase img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .pizza-title {
+      color: #f226ff;
+      font-weight: bold;
+      font-size: 16px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+	<a href="home.html"><img src="../assets/jesterpizzalogo.png" alt="Jester Pizza Logo" height="120" /></a>
+    <div class="nav-buttons">
+      <a href="delivery.html"><img src="../assets/JesterNavDelivery.png" alt="Delivery" /></a>
+      <a href="#"><img src="../assets/JesterNavMenu.png" alt="Menu" /></a>
+      <a href="#"><img src="../assets/JesterNavHistory.png" alt="History" /></a>
+      <a href="#"><img src="../assets/JesterNavLocations.png" alt="Locations" /></a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="content-container">
+      <div class="left-content">
+        <img src="../assets/castlesbanner.gif" alt="Castles Banner" class="castle-banner">
+        <h1 class="main-title">Jester Pizza</h1>
+        <p class="main-text">
+          Hear Ye! Hear Ye! All hail the newest decree from Jester's Pizza! We understand Jester's Pizza has set the standard for the best pizza in Missouri. So, to make our service even better we have decided to come up with a new service exclusive to our Royal Court Club Members! Say hello to, The Royal Promise!!! The Royal Promise is our guarantee that if our drivers do not deliver a pizza to you in 30 minutes or less, that pizza is on us! Yup, you heard right! In other exciting news we're introducing a brand new line of specialty pizzas available only for a limited time! We are proud to introduce The Three Kings Pizzas line available starting at $12.99 EXCLUSIVELY at Jester's Pizza! The first one on the list is the KamaĀina King Pizza, it boasts imported smoky Hawaiian Kahlua pig, savory hoisin sauce, sweet pineapple, hickory smoked bacon, and yummy red onions! The second one we have lined up for you is the King of New York, Brooklyn Style Pizza!(Available in our build your own kingdom menu) We've mastered the craft on this one folks! We use real water from New York in our dough to capture that signature flavor, crumb, crust and texture that we all love about New York! And we allow the dough to rise for a full 24 hours just like in the city that never sleeps! Does it taste like the real thing? Fuggetabouddit! This one features a flavorful and tangy San Marzano tomato sauce and special part skim buffalo mozzarella! Marone! I'm getting hungry youse guys! And last but not least, The King's Supreme Classic! That's right, your favorite seasonal pizza is BACK with his new friends! We all know what's in it, but in case you don't, this one has our signature Missouri style pepperoni, savory sausage, crunchy flavor packed bell peppers, chili oil, tangy red onions, and imported Italian olives! Hurraaah Hurrahh! May the reign never end! These pizzas are available until July 15th! So hurry in today to Jester's Pizza!
+        </p>
+      </div>
+      
+      <div class="right-content">
+        <div class="pizza-showcase">
+          <img src="../assets/KamaAina.jpg" alt="KamaAina King Pizza">
+          <p class="pizza-title">The KamaAina King Pizza</p>
+        </div>
+        
+        <div class="pizza-showcase">
+          <img src="../assets/KingOfNy.jpg" alt="King of New York Brooklyn Style Pizza">
+          <p class="pizza-title">King of New York, Brooklyn Style Pizza</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
