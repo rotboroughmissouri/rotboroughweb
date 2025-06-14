@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Growing Minds - Testimonials</title>
+  <title>Growing Minds - FAQ</title>
   <style>
+    @font-face {
+      font-family: 'Acme';
+      src: url('../assets/Acme-Regular.ttf') format('truetype');
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -33,17 +38,69 @@
       padding: 20px;
     }
     h1 {
-      color: hotpink;
+      background: linear-gradient(to bottom, #ffb6f7, #ed2ead);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Acme', sans-serif;
       font-size: 2.5em;
       margin: 0;
       padding-bottom: 10px;
       text-align: left;
+      filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
     }
     .underline {
       height: 2px;
       background: black;
       width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .faq-section {
+      margin-bottom: 30px;
+    }
+    
+    .question-row {
+      display: flex;
+      align-items: flex-start;
       margin-bottom: 10px;
+    }
+    
+    .question-row img {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .question-text {
+      font-family: 'Comic Sans MS', cursive;
+      color: #ff69ee;
+      font-size: 16px;
+      text-align: left;
+      flex: 1;
+    }
+    
+    .answer-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+    
+    .answer-text {
+      font-family: 'Comic Sans MS', cursive;
+      color: #00c6ff;
+      font-size: 16px;
+      text-align: right;
+      flex: 1;
+      margin-right: 15px;
+    }
+    
+    .answer-row img {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -52,24 +109,79 @@
     <img src="../assets/gmBanner.png" alt="Banner" class="banner">
     <div class="menu">
       <a href="home.html">
-		<img src="../assets/MenuHome.png" alt="Home">
-	  </a>
+        <img src="../assets/MenuHome.png" alt="Home">
+      </a>
       <a href="assessment.html">
-		<img src="../assets/MenuTesting.png" alt="Testing">
-	  </a>
-	  <a href="testimonials.html">
-		<img src="../assets/MenuTestimonials.png" alt="Testimonials">
-	  </a>
-	  <a href="faq.html">
-		<img src="../assets/MenuFAQ_Selected.png" alt="FAQ">
-	  </a>
-	  <a href="ourgoal.html">
-		<img src="../assets/MenuGoal.png" alt="OurGoal">
-	  </a>
+        <img src="../assets/MenuTesting.png" alt="Testing">
+      </a>
+      <a href="testimonials.html">
+        <img src="../assets/MenuTestimonials.png" alt="Testimonials">
+      </a>
+      <a href="faq.html">
+        <img src="../assets/MenuFAQ_Selected.png" alt="FAQ">
+      </a>
+      <a href="ourgoal.html">
+        <img src="../assets/MenuGoal.png" alt="OurGoal">
+      </a>
     </div>
     <div class="content">
-      <h1>Welcome</h1>
+      <h1>Frequently Asked Questions</h1>
       <div class="underline"></div>
+      
+      <div class="faq-section">
+        <div class="question-row">
+          <img src="../assets/faq_q.png" alt="Question">
+          <div class="question-text">Why does my child need to be tested?</div>
+        </div>
+        <div class="answer-row">
+          <div class="answer-text">Not every child need's to be tested and we generally leave the decision up to the parent's as far as that is concerned. But we believe at Growing Minds that no child, even a slow-in-the-mind child should be left behind!</div>
+          <img src="../assets/faq_a.png" alt="Answer">
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <div class="question-row">
+          <img src="../assets/faq_q.png" alt="Question">
+          <div class="question-text">What kind of tutoring services do you offer and what ages do you take?</div>
+        </div>
+        <div class="answer-row">
+          <div class="answer-text">We offer tutoring for all subjects, but some of our most renowned are math, science, english, social studies, history, etiquette through our sponsorship with Protagon, and many many more! We usually tailor our tutoring programs around each child's individual needs. We offer programs for all ages but manly specialize in aged 4-12!</div>
+          <img src="../assets/faq_a.png" alt="Answer">
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <div class="question-row">
+          <img src="../assets/faq_q.png" alt="Question">
+          <div class="question-text">How can I tell if I have a slow-in-the-mind child?</div>
+        </div>
+        <div class="answer-row">
+          <div class="answer-text">A great question, we offer an online test for each child centered around answering situational questions with our mascot and long time friend Vasey! It's specifically designed to get an initial reading on the mental faculties and emotional capabilities of each child, offering peace of mind to parents, and solutions for their child!</div>
+          <img src="../assets/faq_a.png" alt="Answer">
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <div class="question-row">
+          <img src="../assets/faq_q.png" alt="Question">
+          <div class="question-text">What happens if after my child takes the test he or she is found to have "problems".</div>
+        </div>
+        <div class="answer-row">
+          <div class="answer-text">We've taken the stress and fear out of that being a result by offering follow ups with board certified child psychologists depending on the score your child receives upon request. Upon reaching that as a test result you will be given a ticket number and contact information as well as a number to call to schedule an in person interview and appointment!</div>
+          <img src="../assets/faq_a.png" alt="Answer">
+        </div>
+      </div>
+
+      <div class="faq-section">
+        <div class="question-row">
+          <img src="../assets/faq_q.png" alt="Question">
+          <div class="question-text">What do I do if my child doesn't talk to me?</div>
+        </div>
+        <div class="answer-row">
+          <div class="answer-text">If you and your children don't see eye to eye, we offer family counselling through one of our many elegant and professional board certified pyschologists. Giving you and your little budding flower the help you need to grow a plentiful "friendship garden"!</div>
+          <img src="../assets/faq_a.png" alt="Answer">
+        </div>
+      </div>
     </div>
   </div>
 </body>
