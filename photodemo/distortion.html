@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Distortion Effects Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .controls-panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: sticky;
+            top: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-group h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+            border-bottom: 1px solid rgba(78, 205, 196, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .control-item {
+            margin-bottom: 15px;
+        }
+
+        .control-item label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .control-item input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .control-item input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .effect-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .effect-btn {
+            background: linear-gradient(45deg, rgba(255,107,107,0.8), rgba(78,205,196,0.8));
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+
+        .effect-btn.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            box-shadow: 0 0 20px rgba(255,107,107,0.5);
+        }
+
+        .camera-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .camera-controls {
+            margin: 15px 0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+        }
+
+        #videoElement {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .canvas-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #effectCanvas {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            cursor: crosshair;
+            transition: transform 0.1s ease;
+        }
+
+        .mouse-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-family: monospace;
+        }
+
+        .status-message {
+            background: rgba(78,205,196,0.2);
+            border: 1px solid rgba(78,205,196,0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-panel {
+                position: static;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Photo Distortion Effects</h1>
+            <p>Capture a photo and apply real-time distortion effects with mouse interaction!</p>
+        </div>
+
+        <div class="main-content">
+            <div class="controls-panel">
+                <div class="control-group">
+                    <h3>📸 Camera</h3>
+                    <div class="camera-section">
+                        <video id="videoElement" autoplay playsinline style="width: 100%; max-width: 200px;"></video>
+                        <div class="camera-controls">
+                            <button id="startCamera" class="btn">Start</button>
+                            <button id="takePhoto" class="btn secondary" disabled>Capture</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>🎭 Effects</h3>
+                    <div class="effect-buttons">
+                        <button class="effect-btn active" onclick="setEffect('none')">Original</button>
+                        <button class="effect-btn" onclick="setEffect('fisheye')">Fisheye</button>
+                        <button class="effect-btn" onclick="setEffect('perspective')">Perspective</button>
+                        <button class="effect-btn" onclick="setEffect('kaleidoscope')">Kaleidoscope</button>
+                        <button class="effect-btn" onclick="setEffect('mirror')">Mirror</button>
+                        <button class="effect-btn" onclick="setEffect('ripple')">Ripple</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>🎛️ Settings</h3>
+                    <div class="control-item">
+                        <label for="intensity">Effect Intensity:</label>
+                        <input type="range" id="intensity" min="0" max="100" value="50">
+                        <span id="intensityValue">50</span>
+                    </div>
+                    
+                    <div class="control-item">
+                        <label for="mouseRadius">Mouse Radius:</label>
+                        <input type="range" id="mouseRadius" min="20" max="200" value="100">
+                        <span id="mouseRadiusValue">100px</span>
+                    </div>
+                    
+                    <div class="control-item">
+                        <label for="animationSpeed">Animation Speed:</label>
+                        <input type="range" id="animationSpeed" min="1" max="10" value="5">
+                        <span id="animationSpeedValue">5</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>💾 Actions</h3>
+                    <button class="btn" onclick="resetEffects()" style="width: 100%; margin-bottom: 10px;">Reset</button>
+                    <button class="btn secondary" onclick="downloadImage()" style="width: 100%;">Download</button>
+                </div>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="effectCanvas" width="600" height="400"></canvas>
+                <div class="mouse-info" id="mouseInfo">
+                    Mouse: (0, 0) | Effect: None
+                </div>
+                
+                <div class="status-message" id="statusMessage">
+                    📷 Take a photo to start applying effects!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="hiddenCanvas" style="display: none;"></canvas>
+
+    <script>
+        let stream = null;
+        let originalImageData = null;
+        let currentEffect = 'none';
+        let mouseX = 0;
+        let mouseY = 0;
+        let animationFrame = null;
+        let time = 0;
+
+        const canvas = document.getElementById('effectCanvas');
+        const ctx = canvas.getContext('2d');
+        const hiddenCanvas = document.getElementById('hiddenCanvas');
+        const hiddenCtx = hiddenCanvas.getContext('2d');
+
+        // Initialize
+        window.addEventListener('load', function() {
+            setupCanvas();
+            setupControls();
+        });
+
+        function setupCanvas() {
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+                updateMouseInfo();
+            });
+
+            canvas.addEventListener('mouseleave', function() {
+                mouseX = canvas.width / 2;
+                mouseY = canvas.height / 2;
+            });
+        }
+
+        function setupControls() {
+            const intensitySlider = document.getElementById('intensity');
+            const mouseRadiusSlider = document.getElementById('mouseRadius');
+            const animationSpeedSlider = document.getElementById('animationSpeed');
+
+            intensitySlider.addEventListener('input', function() {
+                document.getElementById('intensityValue').textContent = this.value;
+                if (originalImageData) applyCurrentEffect();
+            });
+
+            mouseRadiusSlider.addEventListener('input', function() {
+                document.getElementById('mouseRadiusValue').textContent = this.value + 'px';
+                if (originalImageData) applyCurrentEffect();
+            });
+
+            animationSpeedSlider.addEventListener('input', function() {
+                document.getElementById('animationSpeedValue').textContent = this.value;
+            });
+        }
+
+        function updateMouseInfo() {
+            document.getElementById('mouseInfo').textContent = 
+                `Mouse: (${Math.round(mouseX)}, ${Math.round(mouseY)}) | Effect: ${currentEffect}`;
+        }
+
+        // Camera functionality
+        document.getElementById('startCamera').addEventListener('click', async function() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 640, height: 480, facingMode: 'user' } 
+                });
+                
+                const video = document.getElementById('videoElement');
+                video.srcObject = stream;
+                
+                document.getElementById('takePhoto').disabled = false;
+                this.disabled = true;
+                
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                alert('Error accessing camera. Please check permissions.');
+            }
+        });
+
+        document.getElementById('takePhoto').addEventListener('click', function() {
+            const video = document.getElementById('videoElement');
+            
+            // Set canvas size to video dimensions
+            canvas.width = 600;
+            canvas.height = 400;
+            hiddenCanvas.width = 600;
+            hiddenCanvas.height = 400;
+            
+            // Draw video frame to canvas
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Store original image data
+            originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            
+            // Hide status message
+            document.getElementById('statusMessage').style.display = 'none';
+            
+            // Start animation loop
+            startAnimationLoop();
+            
+            // Stop camera
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            
+            document.getElementById('startCamera').disabled = false;
+            this.disabled = true;
+        });
+
+        function startAnimationLoop() {
+            function animate() {
+                time += parseFloat(document.getElementById('animationSpeed').value) * 0.01;
+                if (originalImageData) {
+                    applyCurrentEffect();
+                }
+                animationFrame = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function setEffect(effectName) {
+            currentEffect = effectName;
+            
+            // Update button states
+            document.querySelectorAll('.effect-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            updateMouseInfo();
+            if (originalImageData) applyCurrentEffect();
+        }
+
+        function applyCurrentEffect() {
+            if (!originalImageData) return;
+
+            const intensity = parseFloat(document.getElementById('intensity').value) / 100;
+            const mouseRadius = parseFloat(document.getElementById('mouseRadius').value);
+
+            switch(currentEffect) {
+                case 'none':
+                    ctx.putImageData(originalImageData, 0, 0);
+                    break;
+                case 'fisheye':
+                    applyFisheyeEffect(intensity);
+                    break;
+                case 'perspective':
+                    applyPerspectiveEffect(intensity);
+                    break;
+                case 'kaleidoscope':
+                    applyKaleidoscopeEffect(intensity);
+                    break;
+                case 'mirror':
+                    applyMirrorEffect(intensity);
+                    break;
+                case 'ripple':
+                    applyRippleEffect(intensity, mouseRadius);
+                    break;
+            }
+        }
+
+        function applyFisheyeEffect(intensity) {
+            const imageData = ctx.createImageData(canvas.width, canvas.height);
+            const data = imageData.data;
+            const originalData = originalImageData.data;
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const maxRadius = Math.min(centerX, centerY);
+            
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const dx = x - centerX;
+                    const dy = y - centerY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < maxRadius) {
+                        const distortionFactor = Math.pow(distance / maxRadius, 1 + intensity);
+                        const angle = Math.atan2(dy, dx);
+                        
+                        const srcX = Math.round(centerX + Math.cos(angle) * distortionFactor * maxRadius);
+                        const srcY = Math.round(centerY + Math.sin(angle) * distortionFactor * maxRadius);
+                        
+                        if (srcX >= 0 && srcX < canvas.width && srcY >= 0 && srcY < canvas.height) {
+                            const srcIndex = (srcY * canvas.width + srcX) * 4;
+                            const destIndex = (y * canvas.width + x) * 4;
+                            
+                            data[destIndex] = originalData[srcIndex];
+                            data[destIndex + 1] = originalData[srcIndex + 1];
+                            data[destIndex + 2] = originalData[srcIndex + 2];
+                            data[destIndex + 3] = originalData[srcIndex + 3];
+                        }
+                    } else {
+                        const srcIndex = (y * canvas.width + x) * 4;
+                        data[srcIndex] = originalData[srcIndex];
+                        data[srcIndex + 1] = originalData[srcIndex + 1];
+                        data[srcIndex + 2] = originalData[srcIndex + 2];
+                        data[srcIndex + 3] = originalData[srcIndex + 3];
+                    }
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyPerspectiveEffect(intensity) {
+            const mouseInfluence = intensity * 0.3;
+            const normalizedMouseX = (mouseX / canvas.width - 0.5) * mouseInfluence;
+            const normalizedMouseY = (mouseY / canvas.height - 0.5) * mouseInfluence;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            
+            // Apply perspective transformation
+            ctx.transform(
+                1 + normalizedMouseX * 0.2, normalizedMouseY * 0.1,
+                normalizedMouseY * 0.1, 1 + normalizedMouseX * 0.2,
+                normalizedMouseX * 20, normalizedMouseY * 20
+            );
+            
+            ctx.putImageData(originalImageData, 0, 0);
+            ctx.restore();
+        }
+
+        function applyKaleidoscopeEffect(intensity) {
+            const segments = 6;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < segments; i++) {
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate((i * Math.PI * 2) / segments + time * intensity);
+                ctx.scale(1, i % 2 === 0 ? 1 : -1);
+                ctx.drawImage(hiddenCanvas, -centerX, -centerY);
+                ctx.restore();
+            }
+            
+            // Draw original to hidden canvas for next frame
+            hiddenCtx.putImageData(originalImageData, 0, 0);
+        }
+
+        function applyMirrorEffect(intensity) {
+            const mouseInfluence = Math.sin(time + mouseX * 0.01) * intensity;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Left half - normal
+            ctx.drawImage(hiddenCanvas, 0, 0, canvas.width / 2, canvas.height, 
+                         0, 0, canvas.width / 2, canvas.height);
+            
+            // Right half - mirrored with mouse influence
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.translate(-canvas.width, mouseInfluence * 10);
+            ctx.drawImage(hiddenCanvas, 0, 0, canvas.width / 2, canvas.height, 
+                         0, 0, canvas.width / 2, canvas.height);
+            ctx.restore();
+            
+            hiddenCtx.putImageData(originalImageData, 0, 0);
+        }
+
+        function applyRippleEffect(intensity, radius) {
+            const imageData = ctx.createImageData(canvas.width, canvas.height);
+            const data = imageData.data;
+            const originalData = originalImageData.data;
+            
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const dx = x - mouseX;
+                    const dy = y - mouseY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    let srcX = x;
+                    let srcY = y;
+                    
+                    if (distance < radius) {
+                        const ripple = Math.sin((distance * 0.1) - time * 2) * intensity * 20;
+                        const angle = Math.atan2(dy, dx);
+                        srcX = Math.round(x + Math.cos(angle) * ripple);
+                        srcY = Math.round(y + Math.sin(angle) * ripple);
+                    }
+                    
+                    if (srcX >= 0 && srcX < canvas.width && srcY >= 0 && srcY < canvas.height) {
+                        const srcIndex = (srcY * canvas.width + srcX) * 4;
+                        const destIndex = (y * canvas.width + x) * 4;
+                        
+                        data[destIndex] = originalData[srcIndex];
+                        data[destIndex + 1] = originalData[srcIndex + 1];
+                        data[destIndex + 2] = originalData[srcIndex + 2];
+                        data[destIndex + 3] = originalData[srcIndex + 3];
+                    }
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function resetEffects() {
+            currentEffect = 'none';
+            document.getElementById('intensity').value = 50;
+            document.getElementById('mouseRadius').value = 100;
+            document.getElementById('animationSpeed').value = 5;
+            
+            document.querySelectorAll('.effect-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.effect-btn').classList.add('active');
+            
+            setupControls();
+            if (originalImageData) applyCurrentEffect();
+        }
+
+        function downloadImage() {
+            if (!originalImageData) {
+                alert('Please capture a photo first!');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            link.download = `distorted-photo-${currentEffect}-${Date.now()}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+        });
+    </script>
+</body>
+</html>
