@@ -5,6 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jester Pizza - Royal Delivery</title>
   <style>
+  		/* NAVIGATION MENU - Complete working implementation */
+		
+
+	.nav-sidebar {
+	  position: fixed;
+	  top: 50%;
+	  left: -180px;
+	  transform: translateY(-50%);
+	  width: 200px;
+	  background: white;
+	  border: 2px solid #ccc;
+	  border-radius: 0 12px 12px 0;
+	  box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+	  transition: left 0.3s ease-in-out;
+	  z-index: 9999;
+	}
+
+	.nav-sidebar.open {
+	  left: 0;
+	}
+
+	.directory-tab {
+	  position: absolute;
+	  right: -50px;
+	  top: 50%;
+	  transform: translateY(-50%);
+	  width: 50px;
+	  height: 100px;
+	  background: white;
+	  border: 2px solid #ccc;
+	  border-left: none;
+	  border-radius: 0 8px 8px 0;
+	  cursor: pointer;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  writing-mode: vertical-rl;
+	  font-size: 12px;
+	  font-weight: bold;
+	  color: #666;
+	  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+	}
+
+	.directory-tab:hover {
+	  background: #f0f0f0;
+	}
+
+	.nav-header {
+	  padding: 10px;
+	  background: #f5f5f5;
+	  border-bottom: 1px solid #ddd;
+	  border-radius: 0 10px 0 0;
+	}
+
+	.return-home {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 5px;
+	  padding: 5px 8px;
+	  background: white;
+	  border: 1px solid #ccc;
+	  border-radius: 12px;
+	  text-decoration: none;
+	  color: #555;
+	  font-size: 11px;
+	}
+
+	.return-home:hover {
+	  background: #e8e8e8;
+	}
+
+	.arrow-left {
+	  width: 0;
+	  height: 0;
+	  border-top: 3px solid transparent;
+	  border-bottom: 3px solid transparent;
+	  border-right: 5px solid #555;
+	}
+
+	/* RENAMED TO AVOID CONFLICT - was .nav-buttons */
+	.sidebar-nav-buttons {
+	  padding: 8px;
+	  max-height: 400px;
+	  overflow-y: auto;
+	}
+
+	/* RENAMED TO AVOID CONFLICT - was .nav-button */
+	.sidebar-nav-button {
+	  display: block;
+	  margin-bottom: 6px;
+	  transition: transform 0.2s ease;
+	}
+
+	.sidebar-nav-button:hover {
+	  transform: scale(1.02);
+	}
+
+	.sidebar-nav-button img {
+	  width: 100%;
+	  height: auto;
+	  border-radius: 4px;
+	}
+	
     @font-face {
       font-family: 'Remedy';
       src: url('../assets/Remedy Regular.ttf') format('truetype');
@@ -88,8 +192,6 @@
       width: 100%;
       max-width: 250px;
       height: auto;
-      border-radius: 10px;
-      margin-bottom: 10px;
     }
     
     .pizza-title {
@@ -98,9 +200,59 @@
       font-size: 16px;
       margin: 0;
     }
+
   </style>
 </head>
 <body>
+<!-- NAVIGATION SIDEBAR -->
+	<div class="nav-sidebar" id="navSidebar">
+	  <div class="directory-tab" onclick="toggleNav()">
+		Directory
+	  </div>
+	  
+	  <div class="nav-header">
+		<a href="../index.html" class="return-home">
+		  <div class="arrow-left"></div>
+		  Return to Homepage
+		</a>
+	  </div>
+	  
+	  <div class="sidebar-nav-buttons">
+		<a href="../allennella/mirrordemo/mirrormazedemo_gifs.html" class="sidebar-nav-button">
+		  <img src="../assets/allen_btn.png" alt="Allen Nella" />
+		</a>
+		<a href="../blueroan/home.html" class="sidebar-nav-button">
+		  <img src="../assets/blueroan_btn.png" alt="Blue Roan" />
+		</a>
+		<a href="../curtaincall/home.html" class="sidebar-nav-button">
+		  <img src="../assets/curtain_btn.png" alt="Curtain Call" />
+		</a>
+		<a href="../mypetboy/home.html" class="sidebar-nav-button">
+		  <img src="../assets/boy_btn.png" alt="My Pet Boy" />
+		</a>
+		<a href="../growingminds/home.html" class="sidebar-nav-button">
+		  <img src="../assets/growing_btn.png" alt="Growing Minds" />
+		</a>
+		<a href="../jesterspizza/home.html" class="sidebar-nav-button">
+		  <img src="../assets/jester_btn.png" alt="Jester's Pizza" />
+		</a>
+		<a href="../index.html" class="sidebar-nav-button">
+		  <img src="../assets/jones_btn.png" alt="Mayor Gray Jones" />
+		</a>
+		<a href="../nxhealth/nxhealthhome.html" class="sidebar-nav-button">
+		  <img src="../assets/nxh_btn.png" alt="NX Health" />
+		</a>
+		<a href="../index.html" class="sidebar-nav-button">
+		  <img src="../assets/rooster_btn.png" alt="Rooster" />
+		</a>
+		<a href="../thesecret/secrethome.html" class="sidebar-nav-button">
+		  <img src="../assets/secret_btn.png" alt="The Secret" />
+		</a>
+		<a href="../index.html" class="sidebar-nav-button">
+		  <img src="../assets/torzion_btn.png" alt="Torzion" />
+		</a>
+	  </div>
+	</div>
   <div class="header">
 	<a href="home.html"><img src="../assets/jesterpizzalogo.png" alt="Jester Pizza Logo" height="120" /></a>
     <div class="nav-buttons">
@@ -134,6 +286,27 @@
       </div>
     </div>
   </div>
+  <script>
+		  function toggleNav() {
+		  const sidebar = document.getElementById('navSidebar');
+		  sidebar.classList.toggle('open');
+		}
 
+		// Close sidebar when clicking outside
+		document.addEventListener('click', function(event) {
+		  const sidebar = document.getElementById('navSidebar');
+		  
+		  // If click is outside sidebar, close it
+		  if (!sidebar.contains(event.target)) {
+			sidebar.classList.remove('open');
+		  }
+		});
+
+		// Prevent sidebar from closing when clicking inside it
+		document.getElementById('navSidebar').addEventListener('click', function(event) {
+		  event.stopPropagation();
+		});
+		
+  </script>
 </body>
 </html>
