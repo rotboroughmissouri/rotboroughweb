@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Photo Demo - About</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .user-photo-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.1);
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .no-photo-placeholder {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px dashed rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+
+        .content-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .content-section h2 {
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .content-section p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .photo-status {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .photo-status.has-photo {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .photo-status.no-photo {
+            background: rgba(255, 150, 0, 0.1);
+            border: 2px solid rgba(255, 150, 0, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .user-photo-display,
+            .no-photo-placeholder {
+                width: 60px;
+                height: 60px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👋 About This Demo</h1>
+            <p>Cross-page webcam photo persistence explained</p>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-btn">🏠 Home</a>
+                <a href="about.html" class="nav-btn active">👋 About</a>
+                <a href="gallery.html" class="nav-btn">🖼️ Gallery</a>
+                <a href="contact.html" class="nav-btn">📞 Contact</a>
+            </div>
+        </div>
+
+        <!-- User Photo Display (appears in corner when photo exists) -->
+        <div class="user-photo-display" id="userPhotoCorner"></div>
+        <!-- Placeholder when no photo -->
+        <div class="no-photo-placeholder" id="noPhotoPlaceholder">📷</div>
+
+        <!-- Photo Status Section -->
+        <div class="photo-status" id="photoStatus">
+            <h3 id="photoStatusTitle">🔍 Checking for your photo...</h3>
+            <p id="photoStatusMessage">Loading...</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <h2>🎯 How This Demo Works</h2>
+            <p>This demonstration shows how webcam photos can be captured on one page and then displayed across multiple separate HTML files using sessionStorage. This is perfect for creating personalized experiences across your website without any server-side storage.</p>
+            
+            <p><strong>🔧 Technical Implementation:</strong></p>
+            <ul>
+                <li><strong>MediaDevices.getUserMedia():</strong> Requests camera access with user permission</li>
+                <li><strong>HTML5 Canvas:</strong> Captures still frames from the video stream</li>
+                <li><strong>SessionStorage:</strong> Stores photos as base64 strings across page loads</li>
+                <li><strong>Cross-Page Retrieval:</strong> Each page checks for existing photos on load</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 Privacy & Security Benefits</h2>
+            <p>This approach prioritizes user privacy and gives you several advantages:</p>
+            <ul>
+                <li>✅ <strong>No Server Storage:</strong> Photos never leave the user's device</li>
+                <li>✅ <strong>Session-Only:</strong> Photos automatically delete when the tab closes</li>
+                <li>✅ <strong>User Control:</strong> Clear permission prompts and easy retake options</li>
+                <li>✅ <strong>No Liability:</strong> You don't store any personal data on your servers</li>
+                <li>✅ <strong>Transparent:</strong> Users can see exactly what's happening</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Real-World Use Cases</h2>
+            <p>This technique can be used for various engaging website features:</p>
+            <ul>
+                <li>🏢 <strong>Virtual Office Visits:</strong> Show visitor photos in a "guest book" style</li>
+                <li>🎉 <strong>Event Websites:</strong> Photo booth experiences for conferences or parties</li>
+                <li>👤 <strong>Profile Dashboards:</strong> Temporary profile photos for session-based apps</li>
+                <li>🎮 <strong>Interactive Games:</strong> Include user photos in game interfaces</li>
+                <li>📋 <strong>Registration Forms:</strong> Capture photos for temporary ID badges</li>
+                <li>🎨 <strong>Creative Tools:</strong> Photo editing or filtering applications</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Getting Started</h2>
+            <p>If you haven't taken a photo yet, head back to the home page to try it out! Once you capture a photo, return here to see how it persists across this separate HTML file.</p>
+            
+            <a href="index.html" class="back-link">📸 Go Take a Photo</a>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Browser Compatibility</h2>
+            <p>This demo works in all modern browsers:</p>
+            <ul>
+                <li>✅ Chrome/Chromium (Desktop & Mobile)</li>
+                <li>✅ Firefox (Desktop & Mobile)</li>
+                <li>✅ Safari (Desktop & Mobile)</li>
+                <li>✅ Edge (Desktop & Mobile)</li>
+            </ul>
+            <p>Note: Camera access requires HTTPS in production environments (but works on localhost for development).</p>
+        </div>
+    </div>
+
+    <script>
+        // Check for existing photo on page load
+        window.addEventListener('load', function() {
+            checkForExistingPhoto();
+        });
+
+        function checkForExistingPhoto() {
+            const savedPhoto = sessionStorage.getItem('userWebcamPhoto');
+            const userPhotoCorner = document.getElementById('userPhotoCorner');
+            const noPhotoPlaceholder = document.getElementById('noPhotoPlaceholder');
+            const photoStatus = document.getElementById('photoStatus');
+            const photoStatusTitle = document.getElementById('photoStatusTitle');
+            const photoStatusMessage = document.getElementById('photoStatusMessage');
+
+            if (savedPhoto) {
+                // Photo exists - display it
+                userPhotoCorner.style.backgroundImage = `url(${savedPhoto})`;
+                userPhotoCorner.style.backgroundSize = 'cover';
+                userPhotoCorner.style.backgroundPosition = 'center';
+                userPhotoCorner.style.display = 'block';
+                noPhotoPlaceholder.style.display = 'none';
+
+                // Update status
+                photoStatus.className = 'photo-status has-photo';
+                photoStatusTitle.textContent = '✅ Photo Found!';
+                photoStatusMessage.textContent = 'Your photo from the home page is now displayed in the top-right corner. It will appear on all pages during this session!';
+
+                console.log('✅ Photo loaded from sessionStorage');
+            } else {
+                // No photo found
+                userPhotoCorner.style.display = 'none';
+                noPhotoPlaceholder.style.display = 'flex';
+
+                // Update status
+                photoStatus.className = 'photo-status no-photo';
+                photoStatusTitle.textContent = '📷 No Photo Yet';
+                photoStatusMessage.textContent = 'No photo found in this session. Visit the home page to capture a photo that will then appear here!';
+
+                console.log('ℹ️ No photo found in sessionStorage');
+            }
+        }
+
+        // Debug function to check sessionStorage contents
+        function debugSessionStorage() {
+            const keys = Object.keys(sessionStorage);
+            console.log('📋 SessionStorage contents:', keys);
+            
+            if (keys.includes('userWebcamPhoto')) {
+                const photoData = sessionStorage.getItem('userWebcamPhoto');
+                console.log('📸 Photo data length:', photoData.length);
+                console.log('📸 Photo data preview:', photoData.substring(0, 50) + '...');
+            }
+        }
+
+        // Run debug on load (remove in production)
+        debugSessionStorage();
+
+        // Listen for storage events (in case photo is taken in another tab)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'userWebcamPhoto') {
+                console.log('🔄 Photo updated in another tab, refreshing...');
+                checkForExistingPhoto();
+            }
+        });
+    </script>
+</body>
+</html>
