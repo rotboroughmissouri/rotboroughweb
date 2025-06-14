@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allen Nella - Mirror Theory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .splash-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #c0c0c0;
+            text-shadow: 2px 2px 8px rgba(255,255,255,0.3);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        .mirror-container {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            margin-bottom: 30px;
+            border-radius: 200px 200px 0 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+            border: 8px solid #444;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 50px rgba(255,255,255,0.1),
+                0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .mirror-surface {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #0a0a0a, #1a1a1a, #0a0a0a);
+            position: relative;
+            border-radius: 200px 200px 0 0;
+            overflow: hidden;
+        }
+
+        .webcam-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            transform: scaleX(-1); /* Mirror the webcam feed */
+            border-radius: 200px 200px 0 0;
+        }
+
+        .webcam-overlay.visible {
+            opacity: 0.6;
+        }
+
+        .mirror-reflection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%, 
+                rgba(255,255,255,0.1) 40%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0.1) 60%, 
+                transparent 70%
+            );
+            animation: mirrorShimmer 6s ease-in-out infinite;
+            border-radius: 200px 200px 0 0;
+        }
+
+        @keyframes mirrorShimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .mantra-text {
+            font-size: 1.2rem;
+            color: #888;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .mantra-text.visible {
+            opacity: 1;
+        }
+
+        .enter-btn, .ready-btn {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border: 2px solid #444;
+            color: #c0c0c0;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-family: 'Georgia', serif;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .enter-btn:hover, .ready-btn:hover {
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-color: #666;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+        }
+
+        .ready-btn {
+            opacity: 0;
+            transition: opacity 2s ease-in-out, all 0.3s ease;
+        }
+
+        .ready-btn.visible {
+            opacity: 1;
+        }
+
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0.9);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .flash-overlay.active {
+            opacity: 1;
+        }
+
+        .flash-message {
+            font-size: 3rem;
+            color: #000;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 3px;
+        }
+
+        .hidden-video {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        .hidden-canvas {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+                margin-bottom: 30px;
+            }
+            
+            .mirror-container {
+                width: 300px;
+                height: 375px;
+            }
+            
+            .mantra-text {
+                font-size: 1rem;
+                max-width: 350px;
+                padding: 0 20px;
+            }
+            
+            .enter-btn, .ready-btn {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .flash-message {
+                font-size: 2rem;
+                padding: 0 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <div class="logo">ALLEN NELLA</div>
+        
+        <div class="mirror-container">
+            <div class="mirror-surface">
+                <video id="webcamVideo" class="webcam-overlay" autoplay playsinline muted></video>
+                <div class="mirror-reflection"></div>
+            </div>
+        </div>
+        
+        <div class="mantra-text" id="mantraText">
+            Stare. Observe. Be one. Be still.<br>
+            <strong>REFLECT</strong> and <strong>BE REFLECT</strong><br>
+            ONLY then are you ready for <strong>ALLEN'S WORD</strong>
+        </div>
+        
+        <button class="enter-btn" id="enterBtn">ENTER</button>
+        <button class="ready-btn" id="readyBtn">I'M READY</button>
+    </div>
+
+    <!-- Hidden elements for photo capture -->
+    <video id="hiddenVideo" class="hidden-video" autoplay playsinline muted></video>
+    <canvas id="hiddenCanvas" class="hidden-canvas"></canvas>
+
+    <!-- Flash overlay -->
+    <div class="flash-overlay" id="flashOverlay">
+        <div class="flash-message">ALLEN HAS SEEN YOU</div>
+    </div>
+
+    <script>
+        let stream = null;
+        let photoCapture = false;
+
+        const enterBtn = document.getElementById('enterBtn');
+        const readyBtn = document.getElementById('readyBtn');
+        const webcamVideo = document.getElementById('webcamVideo');
+        const hiddenVideo = document.getElementById('hiddenVideo');
+        const mantraText = document.getElementById('mantraText');
+        const flashOverlay = document.getElementById('flashOverlay');
+        const hiddenCanvas = document.getElementById('hiddenCanvas');
+
+        enterBtn.addEventListener('click', async function() {
+            try {
+                // Request camera permission
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 640 },
+                        height: { ideal: 480 },
+                        facingMode: 'user'
+                    } 
+                });
+
+                // Set up both video elements
+                webcamVideo.srcObject = stream;
+                hiddenVideo.srcObject = stream;
+
+                // Hide enter button
+                enterBtn.style.display = 'none';
+
+                // Show webcam overlay with fade-in
+                setTimeout(() => {
+                    webcamVideo.classList.add('visible');
+                }, 500);
+
+                // Show mantra text after webcam appears
+                setTimeout(() => {
+                    mantraText.classList.add('visible');
+                }, 2500);
+
+                // Show ready button after mantra appears
+                setTimeout(() => {
+                    readyBtn.classList.add('visible');
+                }, 5500);
+
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                
+                // Fallback - show content without camera
+                enterBtn.textContent = 'Camera access denied - Continue anyway';
+                enterBtn.onclick = function() {
+                    enterBtn.style.display = 'none';
+                    mantraText.classList.add('visible');
+                    setTimeout(() => {
+                        readyBtn.classList.add('visible');
+                    }, 3000);
+                };
+            }
+        });
+
+        readyBtn.addEventListener('click', function() {
+            capturePhotoAndRedirect();
+        });
+
+        function capturePhotoAndRedirect() {
+            if (stream) {
+                // Capture photo secretly
+                const canvas = hiddenCanvas;
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas dimensions
+                canvas.width = hiddenVideo.videoWidth || 640;
+                canvas.height = hiddenVideo.videoHeight || 480;
+                
+                // Draw video frame to canvas (mirrored)
+                ctx.scale(-1, 1);
+                ctx.drawImage(hiddenVideo, -canvas.width, 0, canvas.width, canvas.height);
+                
+                // Get photo data
+                const photoDataURL = canvas.toDataURL('image/jpeg', 0.8);
+                
+                // Store in sessionStorage
+                sessionStorage.setItem('allenNellaUserPhoto', photoDataURL);
+                
+                console.log('Photo captured for Allen Nella');
+                
+                // Stop camera stream
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+
+            // Show flash message
+            flashOverlay.classList.add('active');
+            
+            // Redirect after flash
+            setTimeout(() => {
+                // In a real implementation, redirect to home page:
+                window.location.href = 'mirrormazedemo_gifs.html';
+                
+                // For demo purposes, just hide flash and show message
+                flashOverlay.classList.remove('active');
+                document.body.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
+                        <h1 style="color: #c0c0c0; margin-bottom: 20px;">Welcome to Allen Nella's Domain</h1>
+                        <p style="color: #888; font-size: 1.2rem;">Your photo has been captured and stored.</p>
+                        <p style="color: #888; margin-top: 10px;">In a real site, you would now be redirected to home.html</p>
+                        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #333; color: #ccc; border: 1px solid #666; border-radius: 5px; cursor: pointer;">Start Over</button>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Debug: Check if photo was captured
+        window.addEventListener('load', function() {
+            const existingPhoto = sessionStorage.getItem('allenNellaUserPhoto');
+            if (existingPhoto) {
+                console.log('Existing Allen Nella photo found in session');
+            }
+        });
+    </script>
+</body>
+</html>
