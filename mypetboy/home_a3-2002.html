@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Pet Boy - Home</title>
   <style>
-    		/* NAVIGATION MENU - Complete working implementation */
+     		/* NAVIGATION MENU - Complete working implementation */
 		
 
 	.nav-sidebar {
@@ -294,6 +294,18 @@
       margin-top: 5px;
       cursor: pointer;
     }
+    .comingsoon {
+      font-family: "Comic Sans MS", cursive;
+      font-size: 24px;
+        background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+      text-decoration: underline;
+      margin-top: 5px;
+	  margin-bottom: 15px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -355,13 +367,14 @@
 		  
 		  <div class="time-header">
 			<h3>Site Archive</h3>
-			<div class="current-date" id="currentDate">April 13, 2003</div>
+			<div class="current-date" id="currentDate">March 5, 2002</div>
 		  </div>
 		  
 		  <div class="time-content">
 			<select class="version-dropdown" id="versionDropdown" onchange="changeVersion()">
-			  <option value="home.html">April 2003 - Current</option>
-			  <option value="home_a3-2002.html">March 2002</option>
+			  <option value="home_a3-2002.html">March 2002 - Current</option>
+			  <option value="home.html">April 2003</option>
+
 			  <!-- Add more versions here! -->
 			</select>
 			
@@ -375,30 +388,23 @@
 		</div>
 
 		<!-- MAIN CODE -->
+		
   <div class="header">
-    <a href="home.html"><img src="../assets/mpblogo.png" alt="My Pet Boy Logo" /></a>
-    <img src="../assets/rageboyexclusive.png" alt="Exclusively for RageBoy 2000 GX" />
+    
   </div>
 
   <div class="nav">
-    <a href="screenshots.html"><img src="../assets/screenshotbtn.png" alt="Screenshots" /></a>
-    <a href="buildaboy.html"><img src="../assets/buildaboybtn.png" alt="Build a Boy" /></a>
-    <a href="#"><img src="../assets/boyfoundationbtn.png" alt="Boy Friendship Foundation" /></a>
+ 
   </div>
 
   <div class="content">
-    <div class="description">
-      <img src="../assets/meetboyheader.png" alt="Meet Boy Header" />
-      <p>
-        Inspired by the heartwarming tale of Boy, the miracle cow born with no front legs, Rotplay is proud to present the Rotborough icon’s first video game experience! You’ll take Boy home as a young calf, and raise him as your very own pet. Teach him to walk, dress him up, and feed him yummy treats! Be careful though - Boy is quite naughty, so keep him out of trouble and away from drugs and alcohol. Incase he does get mischievious, with Rage Boy Face recognition technology, you’ll be able to scold and punish the badly behaved bovine with your own voice! Will you raise Boy into an upstanding citizen, or will you watch him turn into a drunken derelict? Truthfully, we don’t care, as long as you have fun!
-      </p>
-    </div>
-    <img src="../assets/boy_game.png" alt="Boy in Bathtub Game Graphic" />
+  <img src="../assets/underconstruction.png" alt="This Website is Under Construction!" />
+        <img src="../assets/constructionboy.png" alt="Construction Boy" />
   </div>
 
   <div class="footer">
-    <img src="../assets/footer_logo.png" alt="Footer Logos" />
-    <div class="safety" onclick="location.href='safety.html'">SAFETY WARNING</div>
+	<div class = "comingsoon">The Official BOY THE COW Videogame is coming soon!</div>
+    <img src="../assets/footer_rotplay_temp.png" alt="Footer Logos" />
   </div>
   
     <script>
@@ -424,8 +430,8 @@
 		
 				// Site versions data - CUSTOMIZE THIS FOR EACH PAGE!
 		const siteVersions = [
-		  { date: "April 13, 2003", label: "July 2004", url: "home.html", year: 2003, month: 4, day: 13 },
-		  { date: "March 05, 2002", label: "March 2002", url: "home_a3-2002.html", year: 2002, month: 3, day: 5 }
+		  { date: "March 05, 2002", label: "March 2002", url: "home_a3-2002.html", year: 2002, month: 3, day: 5 },
+		  { date: "April 13, 2003", label: "July 2004", url: "home.html", year: 2003, month: 4, day: 13 }
 		  // Add more versions like:
 		  // { date: "March 3, 2004", label: "Mar 2004 - Grand Opening", url: "home_mar2004.html", year: 2004, month: 3, day: 3 }
 		];
@@ -520,6 +526,7 @@
 		window.addEventListener('load', function() {
 		  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
 		});
+		
   </script>
 </body>
 </html>
