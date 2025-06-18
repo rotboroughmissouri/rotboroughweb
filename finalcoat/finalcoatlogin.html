@@ -244,7 +244,7 @@
     }
 
     body {
-      background: url('../assets/soapBG.png') repeat;
+      background: url('../assets/redpaintBG.jpg') repeat;
       color: white;
       font-family: Verdana, sans-serif;
       margin: 0;
@@ -255,8 +255,8 @@
       height: 65px;
     }
     .site-header {
-      background: #ffe745;
-      color: black;
+      background: black;
+      color: red;
       font-family: Georgia, serif;
       font-size: 18px;
       padding: 10px;
@@ -306,7 +306,7 @@
       text-decoration: none;
     }
     .content-container {
-      background: #f0b6e4;
+      background: #b9b9b9;
       padding: 20px;
       width: 400px;
       text-align: center;
@@ -452,62 +452,33 @@
 		<!-- MAIN CODE -->
 		
   <div class="header-banner"></div>
-  <div class="site-header">Sebbie's Sweep Up <span style="color:#45d1ff">total cleaning service</span></div>
+  <div class="site-header">Final Coat <span style="color:#c9c9c9">Rotborough Painting & Carpentry</span></div>
 
   <div class="main-wrapper">
-    <img src="../assets/BroomLeft.png" alt="Left Curtain" class="curtain">
-
-    <div class="sidebar">
-      <div id="spotlight" class="spotlight-bg"></div>
-      <div class="menu-item" data-spotlight="../assets/broomstick-home.png">
-        <a href="../curtaincall/home_a1-02.html">Home</a>
-      </div>
-      <div class="menu-item" data-spotlight="../assets/broomstick-inquiries.png">
-        <a href="inquiries.html">Inquiries</a>
-      </div>
-      <div class="menu-item active" data-spotlight="../assets/broomstick-reviews.png" data-default="true">
-        <a href="#">Reviews</a>
-      </div>
-      <div class="menu-item" data-spotlight="../assets/broomstick-galleries.png">
-        <a href="#">Gallery</a>
-      </div>
-    </div>
-
-    <div class="content-container">
-  <img src="../assets/sebbiessweepup.JPG" alt="Logo">
-  
-  <div class="review-box">
-    <div class="stars">★★★★★</div>
-    <div class="review-text">"Sebbie's team cleaned up after our office party disaster. They were discreet, thorough, and left no trace of the unfortunate incident. Highly recommend for sensitive situations."</div>
-    <div class="reviewer-name">- Margaret Thompson</div>
-  </div>
-
-  <div class="review-box">
-    <div class="stars">★★★★★</div>
-    <div class="review-text">"When my basement flooded and things got messy, Sebbie's Sweep Up handled everything professionally. No questions asked, just results. Worth every penny."</div>
-    <div class="reviewer-name">- Frank Rodriguez</div>
-  </div>
-
-  <div class="review-box">
-    <div class="stars">★★★★★</div>
-    <div class="review-text">"Fast, reliable, and completely confidential. They cleaned up our warehouse incident so well that you'd never know anything happened. Excellent service."</div>
-    <div class="reviewer-name">- Sarah Chen</div>
-  </div>
-
-  <div class="review-box">
-    <div class="stars">★★★★★</div>
-    <div class="review-text">"Sebbie's team arrived within hours of my call and took care of everything. Their attention to detail and discretion is unmatched. Will definitely use again."</div>
-    <div class="reviewer-name">- David Miller</div>
-  </div>
+		<div class="content-container">
+		<div class="content-container">
+    <img src="../assets/logindoor.jpg" alt="Login Door" />
+    <form onsubmit="showLoginError(event)">
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="display: block; text-align: left; margin-bottom: 5px; color: black; font-weight: bold;">Username:</label>
+            <input type="text" id="username" name="username" required style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #999;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="password" style="display: block; text-align: left; margin-bottom: 5px; color: black; font-weight: bold;">Password:</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #999;">
+        </div>
+        <button type="submit" style="background: #416cff; color: white; padding: 10px 20px; font-size: 16px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">Access Client Portal</button>
+        <div id="loginError" style="color: red; font-weight: bold; margin-top: 15px; display: none;">ERROR: Invalid credentials or server unavailable. Please try again later.</div>
+    </form>
 </div>
+	  </div>
 
-    <img src="../assets/BroomRight.png" alt="Right Curtain" class="curtain">
   </div>
-  
+
   <div class="bottom-logo">
-  <a href="signature_a1-02.html">
-  <img src="../assets/hazelhollowssignature.jpg" alt="Site made by Hazel Hollows of Rotborough!">
 </div>
+
+
 
   <script>
 
@@ -646,6 +617,12 @@
 		window.addEventListener('load', function() {
 		  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
 		});
+		
+		function showLoginError(event) {
+		event.preventDefault();
+		document.getElementById('loginError').style.display = 'block';
+		return false;
+		}
   </script>
 </body>
 </html>
