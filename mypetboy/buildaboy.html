@@ -132,18 +132,23 @@
       cursor: pointer;
     }
     .avatar-container {
-      position: relative;
-      display: inline-block;
-      margin-top: 10px;
-    }
-    .avatar-container img {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .avatar-container img.base {
-      position: relative;
-    }
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.avatar-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+}
+
+.avatar-container img.base {
+  position: relative;
+  display: block;
+}
     .controls {
       margin-top: 40px;
     }
