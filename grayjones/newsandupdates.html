@@ -255,82 +255,131 @@
 			font-family: Arial, sans-serif;
 			padding: 20px;
 		}
-
-		.image-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 289px);
-			grid-template-rows: repeat(3, 229px);
-			gap: 0;
-			width: 867px; /* 289 * 3 */
-			height: 687px; /* 229 * 3 */
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-		}
-
-        .grid-item {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-		.grid-item img {
-			width: 289px;
-			height: 229px;
-			display: block;
-		}
-
-        .grid-item.clickable {
-            cursor: pointer;
-        }
-
-        .grid-item.clickable:hover {
-
-            z-index: 10;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-        }
-
-        @media (max-width: 950px) {
-            .image-grid {
-                width: 90vw;
-                height: 90vw;
-                max-width: 600px;
-                max-height: 600px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .image-grid {
-                width: 95vw;
-                height: 95vw;
-            }
-        }
 		
-		.text-container {
-			text-align: center;
-			margin-top: 30px;
-			max-width: 900px;
-		}
+	/* Main Content Styles */
+.main-container {
+	max-width: 1000px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-		.welcome-text {
-			font-family: "Times New Roman", serif;
-			font-size: 12pt;
-			background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			text-decoration: underline;
-			text-decoration-color: #FFD700;
-			line-height: 1.3;
-			margin-bottom: 15px;
-		}
+.header-section {
+	position: relative;
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
 
-		.quote-text {
-			font-family: serif;
-			font-size: 10pt;
-			font-style: italic;
-			color: Black;
-			line-height: 1.4;
-		}
+.back-arrow {
+	position: absolute;
+	left: 0;
+	font-size: 24px;
+	color: #333;
+	text-decoration: none;
+	padding: 10px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.8);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.3s ease;
+}
+
+.back-arrow:hover {
+	background: rgba(255, 255, 255, 1);
+	transform: scale(1.1);
+}
+
+.header-image {
+	max-width: 100%;
+	height: auto;
+}
+
+.content-wrapper {
+	display: flex;
+	align-items: stretch;
+	gap: 20px;
+	width: 100%;
+	max-width: 900px;
+}
+
+.pillar-left, .pillar-right {
+	height: 100%;
+	width: auto;
+	object-fit: contain;
+	object-position: center;
+}
+
+.news-content {
+	flex: 1;
+	background-image: url('../assets/newsbgpaper.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 40px;
+	border-radius: 8px;
+}
+
+.news-content h1 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 28px;
+	font-weight: bold;
+	color: #2c2c2c;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.news-content h2 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #2c2c2c;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.news-content p {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #333;
+	margin-bottom: 15px;
+	text-align: justify;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.content-wrapper {
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.pillar-left, .pillar-right {
+		width: 100%;
+		height: 40px;
+		object-fit: cover;
+	}
+	
+	.news-content {
+		padding: 30px 20px;
+	}
+	
+	.news-content h1 {
+		font-size: 24px;
+	}
+	
+	.news-content p {
+		font-size: 14px;
+	}
+}
+
+
     </style>
 </head>
 <body>
@@ -411,49 +460,34 @@
 		</div>
 
 		<!-- MAIN CODE -->
+<div class="main-container">
+	<!-- Header Section -->
+	<div class="header-section">
+		<a href="home.html" class="back-arrow">←</a>
+		<img src="../assets/newsandupdates.jpg" alt="News and Updates" class="header-image">
+	</div>
+	
+	<!-- Content Section -->
+	<div class="content-wrapper">
+		<img src="../assets/pillar.png" alt="Left Pillar" class="pillar-left">
+		
+		<div class="news-content">
+			<h1>NEWS OCTOBER 2004</h1>
+			<p>HELLO ROTBOROUGH! A warm and welcome salutations to you all. And thank you all for your continued support of our cause. Together with your help, we can keep Rotborough as the crown jewel of the midwestern United States! Now I’d like to personally take this time to address some issues that have been buggin’ me wild and I’d like to grab the axe of truth and cut down this crooked forest of lies! </p>
+			<h2>Regarding the RSRP</h2>
+			<p>Look. We’re all human are we not? We all make mistakes. And that's truly true of all true things! That said, I would like to just say that just because the RSRP was stillborn doesn’t mean I, as your Honest to goodness Mayor, will NOT allow MY people to drink tainted or messed up drinking water. Now since the disappearance of our young hot shot Luke LaChance, I have not been sleeping as a result of this loss of our personal national treasure. I wish solely to crash into slumber and be stress free once again but the loss of my once dear friend and business pal has been too much for my soul to bear. And I pray to The Goodest and HIGHEST LORD GOD for his safe return!</p>
+			<h2>What does that mean for the water situation?</h2>
+			<p>Glad you asked! At the moment, we’re not sure. Given that inspiration is a big variable, we may have a lack of such, and especially so as a result of losing our pal Luke, we decided to put the project on hiatus. We will continue to work at our own pace and get this resolved as soon as possible – HONEST!</p>
+			<h2>Now onto some GOOD NEWS! (Finally) </h2>
+			<p>We have decided to hold and host a true and honest challenge for the little ones of Rotborough! Yep that’s right! We still have that get-up-and-go-up-and-go-get-em-attitude! (you gotta during these times!) We’ve decided to host a drawing contest! The subject? YOUR FAVORITE MAYOR OF R’BOROUGH! The Tippy-Top billing 1st place prize? A BRAND NEW RAGEBOY VIDEO GAME COMPUTER CONSOLE! Yep! You’re Mayor is hip – HE CAN HANG! In addition to a new RAGEBOY console, 2nd place will receive a $100 dollar gift card to Jester Pizza! (Think of how many days you could eat for free with that!) And 3rd place will receive… *Drum roll please!* A $25 DOLLAR MONEY VOUCHER! That’s right! WOW, there really are no losers in this battle huh? The contest begins (date), but you better hurry! It ends (date)!</p>
+		</div>
+		
+		<img src="../assets/pillar.png" alt="Right Pillar" class="pillar-right">
+	</div>
+</div>
 		
 		
-    <div class="image-grid">
-        <!-- First Row -->
-        <div class="grid-item">
-            <img src="../assets/GrayTile01.jpg" alt="Tile1">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile02.jpg" alt="Tile2">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile03.jpg" alt="Tile3">
-        </div>
 
-        <!-- Second Row -->
-        <a href="#" class="grid-item clickable">
-            <img src="../assets/GrayTile04.jpg" alt="Tile4">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile05.jpg" alt="Tile5">
-        </div>
-        <a href="newsandupdates.html" class="grid-item clickable">
-            <img src="../assets/GrayTile06.jpg" alt="Tile6">
-        </a>
-
-        <!-- Third Row -->
-        <a href="funzone.html" class="grid-item clickable">
-            <img src="../assets/GrayTile07.jpg" alt="Tile7">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile08.jpg" alt="Tile8">
-        </div>
-        <a href="#" class="grid-item clickable">
-            <img src="../assets/GrayTile09.jpg" alt="Tile9">
-        </a>
-    </div>
-	<div class="text-container">
-    <div class="welcome-text">
-        Welcome to the state-of-the-art virtual office of your one true Mayor - Rotborough's own Gray Jones!
-    </div>
-    <div class="quote-text">
-        "The answer is not black or white, you always must look in between - look to GRAY!" - Mayor Gray Jones
-    </div>
 </div>
 <script>
 		  function toggleNav() {
