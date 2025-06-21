@@ -109,6 +109,135 @@
 	  border-radius: 4px;
 	}
 	
+			  /* TIME MACHINE SIDEBAR - Right side */
+		.time-sidebar {
+		  position: fixed;
+		  top: 50%;
+		  right: -220px;
+		  transform: translateY(-50%);
+		  width: 240px;
+		  background: white;
+		  border: 2px solid #ccc;
+		  border-radius: 12px 0 0 12px;
+		  box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+		  transition: right 0.3s ease-in-out;
+		  z-index: 9998;
+		}
+
+		.time-sidebar.open {
+		  right: 0;
+		}
+
+		.time-tab {
+		  position: absolute;
+		  left: -50px;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  width: 50px;
+		  height: 100px;
+		  background: white;
+		  border: 2px solid #ccc;
+		  border-right: none;
+		  border-radius: 8px 0 0 8px;
+		  cursor: pointer;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  writing-mode: vertical-lr;
+		  font-size: 12px;
+		  font-weight: bold;
+		  color: #666;
+		  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+		}
+
+		.time-tab:hover {
+		  background: #f0f0f0;
+		}
+
+		.time-header {
+		  padding: 10px;
+		  background: #f5f5f5;
+		  border-bottom: 1px solid #ddd;
+		  border-radius: 10px 0 0 0;
+		  text-align: center;
+		}
+
+		.time-header h3 {
+		  margin: 0;
+		  font-size: 14px;
+		  color: #333;
+		}
+
+		.current-date {
+		  font-size: 12px;
+		  color: #666;
+		  margin: 5px 0;
+		}
+
+		.time-content {
+		  padding: 15px;
+		}
+
+		.version-dropdown {
+		  width: 100%;
+		  padding: 8px;
+		  margin-bottom: 15px;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  font-size: 12px;
+		}
+
+		.calendar-container {
+		  background: #f9f9f9;
+		  border: 1px solid #ddd;
+		  border-radius: 4px;
+		  padding: 10px;
+		}
+
+		.calendar-header {
+		  text-align: center;
+		  font-weight: bold;
+		  font-size: 12px;
+		  margin-bottom: 8px;
+		  color: #333;
+		}
+
+		.calendar-grid {
+		  display: grid;
+		  grid-template-columns: repeat(7, 1fr);
+		  gap: 2px;
+		}
+
+		.calendar-day-header {
+		  text-align: center;
+		  font-size: 10px;
+		  font-weight: bold;
+		  color: #666;
+		  padding: 2px;
+		}
+
+		.calendar-day {
+		  text-align: center;
+		  font-size: 10px;
+		  padding: 3px;
+		  min-height: 20px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		}
+
+		.calendar-day.current {
+		  background: #416cff;
+		  color: white;
+		  border-radius: 2px;
+		  font-weight: bold;
+		}
+
+		.calendar-day.other-month {
+		  color: #ccc;
+		}
+	
+	
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -137,18 +266,88 @@
       padding: 20px;
     }
     h1 {
-      color: hotpink;
+      background: linear-gradient(to bottom, #ffb6f7, #ed2ead);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Acme', sans-serif;
       font-size: 2.5em;
       margin: 0;
       padding-bottom: 10px;
       text-align: left;
+      filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
     }
     .underline {
       height: 2px;
       background: black;
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
+	
+	.intro-text {
+  font-family: 'Acme', sans-serif;
+  font-size: 16px;
+  color: black;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+.testimonials-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonial-box {
+  border: 2px solid #ff69b4;
+  background: linear-gradient(to bottom, white, #ffb6f7);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.testimonial-text {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 14px;
+  color: black;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.testimonial-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.testimonial-name {
+  font-family: 'Acme', sans-serif;
+  font-size: 18px;
+  color: #0066cc;
+  font-weight: bold;
+}
+
+.rating-container {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.flower-rating {
+  width: 20px;
+  height: 20px;
+}
+
+.flower-full {
+  opacity: 1;
+}
+
+.flower-dim {
+  opacity: 0.3;
+}
   </style>
 </head>
 <body>
@@ -201,6 +400,34 @@
 		</a>
 	  </div>
 	</div>
+	
+				<!-- TIME MACHINE SIDEBAR -->
+		<div class="time-sidebar" id="timeSidebar">
+		  <div class="time-tab" onclick="toggleTime()">
+			Time Machine
+		  </div>
+		  
+		  <div class="time-header">
+			<h3>Site Archive</h3>
+			<div class="current-date" id="currentDate">November 11, 2001</div>
+		  </div>
+		  
+		  <div class="time-content">
+			<select class="version-dropdown" id="versionDropdown" onchange="changeVersion()">
+			  <option value="home.html">Nov 2001 - Current</option>
+			  <!-- Add more versions here! -->
+			</select>
+			
+			<div class="calendar-container">
+			  <div class="calendar-header" id="calendarHeader">November 2001</div>
+			  <div class="calendar-grid" id="calendarGrid">
+				<!-- Calendar will be generated by JavaScript -->
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+		<!-- MAIN CODE -->
   <div class="container">
     <img src="../assets/gmBanner.png" alt="Banner" class="banner">
     <div class="menu">
@@ -220,9 +447,17 @@
 		<img src="../assets/MenuGoal.png" alt="OurGoal">
 	  </a>
     </div>
-    <div class="content">
-      <h1>Welcome</h1>
+     <div class="content">
+      <h1>Testimonials</h1>
       <div class="underline"></div>
+      <div class="intro-text">
+  We here at Growing Minds understand that for every flower in the garden there are weeds lying in wait. And much like a garden the uncertainty of knowing whether or not this is the place to take your child can be itself a nerve wracking experience. Below are some of our testimonials from REAL parents who took their little superstars to Growing Minds.
+</div>
+
+<div class="testimonials-container" id="testimonialsContainer">
+  <!-- Testimonials will be generated by JavaScript -->
+</div>
+      
     </div>
   </div>
     <script>
@@ -231,21 +466,198 @@
 		  sidebar.classList.toggle('open');
 		}
 
-		// Close sidebar when clicking outside
+		// Close sidebars when clicking outside
 		document.addEventListener('click', function(event) {
-		  const sidebar = document.getElementById('navSidebar');
+		  const timeSidebar = document.getElementById('timeSidebar');
 		  
-		  // If click is outside sidebar, close it
-		  if (!sidebar.contains(event.target)) {
-			sidebar.classList.remove('open');
+		  // Close time sidebar if click is outside
+		  if (!timeSidebar.contains(event.target)) {
+			timeSidebar.classList.remove('open');
 		  }
 		});
 
 		// Prevent sidebar from closing when clicking inside it
-		document.getElementById('navSidebar').addEventListener('click', function(event) {
+		document.getElementById('timeSidebar').addEventListener('click', function(event) {
 		  event.stopPropagation();
 		});
 		
+				// Site versions data - CUSTOMIZE THIS FOR EACH PAGE!
+		const siteVersions = [
+		  { date: "November 11, 2001", label: "November 2001", url: "home.html", year: 2001, month: 11, day: 11 }
+		  // Add more versions like:
+		  // { date: "November 11, 2001", label: "Nov 2001 - Grand Opening", url: "home_mar2004.html", year: 2004, month: 3, day: 3 }
+		];
+
+		// Current version (default to first one)
+		let currentVersion = siteVersions[0];
+
+		// Time machine functions
+		function toggleTime() {
+		  const sidebar = document.getElementById('timeSidebar');
+		  sidebar.classList.toggle('open');
+		}
+
+		function changeVersion() {
+		  const dropdown = document.getElementById('versionDropdown');
+		  const selectedUrl = dropdown.value;
+		  
+		  // Find the selected version
+		  const selectedVersion = siteVersions.find(v => v.url === selectedUrl);
+		  if (selectedVersion) {
+			// Navigate to the selected version
+			window.location.href = selectedVersion.url;
+		  }
+		}
+
+		function updateCurrentDate() {
+		  document.getElementById('currentDate').textContent = currentVersion.date;
+		}
+
+		function generateCalendar(year, month, day) {
+		  const monthNames = ["January", "February", "March", "April", "May", "June",
+			"July", "August", "September", "October", "November", "December"];
+		  const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+		  
+		  // Update calendar header
+		  document.getElementById('calendarHeader').textContent = `${monthNames[month-1]} ${year}`;
+		  
+		  // Clear and rebuild calendar grid
+		  const grid = document.getElementById('calendarGrid');
+		  grid.innerHTML = '';
+		  
+		  // Add day headers
+		  dayNames.forEach(dayName => {
+			const dayHeader = document.createElement('div');
+			dayHeader.className = 'calendar-day-header';
+			dayHeader.textContent = dayName;
+			grid.appendChild(dayHeader);
+		  });
+		  
+		  // Calculate calendar layout
+		  const firstDay = new Date(year, month - 1, 1).getDay();
+		  const daysInMonth = new Date(year, month, 0).getDate();
+		  const daysInPrevMonth = new Date(year, month - 1, 0).getDate();
+		  
+		  // Add empty cells for days before month starts
+		  for (let i = firstDay - 1; i >= 0; i--) {
+			const dayCell = document.createElement('div');
+			dayCell.className = 'calendar-day other-month';
+			dayCell.textContent = daysInPrevMonth - i;
+			grid.appendChild(dayCell);
+		  }
+		  
+		  // Add days of current month
+		  for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
+			const dayCell = document.createElement('div');
+			dayCell.className = 'calendar-day';
+			dayCell.textContent = dayNum;
+			
+			// Highlight the current day
+			if (dayNum === day) {
+			  dayCell.classList.add('current');
+			}
+			
+			grid.appendChild(dayCell);
+		  }
+		  
+		  // Fill remaining cells with next month's days
+		  const totalCells = grid.children.length;
+		  const cellsNeeded = 49; // 7 rows * 7 days
+		  let nextMonthDay = 1;
+		  
+		  for (let i = totalCells; i < cellsNeeded; i++) {
+			const dayCell = document.createElement('div');
+			dayCell.className = 'calendar-day other-month';
+			dayCell.textContent = nextMonthDay;
+			grid.appendChild(dayCell);
+			nextMonthDay++;
+		  }
+		}
+
+		// Initialize calendar on page load
+		window.addEventListener('load', function() {
+		  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
+		});
+		
+		// Testimonials data - Easy to add new ones!
+const testimonials = [
+  {
+    text: "My child was extremely strange, sick and or weird. I was about to call it quits on this whole parenting/adulting thing… But then the experts at Growing Minds managed to turn my nutshell child into a mighty outgoing oak! I seriously stuck with the antagonizing thought that my kid was just gonna be that way forever. (Yeech!) Thankfully however this is not the case! 10000 Thank you to Mrs. Blom in particular for helping us out. Her patience with me and my child made this difficult period way easier on me!",
+    name: "Molly R. Volga",
+    rating: 10
+  },
+  {
+    text: "I was losing hope… I know. I know. Unbelievable, right?I love my child so much but after losing her mother and raising her by myself only to get a diagnosis of “slow-in-the-mind”. It was the final straw for me. I looked all over the state for a tutor, doctor, ANYTHING, to get her the help she needed. But my cousin George told me about this place called “Growing Minds”. Initially skeptical, I called and was told to take the online diagnostic test. The result was obviously not good. But it was after this when we were put in touch with Dr. Amaryllis (a psychologist for Growing Minds) And he provided us with a step by step treatment that was perfect for my daughter. A month ago, YES A MONTH AGO, she was struggling really had with math, reading and socializing, her teachers have since noticed the total 180 in her skills and were just as floored as I am! Thank you SO SO SO MUCH A 10/10 for children with special requirements!",
+    name: "Saul Richardson",
+    rating: 10
+  },
+  {
+    text: "Mr. Bloomington is so kind and sweet. My son loves spending time with him. He’s very gentle and patient.",
+    name: "Alyssa Rodriguez",
+    rating: 9
+  },
+  {
+    text: "Awesome place for slow boys and girls.",
+    name: "Timothy Rawlons",
+    rating: 8
+  },
+  {
+    text: "Ms. Juniper is such a great teacher. My son was diagnosed online and was found to need improvement. I had no idea that improvement would happen so quickly through her help. Her soft touch and gentle instruction could make even the slowest-of-minds sharp as a sword! Great place! Great teachers!",
+    name: "Rhonda Chandlers",
+    rating: 10
+  },
+  {
+    text: "Great place.",
+    name: "Sebbie Vonora",
+    rating: 8
+  },
+  {
+    text: "Good staff, good tutoring programs, good classrooms. My children never want to leave when I come to pick them up.",
+    name: "Timothy Rawlons",
+    rating: 9
+  },
+  {
+    text: "Totally professional, very kind tutors and teachers. Mrs. Gooseberry is a particular standout as far as her manner with my daughter. Unbelievably great place, couldn’t recommend it enough!",
+    name: " ",
+    rating: 10
+  }
+];
+
+// Function to generate flower rating
+function generateFlowerRating(rating) {
+  let flowersHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    const opacityClass = i <= rating ? 'flower-full' : 'flower-dim';
+    flowersHTML += `<img src="../assets/flowerrating.gif" alt="Flower" class="flower-rating ${opacityClass}">`;
+  }
+  return flowersHTML;
+}
+
+// Function to generate testimonials
+function generateTestimonials() {
+  const container = document.getElementById('testimonialsContainer');
+  
+  testimonials.forEach(testimonial => {
+    const testimonialHTML = `
+      <div class="testimonial-box">
+        <div class="testimonial-text">${testimonial.text}</div>
+        <div class="testimonial-footer">
+          <div class="testimonial-name">${testimonial.name}</div>
+          <div class="rating-container">
+            ${generateFlowerRating(testimonial.rating)}
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML += testimonialHTML;
+  });
+}
+
+// Generate testimonials when page loads
+window.addEventListener('load', function() {
+  generateTestimonials();
+  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
+});
   </script>
 </body>
 </html>
