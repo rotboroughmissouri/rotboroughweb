@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Growing Minds - Testimonials</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Pet Boy - Home</title>
   <style>
     		/* NAVIGATION MENU - Complete working implementation */
 		
@@ -239,115 +239,242 @@
 	
 	
     body {
+      background: url('../assets/skybg_tile.png') repeat;
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background: url('../assets/bricktile.png');
-      background-size: auto;
+      text-align: center;
     }
-    .container {
-      width: 800px;
-      margin: 0 auto;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    .header {
+      margin-top: 20px;
     }
-    .banner {
-      width: 100%;
+    .header img:first-child {
+      width: 20%;
+      height: auto;
     }
-    .menu {
-      display: flex;
-      margin-top: -10px;
+    .nav {
+      margin-top: 20px;
     }
-    .menu img {
-      height: 33.5px;
+    .nav img {
+      margin: 0 20px;
       cursor: pointer;
-      margin-right: -10px;
     }
     .content {
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 30px;
+      padding: 0 10px;
+      flex-wrap: wrap;
     }
-    h1 {
-      background: linear-gradient(to bottom, #ffb6f7, #ed2ead);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-family: 'Acme', sans-serif;
-      font-size: 2.5em;
-      margin: 0;
-      padding-bottom: 10px;
-      text-align: left;
-      filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.3));
-    }
-    .underline {
-      height: 2px;
-      background: black;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-	
-	.intro-text {
-  font-family: 'Acme', sans-serif;
-  font-size: 16px;
-  color: black;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  text-align: justify;
+.main-content {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+  padding: 0 20px;
 }
 
-.testimonials-container {
+.main-section {
+  flex: 2;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.testimonial-box {
-  border: 2px solid #ff69b4;
-  background: linear-gradient(to bottom, white, #ffb6f7);
-  border-radius: 10px;
+.preorder-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.announcement-banner {
+  width: 100%;
+  height: auto;
+}
+
+.blurred-rectangle {
+  position: relative;
+  padding: 30px 25px 25px 25px;
+  border-radius: 15px;
+  background: none;
+}
+
+.blurred-rectangle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  filter: blur(15px);
+  z-index: -1;
+}
+
+.blue-section::before {
+  background-color: #4169e1;
+}
+
+.red-section::before {
+  background-color: #dc143c;
+}
+
+.green-section::before {
+  background-color: #228b22;
+}
+
+.purple-section::before {
+  background-color: #8a2be2;
+}
+
+.blue-section,
+.red-section,
+.green-section,
+.purple-section {
+  background: none;
+}
+
+.section-heading {
+  font-family: serif;
+  font-style: italic;
+  font-size: 38px;
+  font-weight: bold;
+  text-shadow: 3px 3px 0px black;
+  margin: 0 0 15px -30px;
+  position: relative;
+  z-index: 2;
+}
+
+.pink-heading {
+  color: #ff69b4;
+}
+
+.yellow-heading {
+  color: #ffff00;
+}
+
+.section-text {
+  font-family: serif;
+  color: white;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.inline-sections {
+  display: flex;
+  gap: 15px;
+}
+
+.inline-sections .blurred-rectangle {
+  flex: 1;
+}
+
+.content-with-image {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.content-with-image .section-text {
+  flex: 1;
+}
+
+.content-with-image img {
+  width: 120px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.volunteer-image {
+  width: 150px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.toy-promo {
+  width: 100%;
+  height: auto;
+}
+
+.preorder-form {
+  background-color: #0aa0ff;
   padding: 20px;
+  border-radius: 0px;
+  text-align: center;
   position: relative;
 }
 
-.testimonial-text {
-  font-family: 'Comic Sans MS', cursive;
-  font-size: 14px;
-  color: black;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  text-align: justify;
-}
 
-.testimonial-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-}
 
-.testimonial-name {
-  font-family: 'Acme', sans-serif;
+.preorder-form h3 {
+  color: white;
+  font-family: serif;
+  margin: 0 0 15px 0;
   font-size: 18px;
-  color: #0066cc;
-  font-weight: bold;
 }
 
-.rating-container {
+.preorder-form input {
+  width: 90%;
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+}
+
+.preorder-form button {
+  padding: 8px 15px;
+  margin-top: 10px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+
+.fast-facts-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.fast-facts-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.fast-facts-text {
+  position: absolute;
+  top: 240px;
+  left: 40px;
+  right: 40px;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: white;
+  line-height: 1.6;
+    text-shadow: 1px 1px 0px black;
+}
+
+.bullet-item {
   display: flex;
-  gap: 3px;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  gap: 8px;
 }
 
-.flower-rating {
-  width: 20px;
-  height: 20px;
+.bullet-icon {
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 
-.flower-full {
-  opacity: 1;
+.bullet-text {
+  flex: 1;
 }
 
-.flower-dim {
-  opacity: 0.3;
-}
+
+
   </style>
 </head>
 <body>
@@ -401,7 +528,7 @@
 	  </div>
 	</div>
 	
-				<!-- TIME MACHINE SIDEBAR -->
+			<!-- TIME MACHINE SIDEBAR -->
 		<div class="time-sidebar" id="timeSidebar">
 		  <div class="time-tab" onclick="toggleTime()">
 			Time Machine
@@ -409,17 +536,18 @@
 		  
 		  <div class="time-header">
 			<h3>Site Archive</h3>
-			<div class="current-date" id="currentDate">November 11, 2001</div>
+			<div class="current-date" id="currentDate">April 13, 2003</div>
 		  </div>
 		  
 		  <div class="time-content">
 			<select class="version-dropdown" id="versionDropdown" onchange="changeVersion()">
-			  <option value="home.html">Nov 2001 - Current</option>
+			  <option value="home.html">April 2003 - Current</option>
+			  <option value="home_a3-2002.html">March 2002</option>
 			  <!-- Add more versions here! -->
 			</select>
 			
 			<div class="calendar-container">
-			  <div class="calendar-header" id="calendarHeader">November 2001</div>
+			  <div class="calendar-header" id="calendarHeader">April 2003</div>
 			  <div class="calendar-grid" id="calendarGrid">
 				<!-- Calendar will be generated by JavaScript -->
 			  </div>
@@ -428,38 +556,88 @@
 		</div>
 
 		<!-- MAIN CODE -->
-  <div class="container">
-    <img src="../assets/gmBanner.png" alt="Banner" class="banner">
-    <div class="menu">
-      <a href="home.html">
-		<img src="../assets/MenuHome.png" alt="Home">
-	  </a>
-      <a href="assessment.html">
-		<img src="../assets/MenuTesting.png" alt="Testing">
-	  </a>
-	  <a href="testimonials.html">
-		<img src="../assets/MenuTestimonials_Selected.png" alt="Testimonials">
-	  </a>
-	  <a href="faq.html">
-		<img src="../assets/MenuFAQ.png" alt="FAQ">
-	  </a>
-	  <a href="ourgoal.html">
-		<img src="../assets/MenuGoal.png" alt="OurGoal">
-	  </a>
-    </div>
-     <div class="content">
-      <h1>Testimonials</h1>
-      <div class="underline"></div>
-      <div class="intro-text">
-  We here at Growing Minds understand that for every flower in the garden there are weeds lying in wait. And much like a garden the uncertainty of knowing whether or not this is the place to take your child can be itself a nerve wracking experience. Below are some of our testimonials from REAL parents who took their little superstars to Growing Minds.
-</div>
+  <div class="header">
+    <a href="home.html"><img src="../assets/mpblogo.png" alt="My Pet Boy Logo" /></a>
+    <img src="../assets/rageboyexclusive.png" alt="Exclusively for RageBoy 2000 GX" />
+  </div>
 
-<div class="testimonials-container" id="testimonialsContainer">
-  <!-- Testimonials will be generated by JavaScript -->
-</div>
+  <div class="nav">
+    <a href="screenshots.html"><img src="../assets/screenshotbtn.png" alt="Screenshots" /></a>
+    <a href="buildaboy.html"><img src="../assets/buildaboybtn.png" alt="Build a Boy" /></a>
+    <a href="bff.html"><img src="../assets/boyfoundationbtn.png" alt="Boy Friendship Foundation" /></a>
+  </div>
+
+  <div class="content">
+<div class="main-content">
+  <div class="main-section">
+    <img src="../assets/announcementbff.png" alt="Announcement" class="announcement-banner">
+    
+    <div class="blurred-rectangle blue-section">
+      <h2 class="section-heading pink-heading">What's B.F.F.?</h2>
+      <div class="content-with-image">
+        <p class="section-text">Boy’s Friendship Foundation was founded to help the children of Rotborough who may be struggling with loneliness, bullying, or general social issues during their time recovering from serious illnesses in nearby hospitals! Since 1982 our goal has been to become the difference between a speedy happy recovery and the “alternative”. Giving your little one the joy every child has the right to experience in their early years, and you the peace of mind knowing your child is in good hands! But since then we’ve expanded to offer more ways to help give back to our community.</p>
+        <img src="../assets/bffmascot.png" alt="BFF Mascot">
+      </div>
+    </div>
+    
+    <div class="inline-sections">
+      <div class="blurred-rectangle red-section">
+        <h2 class="section-heading yellow-heading">Local Sponsors:</h2>
+        <p class="section-text">Through our local sponsors – NXHealth, Growing Minds Learning Center, and The Kidz 4 Mayor Gray After School Initiative, we are able to provide top of the line help for your child, through education, health care or just fun! Last year alone we were able to offer Saint Mary's Baptist Holy Redemption Regional Medical Health Memorial Children’s Hospital free RageBoy’s and school supplies, courtesy of Rotplay! (Keep your eyes peeled for their next game “My Pet Boy" in stores soon!) </p>
+      </div>
       
+      <div class="blurred-rectangle green-section">
+        <h2 class="section-heading yellow-heading">How can you help?</h2>
+        <p class="section-text">There are many ways to help us with our cause and the many boys and girls we work with. One way is by spreading the word. If you know someone who’s child is affected by a terminal illness or a family in need of assistance, tell them help is available and give them our contact details! Another way is to make a charitable donation of any amount. A little goes a long way. Another way is through our Youth and Adult Volunteer programs!</p>
+      </div>
+    </div>
+    
+    <div class="blurred-rectangle purple-section">
+      <h2 class="section-heading yellow-heading">Volunteer Programs:</h2>
+      <div class="content-with-image">
+        <p class="section-text">We’ve made it easier for you to help out through our Youth and Adult Volunteer programs! Every Sunday (or any free day you have in your week) we offer community outreach programs to locals in Rotborough! From after school programs to disaster relief efforts. We now have over 150 volunteers donating countless hours to our cause! And to them we are eternally grateful.</p>
+        <img src="../assets/bff1.jpg" alt="Volunteer" class="volunteer-image">
+      </div>
     </div>
   </div>
+  
+  <div class="preorder-section">
+    <img src="../assets/toypromo.gif" alt="Toy Promo" class="toy-promo">
+    
+    <div class="preorder-form">
+      <h3>PREORDER SIGNUP</h3>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="Name" required>
+      <button type="submit">SUBMIT</button>
+    </div>
+    
+    <div class="fast-facts-container">
+      <img src="../assets/fastfactsbg.png" alt="Fast Facts" class="fast-facts-bg">
+      <div class="fast-facts-text">
+        <div class="bullet-item">
+          <img src="../assets/udderbulletpoint.png" alt="•" class="bullet-icon">
+          <span class="bullet-text">Did you know that over 2 million children die every year due to dehydration?</span>
+        </div>
+        <div class="bullet-item">
+          <img src="../assets/udderbulletpoint.png" alt="•" class="bullet-icon">
+          <span class="bullet-text">Since 1982, we have helped over 3000 families! </span>
+        </div>
+        <div class="bullet-item">
+          <img src="../assets/udderbulletpoint.png" alt="•" class="bullet-icon">
+          <span class="bullet-text">Our canned food drive has helped hundreds of families stay healthy during their hardest times</span>
+        </div>
+        <div class="bullet-item">
+          <img src="../assets/udderbulletpoint.png" alt="•" class="bullet-icon">
+          <span class="bullet-text">We’ve raised over $450,000 for financially disadvantaged families!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+
+  
     <script>
 		  function toggleNav() {
 		  const sidebar = document.getElementById('navSidebar');
@@ -483,9 +661,10 @@
 		
 				// Site versions data - CUSTOMIZE THIS FOR EACH PAGE!
 		const siteVersions = [
-		  { date: "November 11, 2001", label: "November 2001", url: "home.html", year: 2001, month: 11, day: 11 }
+		  { date: "April 13, 2003", label: "July 2004", url: "home.html", year: 2003, month: 4, day: 13 },
+		  { date: "March 05, 2002", label: "March 2002", url: "home_a3-2002.html", year: 2002, month: 3, day: 5 }
 		  // Add more versions like:
-		  // { date: "November 11, 2001", label: "Nov 2001 - Grand Opening", url: "home_mar2004.html", year: 2004, month: 3, day: 3 }
+		  // { date: "March 3, 2004", label: "Mar 2004 - Grand Opening", url: "home_mar2004.html", year: 2004, month: 3, day: 3 }
 		];
 
 		// Current version (default to first one)
@@ -578,86 +757,6 @@
 		window.addEventListener('load', function() {
 		  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
 		});
-		
-		// Testimonials data - Easy to add new ones!
-const testimonials = [
-  {
-    text: "My child was extremely strange, sick and or weird. I was about to call it quits on this whole parenting/adulting thing… But then the experts at Growing Minds managed to turn my nutshell child into a mighty outgoing oak! I seriously stuck with the antagonizing thought that my kid was just gonna be that way forever. (Yeech!) Thankfully however this is not the case! 10000 Thank you to Mrs. Blom in particular for helping us out. Her patience with me and my child made this difficult period way easier on me!",
-    name: "Molly R. Volga",
-    rating: 10
-  },
-  {
-    text: "I was losing hope… I know. I know. Unbelievable, right?I love my child so much but after losing her mother and raising her by myself only to get a diagnosis of “slow-in-the-mind”. It was the final straw for me. I looked all over the state for a tutor, doctor, ANYTHING, to get her the help she needed. But my cousin George told me about this place called “Growing Minds”. Initially skeptical, I called and was told to take the online diagnostic test. The result was obviously not good. But it was after this when we were put in touch with Dr. Amaryllis (a psychologist for Growing Minds) And he provided us with a step by step treatment that was perfect for my daughter. A month ago, YES A MONTH AGO, she was struggling really had with math, reading and socializing, her teachers have since noticed the total 180 in her skills and were just as floored as I am! Thank you SO SO SO MUCH A 10/10 for children with special requirements!",
-    name: "Saul Richardson",
-    rating: 10
-  },
-  {
-    text: "Mr. Bloomington is so kind and sweet. My son loves spending time with him. He’s very gentle and patient.",
-    name: "Alyssa Rodriguez",
-    rating: 9
-  },
-  {
-    text: "Awesome place for slow boys and girls.",
-    name: "Timothy Rawlons",
-    rating: 8
-  },
-  {
-    text: "Ms. Juniper is such a great teacher. My son was diagnosed online and was found to need improvement. I had no idea that improvement would happen so quickly through her help. Her soft touch and gentle instruction could make even the slowest-of-minds sharp as a sword! Great place! Great teachers!",
-    name: "Rhonda Chandlers",
-    rating: 10
-  },
-  {
-    text: "Great place.",
-    name: "Sebbie Vonora",
-    rating: 8
-  },
-  {
-    text: "Good staff, good tutoring programs, good classrooms. My children never want to leave when I come to pick them up.",
-    name: "Timothy Rawlons",
-    rating: 9
-  },
-  {
-    text: "Totally professional, very kind tutors and teachers. Mrs. Gooseberry is a particular standout as far as her manner with my daughter. Unbelievably great place, couldn’t recommend it enough!",
-    name: "Frankie Gooseberg",
-    rating: 10
-  }
-];
-
-// Function to generate flower rating
-function generateFlowerRating(rating) {
-  let flowersHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    const opacityClass = i <= rating ? 'flower-full' : 'flower-dim';
-    flowersHTML += `<img src="../assets/flowerrating.gif" alt="Flower" class="flower-rating ${opacityClass}">`;
-  }
-  return flowersHTML;
-}
-
-// Function to generate testimonials
-function generateTestimonials() {
-  const container = document.getElementById('testimonialsContainer');
-  
-  testimonials.forEach(testimonial => {
-    const testimonialHTML = `
-      <div class="testimonial-box">
-        <div class="testimonial-text">${testimonial.text}</div>
-        <div class="testimonial-footer">
-          <div class="testimonial-name">${testimonial.name}</div>
-          <div class="rating-container">
-            ${generateFlowerRating(testimonial.rating)}
-          </div>
-        </div>
-      </div>
-    `;
-    container.innerHTML += testimonialHTML;
-  });
-}
-
-// Generate testimonials when page loads
-window.addEventListener('load', function() {
-  generateTestimonials();
-  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
-});
   </script>
 </body>
 </html>
