@@ -255,82 +255,131 @@
 			font-family: Arial, sans-serif;
 			padding: 20px;
 		}
-
-		.image-grid {
-			display: grid;
-			grid-template-columns: repeat(3, 289px);
-			grid-template-rows: repeat(3, 229px);
-			gap: 0;
-			width: 867px; /* 289 * 3 */
-			height: 687px; /* 229 * 3 */
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-		}
-
-        .grid-item {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-		.grid-item img {
-			width: 289px;
-			height: 229px;
-			display: block;
-		}
-
-        .grid-item.clickable {
-            cursor: pointer;
-        }
-
-        .grid-item.clickable:hover {
-
-            z-index: 10;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-        }
-
-        @media (max-width: 950px) {
-            .image-grid {
-                width: 90vw;
-                height: 90vw;
-                max-width: 600px;
-                max-height: 600px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .image-grid {
-                width: 95vw;
-                height: 95vw;
-            }
-        }
 		
-		.text-container {
-			text-align: center;
-			margin-top: 30px;
-			max-width: 900px;
-		}
+	/* Main Content Styles */
+.main-container {
+	max-width: 1000px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-		.welcome-text {
-			font-family: "Times New Roman", serif;
-			font-size: 12pt;
-			background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700, #FFD700, #FFA500, #FFD700);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			text-decoration: underline;
-			text-decoration-color: #FFD700;
-			line-height: 1.3;
-			margin-bottom: 15px;
-		}
+.header-section {
+	position: relative;
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
 
-		.quote-text {
-			font-family: serif;
-			font-size: 10pt;
-			font-style: italic;
-			color: Black;
-			line-height: 1.4;
-		}
+.back-arrow {
+	position: absolute;
+	left: 0;
+	font-size: 24px;
+	color: #333;
+	text-decoration: none;
+	padding: 10px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.8);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.3s ease;
+}
+
+.back-arrow:hover {
+	background: rgba(255, 255, 255, 1);
+	transform: scale(1.1);
+}
+
+.header-image {
+	max-width: 100%;
+	height: auto;
+}
+
+.content-wrapper {
+	display: flex;
+	align-items: stretch;
+	gap: 20px;
+	width: 100%;
+	max-width: 900px;
+}
+
+.pillar-left, .pillar-right {
+	height: 100%;
+	width: auto;
+	object-fit: contain;
+	object-position: center;
+}
+
+.news-content {
+	flex: 1;
+	background-image: url('../assets/newsbgpaper.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding: 40px;
+	border-radius: 8px;
+}
+
+.news-content h1 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 28px;
+	font-weight: bold;
+	color: #2c2c2c;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.news-content h2 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #2c2c2c;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.news-content p {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #333;
+	margin-bottom: 15px;
+	text-align: justify;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.content-wrapper {
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.pillar-left, .pillar-right {
+		width: 100%;
+		height: 40px;
+		object-fit: cover;
+	}
+	
+	.news-content {
+		padding: 30px 20px;
+	}
+	
+	.news-content h1 {
+		font-size: 24px;
+	}
+	
+	.news-content p {
+		font-size: 14px;
+	}
+}
+
+
     </style>
 </head>
 <body>
@@ -411,49 +460,29 @@
 		</div>
 
 		<!-- MAIN CODE -->
+<div class="main-container">
+	<!-- Header Section -->
+	<div class="header-section">
+		<a href="home.html" class="back-arrow">←</a>
+		<img src="../assets/graystory.jpg" alt="News and Updates" class="header-image">
+	</div>
+	
+	<!-- Content Section -->
+	<div class="content-wrapper">
+		<img src="../assets/pillar.png" alt="Left Pillar" class="pillar-left">
+		
+		<div class="news-content">
+			<h1>The Gray Jones Story</h1>
+			<p>My story started much like your own; as a kid growing up in Rotborough. Seeing this town go through heck and high water, the works! Throughout it all though, I stood among you and observed what changes needed to be made, what problems needed solving, and so on. All these questions needed answers. And unfortunately like most people a side had to be chosen, even if it was the wrong side. This dichotomous approach to life’s biggest issues seemed archaic and useless to me. It lacked major consideration. Consideration for people like me, for people like you. I knew there had to be middle ground, I knew there needed to be a third option, I knew there needed to be a GRAY AREA. I decided then, during my first electoral run to make my message not for him, her, she, he, this party or that, but for THEM. Everyone who was under represented, everyone who was ignored in favor of a bolder shade. Everyone who spoke for peace and justice. And it was this ironclad drive to speak up that made me the incredible advocate, genius and hero of the misrepresented. Because problems aren’t just black and white, they’re also GRAY. As well as many other colors. And since being elected in 1967, I’ve gone on to make incredible changes to our beautiful town. But I didn’t do it alone. With YOUR help; yes you reading this right now, I was able to make Rotborough the crown jewel of the midwest, and the pinnacle of progress through our community action programs and the pièce de résistance: The Jones Progress Pavillion. A veritable kingdom of freedom and fun for all! And since ‘67 that one small town kid with big dreams has provided you with the tools we’ve needed to make Rotborough a beautiful and lovely place. And all I gotta say is THANK YOU! Keep on rockin’ it Rotborough, here’s to another great chapter in our story!</p>
+			
+		</div>
+		
+		<img src="../assets/pillar.png" alt="Right Pillar" class="pillar-right">
+	</div>
+</div>
 		
 		
-    <div class="image-grid">
-        <!-- First Row -->
-        <div class="grid-item">
-            <img src="../assets/GrayTile01.jpg" alt="Tile1">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile02.jpg" alt="Tile2">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile03.jpg" alt="Tile3">
-        </div>
 
-        <!-- Second Row -->
-        <a href="graystory.html" class="grid-item clickable">
-            <img src="../assets/GrayTile04.jpg" alt="Tile4">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile05.jpg" alt="Tile5">
-        </div>
-        <a href="newsandupdates.html" class="grid-item clickable">
-            <img src="../assets/GrayTile06.jpg" alt="Tile6">
-        </a>
-
-        <!-- Third Row -->
-        <a href="funzone.html" class="grid-item clickable">
-            <img src="../assets/GrayTile07.jpg" alt="Tile7">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile08.jpg" alt="Tile8">
-        </div>
-        <a href="jointhecause.html" class="grid-item clickable">
-            <img src="../assets/GrayTile09.jpg" alt="Tile9">
-        </a>
-    </div>
-	<div class="text-container">
-    <div class="welcome-text">
-        Welcome to the state-of-the-art virtual office of your one true Mayor - Rotborough's own Gray Jones!
-    </div>
-    <div class="quote-text">
-        "The answer is not black or white, you always must look in between - look to GRAY!" - Mayor Gray Jones
-    </div>
 </div>
 <script>
 		  function toggleNav() {
