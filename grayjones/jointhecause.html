@@ -331,6 +331,96 @@
 			color: Black;
 			line-height: 1.4;
 		}
+		
+		.main-content {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.campaign-banner {
+  display: block;
+  margin: 0 auto 30px auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.back-link {
+  font-family: serif;
+  color: purple;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-bottom: 30px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  color: #660066;
+}
+
+.campaign-boxes {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.campaign-box {
+  background-color: #a8cf92;
+  border: 2px solid #769665;
+  border-radius: 0px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.campaign-box img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.campaign-text {
+  font-family: serif;
+  color: black;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.download-link {
+  font-family: serif;
+  color: purple;
+  text-decoration: underline;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.download-link:hover {
+  color: #660066;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .campaign-boxes {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .campaign-box {
+    width: 90%;
+    max-width: 400px;
+  }
+}
     </style>
 </head>
 <body>
@@ -413,40 +503,31 @@
 		<!-- MAIN CODE -->
 		
 		
-    <div class="image-grid">
-        <!-- First Row -->
-        <div class="grid-item">
-            <img src="../assets/GrayTile01.jpg" alt="Tile1">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile02.jpg" alt="Tile2">
-        </div>
-        <div class="grid-item">
-            <img src="../assets/GrayTile03.jpg" alt="Tile3">
-        </div>
-
-        <!-- Second Row -->
-        <a href="#" class="grid-item clickable">
-            <img src="../assets/GrayTile04.jpg" alt="Tile4">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile05.jpg" alt="Tile5">
-        </div>
-        <a href="newsandupdates.html" class="grid-item clickable">
-            <img src="../assets/GrayTile06.jpg" alt="Tile6">
-        </a>
-
-        <!-- Third Row -->
-        <a href="funzone.html" class="grid-item clickable">
-            <img src="../assets/GrayTile07.jpg" alt="Tile7">
-        </a>
-        <div class="grid-item">
-            <img src="../assets/GrayTile08.jpg" alt="Tile8">
-        </div>
-        <a href="jointhecause.html" class="grid-item clickable">
-            <img src="../assets/GrayTile09.jpg" alt="Tile9">
-        </a>
+<div class="main-content">
+  <img src="../assets/CampaignMaterials.png" alt="Campaign Materials" class="campaign-banner">
+  
+  <a href="home.html" class="back-link">< Back Home</a>
+  
+  <div class="campaign-boxes">
+    <div class="campaign-box">
+      <img src="../assets/campaignflyer.jpg" alt="Campaign Flyer">
+      <p class="campaign-text">Print-out Door hanging flyers to spread the message to your neighbors - let's make this voting season a GRAY STAMPEDE!!!</p>
+      <a href="../assets/MayorJonesDoorFlyer.pdf" download class="download-link">DOWNLOAD</a>
     </div>
+    
+    <div class="campaign-box">
+      <img src="../assets/campaignsign.jpg" alt="Campaign Sign">
+      <p class="campaign-text">Print-out campaign signs to give your yard that Gray Spirit!</p>
+      <a href="../assets/MayorJonesCampaignSign.pdf" download class="download-link">DOWNLOAD</a>
+    </div>
+    
+    <div class="campaign-box">
+      <img src="../assets/campaignpin.jpg" alt="Campaign Pin">
+      <p class="campaign-text">Print-out Gray Jones for mayor campaign button pins! Wear your love for our TRUE mayor on your sleeve!</p>
+      <a href="../assets/MayorJonesPins.pdf" download class="download-link">DOWNLOAD</a>
+    </div>
+  </div>
+</div>
 	<div class="text-container">
     <div class="welcome-text">
         Welcome to the state-of-the-art virtual office of your one true Mayor - Rotborough's own Gray Jones!
