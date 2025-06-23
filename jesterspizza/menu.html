@@ -5,238 +5,234 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jester Pizza - Royal Delivery</title>
   <style>
-		  /* TIME MACHINE SIDEBAR - Right side */
-		.time-sidebar {
-		  position: fixed;
-		  top: 50%;
-		  right: -220px;
-		  transform: translateY(-50%);
-		  width: 240px;
-		  background: white;
-		  border: 2px solid #ccc;
-		  border-radius: 12px 0 0 12px;
-		  box-shadow: -3px 0 10px rgba(0,0,0,0.2);
-		  transition: right 0.3s ease-in-out;
-		  z-index: 9998;
-		}
+    /* TIME MACHINE SIDEBAR - Right side */
+    .time-sidebar {
+      position: fixed;
+      top: 50%;
+      right: -220px;
+      transform: translateY(-50%);
+      width: 240px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 12px 0 0 12px;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+      transition: right 0.3s ease-in-out;
+      z-index: 9998;
+    }
 
-		.time-sidebar.open {
-		  right: 0;
-		}
+    .time-sidebar.open {
+      right: 0;
+    }
 
-		.time-tab {
-		  position: absolute;
-		  left: -50px;
-		  top: 50%;
-		  transform: translateY(-50%);
-		  width: 50px;
-		  height: 100px;
-		  background: white;
-		  border: 2px solid #ccc;
-		  border-right: none;
-		  border-radius: 8px 0 0 8px;
-		  cursor: pointer;
-		  display: flex;
-		  align-items: center;
-		  justify-content: center;
-		  writing-mode: vertical-lr;
-		  font-size: 12px;
-		  font-weight: bold;
-		  color: #666;
-		  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-		}
+    .time-tab {
+      position: absolute;
+      left: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 100px;
+      background: white;
+      border: 2px solid #ccc;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-lr;
+      font-size: 12px;
+      font-weight: bold;
+      color: #666;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    }
 
-		.time-tab:hover {
-		  background: #f0f0f0;
-		}
+    .time-tab:hover {
+      background: #f0f0f0;
+    }
 
-		.time-header {
-		  padding: 10px;
-		  background: #f5f5f5;
-		  border-bottom: 1px solid #ddd;
-		  border-radius: 10px 0 0 0;
-		  text-align: center;
-		}
+    .time-header {
+      padding: 10px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      border-radius: 10px 0 0 0;
+      text-align: center;
+    }
 
-		.time-header h3 {
-		  margin: 0;
-		  font-size: 14px;
-		  color: #333;
-		}
+    .time-header h3 {
+      margin: 0;
+      font-size: 14px;
+      color: #333;
+    }
 
-		.current-date {
-		  font-size: 12px;
-		  color: #666;
-		  margin: 5px 0;
-		}
+    .current-date {
+      font-size: 12px;
+      color: #666;
+      margin: 5px 0;
+    }
 
-		.time-content {
-		  padding: 15px;
-		}
+    .time-content {
+      padding: 15px;
+    }
 
-		.version-dropdown {
-		  width: 100%;
-		  padding: 8px;
-		  margin-bottom: 15px;
-		  border: 1px solid #ccc;
-		  border-radius: 4px;
-		  font-size: 12px;
-		}
+    .version-dropdown {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+    }
 
-		.calendar-container {
-		  background: #f9f9f9;
-		  border: 1px solid #ddd;
-		  border-radius: 4px;
-		  padding: 10px;
-		}
+    .calendar-container {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+    }
 
-		.calendar-header {
-		  text-align: center;
-		  font-weight: bold;
-		  font-size: 12px;
-		  margin-bottom: 8px;
-		  color: #333;
-		}
+    .calendar-header {
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+      margin-bottom: 8px;
+      color: #333;
+    }
 
-		.calendar-grid {
-		  display: grid;
-		  grid-template-columns: repeat(7, 1fr);
-		  gap: 2px;
-		}
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
 
-		.calendar-day-header {
-		  text-align: center;
-		  font-size: 10px;
-		  font-weight: bold;
-		  color: #666;
-		  padding: 2px;
-		}
+    .calendar-day-header {
+      text-align: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: #666;
+      padding: 2px;
+    }
 
-		.calendar-day {
-		  text-align: center;
-		  font-size: 10px;
-		  padding: 3px;
-		  min-height: 20px;
-		  display: flex;
-		  align-items: center;
-		  justify-content: center;
-		}
+    .calendar-day {
+      text-align: center;
+      font-size: 10px;
+      padding: 3px;
+      min-height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-		.calendar-day.current {
-		  background: #416cff;
-		  color: white;
-		  border-radius: 2px;
-		  font-weight: bold;
-		}
+    .calendar-day.current {
+      background: #416cff;
+      color: white;
+      border-radius: 2px;
+      font-weight: bold;
+    }
 
-		.calendar-day.other-month {
-		  color: #ccc;
-		}
-		
-  		/* NAVIGATION MENU - Complete working implementation */
-		
+    .calendar-day.other-month {
+      color: #ccc;
+    }
+    
+    /* NAVIGATION MENU - Complete working implementation */
+    .nav-sidebar {
+      position: fixed;
+      top: 50%;
+      left: -180px;
+      transform: translateY(-50%);
+      width: 200px;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+      transition: left 0.3s ease-in-out;
+      z-index: 9999;
+    }
 
-	.nav-sidebar {
-	  position: fixed;
-	  top: 50%;
-	  left: -180px;
-	  transform: translateY(-50%);
-	  width: 200px;
-	  background: white;
-	  border: 2px solid #ccc;
-	  border-radius: 0 12px 12px 0;
-	  box-shadow: 3px 0 10px rgba(0,0,0,0.2);
-	  transition: left 0.3s ease-in-out;
-	  z-index: 9999;
-	}
+    .nav-sidebar.open {
+      left: 0;
+    }
 
-	.nav-sidebar.open {
-	  left: 0;
-	}
+    .directory-tab {
+      position: absolute;
+      right: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 100px;
+      background: white;
+      border: 2px solid #ccc;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-size: 12px;
+      font-weight: bold;
+      color: #666;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
 
-	.directory-tab {
-	  position: absolute;
-	  right: -50px;
-	  top: 50%;
-	  transform: translateY(-50%);
-	  width: 50px;
-	  height: 100px;
-	  background: white;
-	  border: 2px solid #ccc;
-	  border-left: none;
-	  border-radius: 0 8px 8px 0;
-	  cursor: pointer;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  writing-mode: vertical-rl;
-	  font-size: 12px;
-	  font-weight: bold;
-	  color: #666;
-	  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-	}
+    .directory-tab:hover {
+      background: #f0f0f0;
+    }
 
-	.directory-tab:hover {
-	  background: #f0f0f0;
-	}
+    .nav-header {
+      padding: 10px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      border-radius: 0 10px 0 0;
+    }
 
-	.nav-header {
-	  padding: 10px;
-	  background: #f5f5f5;
-	  border-bottom: 1px solid #ddd;
-	  border-radius: 0 10px 0 0;
-	}
+    .return-home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 5px 8px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #555;
+      font-size: 11px;
+    }
 
-	.return-home {
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  gap: 5px;
-	  padding: 5px 8px;
-	  background: white;
-	  border: 1px solid #ccc;
-	  border-radius: 12px;
-	  text-decoration: none;
-	  color: #555;
-	  font-size: 11px;
-	}
+    .return-home:hover {
+      background: #e8e8e8;
+    }
 
-	.return-home:hover {
-	  background: #e8e8e8;
-	}
+    .arrow-left {
+      width: 0;
+      height: 0;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-right: 5px solid #555;
+    }
 
-	.arrow-left {
-	  width: 0;
-	  height: 0;
-	  border-top: 3px solid transparent;
-	  border-bottom: 3px solid transparent;
-	  border-right: 5px solid #555;
-	}
+    .sidebar-nav-buttons {
+      padding: 8px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
 
-	/* RENAMED TO AVOID CONFLICT - was .nav-buttons */
-	.sidebar-nav-buttons {
-	  padding: 8px;
-	  max-height: 400px;
-	  overflow-y: auto;
-	}
+    .sidebar-nav-button {
+      display: block;
+      margin-bottom: 6px;
+      transition: transform 0.2s ease;
+    }
 
-	/* RENAMED TO AVOID CONFLICT - was .nav-button */
-	.sidebar-nav-button {
-	  display: block;
-	  margin-bottom: 6px;
-	  transition: transform 0.2s ease;
-	}
+    .sidebar-nav-button:hover {
+      transform: scale(1.02);
+    }
 
-	.sidebar-nav-button:hover {
-	  transform: scale(1.02);
-	}
-
-	.sidebar-nav-button img {
-	  width: 100%;
-	  height: auto;
-	  border-radius: 4px;
-	}
-	
+    .sidebar-nav-button img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    
     @font-face {
       font-family: 'Remedy';
       src: url('../assets/Remedy Regular.ttf') format('truetype');
@@ -245,192 +241,219 @@
       font-family: 'RemedyI';
       src: url('../assets/RemedyI.otf') format('opentype');
     }
+    
     body {
       background: url('../assets/JesterTileBg.png') repeat;
       margin: 0;
       padding: 0;
       font-family: serif;
     }
+    
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 40px;
     }
+    
     .nav-buttons {
       display: flex;
       gap: 10px;
     }
+    
     .nav-buttons img {
       height: 90px;
     }
-    .main {
-      margin: 20px 40px;
+    
+    /* MAIN MENU SECTION */
+    .menu-container {
+      width: 100%;
+      height: 2000px; /* Fixed height for old website feel */
+      background: url('../assets/menubg.png') no-repeat center top;
+      background-size: 800px auto; /* Fixed size background */
+      position: relative;
     }
     
-    .content-container {
+    .menu-content {
+      position: absolute;
+      top: 370px; /* Moved down additional 50px (300 + 50) */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px; /* Fixed width */
       display: flex;
-      gap: 30px;
-      align-items: flex-start;
-      justify-content: center;
-      max-width: 1200px;
-      margin: 0 auto;
+      flex-direction: column;
+      gap: 40px; /* Fixed gaps */
     }
     
-    .left-content {
-      flex: 2;
-      max-width: 600px;
+    .menu-section {
+      display: flex;
+      align-items: center; /* Center gifs vertically with the text content */
+      gap: 20px; /* Fixed gap */
+      padding: 15px; /* Fixed padding */
     }
     
-.menu-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 20px;
-  overflow: hidden;
-}
-
-.menu-scroll {
-  background-image: url('../assets/menubg.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
-  width: 100%;
-  max-width: 1400px;
-  height: 200vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 220px 220px 220px 220px;
-}
-
-.menu-items {
-  color: #f226ff;
-  font-family: 'Comic Sans MS', cursive;
-  font-size: 24px;
-  line-height: 1.5;
-
-  margin-top: 180px;
-}
-
-.menu-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-  margin-top: 50px;
-  position: relative;
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
-.item-name {
-  flex-shrink: 0;
-  font-weight: bold;
-  margin-left: -50px;
-}
-
-.dots {
-  flex-grow: 1;
-  border-bottom: 3px dotted #f226ff;
-  margin: 0 60px;
-  height: 1px;
-}
-
-.price {
-  flex-shrink: 0;
-  font-weight: bold;
-  margin-right: -50px;
-}
-
-
-
+    .menu-text {
+      flex: 1;
+    }
+    
+    .menu-heading {
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 28px; /* Fixed font size */
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 15px; /* Fixed margin */
+      text-align: center;
+    }
+    
+    .pizzas-heading {
+      color: #d50000;
+    }
+    
+    .sides-heading {
+      color: #2aaa00;
+    }
+    
+    .kids-heading {
+      color: #0055bf;
+    }
+    
+    .beverages-heading {
+      color: #e829c6;
+    }
+    
+    .menu-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive; /* Match heading font */
+      font-size: 14px; /* Fixed font size */
+      line-height: 1.4; /* Tighter line height for old web feel */
+      text-align: left;
+    }
+    
+    .menu-items li {
+      margin-bottom: 5px; /* Fixed margin */
+      text-shadow: 1px 1px 0px black; /* Small black drop shadow */
+    }
+    
+    /* Color matching for each section */
+    .pizzas-heading + .menu-content .menu-items li,
+    .menu-section:has(.pizzas-heading) .menu-items li {
+      color: #d50000;
+    }
+    
+    .sides-heading + .menu-content .menu-items li,
+    .menu-section:has(.sides-heading) .menu-items li {
+      color: #2aaa00;
+    }
+    
+    .kids-heading + .menu-content .menu-items li,
+    .menu-section:has(.kids-heading) .menu-items li {
+      color: #0055bf;
+    }
+    
+    .beverages-heading + .menu-content .menu-items li,
+    .menu-section:has(.beverages-heading) .menu-items li {
+      color: #e829c6;
+    }
+    
+    .menu-items a {
+      color: inherit;
+      text-decoration: none;
+    }
+    
+    .menu-items a:hover {
+      text-decoration: underline;
+    }
+    
+    .menu-gif {
+      width: 200px; /* Fixed size */
+      height: auto;
+      flex-shrink: 0;
+      align-self: center; /* Center the gif vertically */
+    }
   </style>
 </head>
 <body>
-<!-- NAVIGATION SIDEBAR -->
-	<div class="nav-sidebar" id="navSidebar">
-	  <div class="directory-tab" onclick="toggleNav()">
-		Directory
-	  </div>
-	  
-	  <div class="nav-header">
-		<a href="../index.html" class="return-home">
-		  <div class="arrow-left"></div>
-		  Return to Homepage
-		</a>
-	  </div>
-	  
-	  <div class="sidebar-nav-buttons">
-		<a href="../allennella/mirrordemo/splashpage.html" class="sidebar-nav-button">
-		  <img src="../assets/allen_btn.png" alt="Allen Nella" />
-		</a>
-		<a href="../blueroan/home.html" class="sidebar-nav-button">
-		  <img src="../assets/blueroan_btn.png" alt="Blue Roan" />
-		</a>
-		<a href="../curtaincall/home.html" class="sidebar-nav-button">
-		  <img src="../assets/curtain_btn.png" alt="Curtain Call" />
-		</a>
-		<a href="../mypetboy/home.html" class="sidebar-nav-button">
-		  <img src="../assets/boy_btn.png" alt="My Pet Boy" />
-		</a>
-		<a href="../growingminds/home.html" class="sidebar-nav-button">
-		  <img src="../assets/growing_btn.png" alt="Growing Minds" />
-		</a>
-		<a href="../jesterspizza/home.html" class="sidebar-nav-button">
-		  <img src="../assets/jester_btn.png" alt="Jester's Pizza" />
-		</a>
-		<a href="../grayjones/home.html" class="sidebar-nav-button">
-		  <img src="../assets/jones_btn.png" alt="Mayor Gray Jones" />
-		</a>
-		<a href="../nxhealth/nxhealthhome.html" class="sidebar-nav-button">
-		  <img src="../assets/nxh_btn.png" alt="NX Health" />
-		</a>
-		<a href="../rooster/rooster.html" class="sidebar-nav-button">
-		  <img src="../assets/rooster_btn.png" alt="Rooster" />
-		</a>
-		<a href="../thesecret/secrethome.html" class="sidebar-nav-button">
-		  <img src="../assets/secret_btn.png" alt="The Secret" />
-		</a>
-		<a href="../index.html" class="sidebar-nav-button">
-		  <img src="../assets/torzion_btn.png" alt="Torzion" />
-		</a>
-	  </div>
-	</div>
-	
-			<!-- TIME MACHINE SIDEBAR -->
-		<div class="time-sidebar" id="timeSidebar">
-		  <div class="time-tab" onclick="toggleTime()">
-			Time Machine
-		  </div>
-		  
-		  <div class="time-header">
-			<h3>Site Archive</h3>
-			<div class="current-date" id="currentDate">July 04, 2004</div>
-		  </div>
-		  
-		  <div class="time-content">
-			<select class="version-dropdown" id="versionDropdown" onchange="changeVersion()">
-			  <option value="home.html">Jul 2004 - Current</option>
-			  <option value="home_a10-98.html">October 1998</option>
-			  <!-- Add more versions here! -->
-			</select>
-			
-			<div class="calendar-container">
-			  <div class="calendar-header" id="calendarHeader">July 2004</div>
-			  <div class="calendar-grid" id="calendarGrid">
-				<!-- Calendar will be generated by JavaScript -->
-			  </div>
-			</div>
-		  </div>
-		</div>
+  <!-- NAVIGATION SIDEBAR -->
+  <div class="nav-sidebar" id="navSidebar">
+    <div class="directory-tab" onclick="toggleNav()">
+      Directory
+    </div>
+    
+    <div class="nav-header">
+      <a href="../index.html" class="return-home">
+        <div class="arrow-left"></div>
+        Return to Homepage
+      </a>
+    </div>
+    
+    <div class="sidebar-nav-buttons">
+      <a href="../allennella/mirrordemo/splashpage.html" class="sidebar-nav-button">
+        <img src="../assets/allen_btn.png" alt="Allen Nella" />
+      </a>
+      <a href="../blueroan/home.html" class="sidebar-nav-button">
+        <img src="../assets/blueroan_btn.png" alt="Blue Roan" />
+      </a>
+      <a href="../curtaincall/home.html" class="sidebar-nav-button">
+        <img src="../assets/curtain_btn.png" alt="Curtain Call" />
+      </a>
+      <a href="../mypetboy/home.html" class="sidebar-nav-button">
+        <img src="../assets/boy_btn.png" alt="My Pet Boy" />
+      </a>
+      <a href="../growingminds/home.html" class="sidebar-nav-button">
+        <img src="../assets/growing_btn.png" alt="Growing Minds" />
+      </a>
+      <a href="../jesterspizza/home.html" class="sidebar-nav-button">
+        <img src="../assets/jester_btn.png" alt="Jester's Pizza" />
+      </a>
+      <a href="../grayjones/home.html" class="sidebar-nav-button">
+        <img src="../assets/jones_btn.png" alt="Mayor Gray Jones" />
+      </a>
+      <a href="../nxhealth/nxhealthhome.html" class="sidebar-nav-button">
+        <img src="../assets/nxh_btn.png" alt="NX Health" />
+      </a>
+      <a href="../rooster/rooster.html" class="sidebar-nav-button">
+        <img src="../assets/rooster_btn.png" alt="Rooster" />
+      </a>
+      <a href="../thesecret/secrethome.html" class="sidebar-nav-button">
+        <img src="../assets/secret_btn.png" alt="The Secret" />
+      </a>
+      <a href="../index.html" class="sidebar-nav-button">
+        <img src="../assets/torzion_btn.png" alt="Torzion" />
+      </a>
+    </div>
+  </div>
+  
+  <!-- TIME MACHINE SIDEBAR -->
+  <div class="time-sidebar" id="timeSidebar">
+    <div class="time-tab" onclick="toggleTime()">
+      Time Machine
+    </div>
+    
+    <div class="time-header">
+      <h3>Site Archive</h3>
+      <div class="current-date" id="currentDate">July 04, 2004</div>
+    </div>
+    
+    <div class="time-content">
+      <select class="version-dropdown" id="versionDropdown" onchange="changeVersion()">
+        <option value="menu.html">Jul 2004 - Current</option>
+        <option value="menu_a10-98.html">October 1998</option>
+      </select>
+      
+      <div class="calendar-container">
+        <div class="calendar-header" id="calendarHeader">July 2004</div>
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- Calendar will be generated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-		<!-- MAIN CODE -->
-
+  <!-- HEADER -->
   <div class="header">
-	<a href="home.html"><img src="../assets/jesterpizzalogo.png" alt="Jester Pizza Logo" height="120" /></a>
+    <a href="home.html"><img src="../assets/jesterpizzalogo.png" alt="Jester Pizza Logo" height="120" /></a>
     <div class="nav-buttons">
       <a href="delivery.html"><img src="../assets/JesterNavDelivery.png" alt="Delivery" /></a>
       <a href="#"><img src="../assets/JesterNavMenu.png" alt="Menu" /></a>
@@ -439,178 +462,210 @@
     </div>
   </div>
 
-  <div class="main">
-    <div class="content-container">
-		<div class="content-container">
+  <!-- MAIN MENU SECTION -->
   <div class="menu-container">
-    <div class="menu-scroll">
-      <div class="menu-items">
-        <div class="menu-item">
-          <span class="item-name">The Kama Aina<br>King Pizza</span>
-          <span class="dots"></span>
-          <span class="price">$12</span>
+    <div class="menu-content">
+      
+      <!-- PIZZAS SECTION -->
+      <div class="menu-section">
+        <div class="menu-text">
+          <h2 class="menu-heading pizzas-heading">PIZZAS</h2>
+          <ul class="menu-items">
+            <li>Duke's Three Cheese Pizza!</li>
+            <li>Prince's Pepperoni Pizza!</li>
+            <li>King's Supreme Pizza!</li>
+            <li>Baroque BBQ Chicken Pizza!</li>
+            <li>Royal Court Family Meal Deal!</li>
+            <li>Forge Your Empire B.Y.O. Pizza!</li>
+            <li>Princess Pan Pizza!</li>
+            <li>The Abdicator Three Meat Pizza!</li>
+            <li>Romeo and Juliet Lunch Special for Two!</li>
+            <li>Gray's Royal Decree Pizza!</li>
+            <li><a href="#">Storm the Castle Challenge! (Click here for more details!)</a></li>
+            <li>Beggars $5 Lunch Special!</li>
+          </ul>
         </div>
-        
-        <div class="menu-item">
-          <span class="item-name">King of New York<br>Brooklyn Style Pizza</span>
-          <span class="dots"></span>
-          <span class="price">$12</span>
-        </div>
-        
-        <div class="menu-item">
-          <span class="item-name">King of New York<br>Brooklyn Style Pizza</span>
-          <span class="dots"></span>
-          <span class="price">$12</span>
-        </div>
-        
-        <div class="menu-item">
-          <span class="item-name">Royal Supreme Pizza</span>
-          <span class="dots"></span>
-          <span class="price">$15</span>
-        </div>
-        
-        <div class="menu-item">
-          <span class="item-name">Jester's Delight</span>
-          <span class="dots"></span>
-          <span class="price">$14</span>
-        </div>
-        
-        <div class="menu-item">
-          <span class="item-name">Castle Pepperoni</span>
-          <span class="dots"></span>
-          <span class="price">$11</span>
-        </div>
-        
-        <div class="menu-item">
-          <span class="item-name">Medieval Margherita</span>
-          <span class="dots"></span>
-          <span class="price">$10</span>
-        </div>
+        <img src="../assets/sliceguy.gif" alt="Pizza Icon" class="menu-gif pizzas-gif">
       </div>
+      
+      <!-- SIDES SECTION -->
+      <div class="menu-section">
+        <div class="menu-text">
+          <h2 class="menu-heading sides-heading">SIDES</h2>
+          <ul class="menu-items">
+            <li>Knight's BreadLances!</li>
+            <li>Garlic Bucklers!</li>
+            <li>Mozzarella Cheese Bites!</li>
+            <li>Sovereign Side Salad!</li>
+            <li>Regicide Fries!</li>
+            <li>Drawbridge BBQ Wings!</li>
+            <li>Battlefield Buffalo Wings!</li>
+          </ul>
+        </div>
+        <img src="../assets/breadlances.gif" alt="Sides Icon" class="menu-gif sides-gif">
+      </div>
+      
+      <!-- KIDS MENU SECTION -->
+      <div class="menu-section">
+        <div class="menu-text">
+          <h2 class="menu-heading kids-heading">KIDS MENU</h2>
+          <ul class="menu-items">
+            <li>Little Knight's Cheese Pizza</li>
+            <li>Princess Mac & Cheese</li>
+            <li>Royal Chicken Nuggets</li>
+            <li>Court Jester's Mini Corn Dogs</li>
+            <li>Castle Grilled Cheese</li>
+          </ul>
+        </div>
+        <img src="../assets/kidscrown.gif" alt="Kids Icon" class="menu-gif kids-gif">
+      </div>
+      
+      <!-- BEVERAGES SECTION -->
+      <div class="menu-section">
+        <div class="menu-text">
+          <h2 class="menu-heading beverages-heading">BEVERAGES</h2>
+          <ul class="menu-items">
+            <li>Royal Fountain Drinks</li>
+            <li>Kingdom Fresh Lemonade</li>
+            <li>Court Wizard's Magic Punch</li>
+            <li>Noble Hot Chocolate</li>
+            <li>Dragon's Breath Coffee</li>
+            <li>Sparkling Castle Water</li>
+          </ul>
+        </div>
+        <img src="../assets/mugrender.gif" alt="Beverages Icon" class="menu-gif beverages-gif">
+      </div>
+      
     </div>
   </div>
-</div>
-    </div>
-  </div>
+
   <script>
-		  function toggleNav() {
-		  const sidebar = document.getElementById('navSidebar');
-		  sidebar.classList.toggle('open');
-		}
+    function toggleNav() {
+      const sidebar = document.getElementById('navSidebar');
+      sidebar.classList.toggle('open');
+    }
 
-		// Close sidebars when clicking outside
-		document.addEventListener('click', function(event) {
-		  const timeSidebar = document.getElementById('timeSidebar');
-		  
-		  // Close time sidebar if click is outside
-		  if (!timeSidebar.contains(event.target)) {
-			timeSidebar.classList.remove('open');
-		  }
-		});
+    // Close sidebars when clicking outside
+    document.addEventListener('click', function(event) {
+      const navSidebar = document.getElementById('navSidebar');
+      const timeSidebar = document.getElementById('timeSidebar');
+      
+      // Close nav sidebar if click is outside
+      if (!navSidebar.contains(event.target)) {
+        navSidebar.classList.remove('open');
+      }
+      
+      // Close time sidebar if click is outside
+      if (!timeSidebar.contains(event.target)) {
+        timeSidebar.classList.remove('open');
+      }
+    });
 
-		// Prevent sidebar from closing when clicking inside it
-		document.getElementById('timeSidebar').addEventListener('click', function(event) {
-		  event.stopPropagation();
-		});
-		
-				// Site versions data - CUSTOMIZE THIS FOR EACH PAGE!
-		const siteVersions = [
-		  { date: "July 4, 2004", label: "July 2004", url: "home.html", year: 2004, month: 7, day: 4 },
-		  { date: "October 21, 1998", label: "July 2004", url: "home_a10-98.html", year: 1998, month: 10, day: 21 }
-		  // Add more versions like:
-		  // { date: "March 3, 2004", label: "Mar 2004 - Grand Opening", url: "home_mar2004.html", year: 2004, month: 3, day: 3 }
-		];
+    // Prevent sidebars from closing when clicking inside them
+    document.getElementById('navSidebar').addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+    
+    document.getElementById('timeSidebar').addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+    
+    // Site versions data
+    const siteVersions = [
+      { date: "July 4, 2004", label: "July 2004", url: "menu.html", year: 2004, month: 7, day: 4 },
+      { date: "October 21, 1998", label: "October 1998", url: "menu_a10-98.html", year: 1998, month: 10, day: 21 }
+    ];
 
-		// Current version (default to first one)
-		let currentVersion = siteVersions[0];
+    // Current version (default to first one)
+    let currentVersion = siteVersions[0];
 
-		// Time machine functions
-		function toggleTime() {
-		  const sidebar = document.getElementById('timeSidebar');
-		  sidebar.classList.toggle('open');
-		}
+    // Time machine functions
+    function toggleTime() {
+      const sidebar = document.getElementById('timeSidebar');
+      sidebar.classList.toggle('open');
+    }
 
-		function changeVersion() {
-		  const dropdown = document.getElementById('versionDropdown');
-		  const selectedUrl = dropdown.value;
-		  
-		  // Find the selected version
-		  const selectedVersion = siteVersions.find(v => v.url === selectedUrl);
-		  if (selectedVersion) {
-			// Navigate to the selected version
-			window.location.href = selectedVersion.url;
-		  }
-		}
+    function changeVersion() {
+      const dropdown = document.getElementById('versionDropdown');
+      const selectedUrl = dropdown.value;
+      
+      // Find the selected version
+      const selectedVersion = siteVersions.find(v => v.url === selectedUrl);
+      if (selectedVersion) {
+        // Navigate to the selected version
+        window.location.href = selectedVersion.url;
+      }
+    }
 
-		function updateCurrentDate() {
-		  document.getElementById('currentDate').textContent = currentVersion.date;
-		}
+    function updateCurrentDate() {
+      document.getElementById('currentDate').textContent = currentVersion.date;
+    }
 
-		function generateCalendar(year, month, day) {
-		  const monthNames = ["January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December"];
-		  const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
-		  
-		  // Update calendar header
-		  document.getElementById('calendarHeader').textContent = `${monthNames[month-1]} ${year}`;
-		  
-		  // Clear and rebuild calendar grid
-		  const grid = document.getElementById('calendarGrid');
-		  grid.innerHTML = '';
-		  
-		  // Add day headers
-		  dayNames.forEach(dayName => {
-			const dayHeader = document.createElement('div');
-			dayHeader.className = 'calendar-day-header';
-			dayHeader.textContent = dayName;
-			grid.appendChild(dayHeader);
-		  });
-		  
-		  // Calculate calendar layout
-		  const firstDay = new Date(year, month - 1, 1).getDay();
-		  const daysInMonth = new Date(year, month, 0).getDate();
-		  const daysInPrevMonth = new Date(year, month - 1, 0).getDate();
-		  
-		  // Add empty cells for days before month starts
-		  for (let i = firstDay - 1; i >= 0; i--) {
-			const dayCell = document.createElement('div');
-			dayCell.className = 'calendar-day other-month';
-			dayCell.textContent = daysInPrevMonth - i;
-			grid.appendChild(dayCell);
-		  }
-		  
-		  // Add days of current month
-		  for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
-			const dayCell = document.createElement('div');
-			dayCell.className = 'calendar-day';
-			dayCell.textContent = dayNum;
-			
-			// Highlight the current day
-			if (dayNum === day) {
-			  dayCell.classList.add('current');
-			}
-			
-			grid.appendChild(dayCell);
-		  }
-		  
-		  // Fill remaining cells with next month's days
-		  const totalCells = grid.children.length;
-		  const cellsNeeded = 49; // 7 rows * 7 days
-		  let nextMonthDay = 1;
-		  
-		  for (let i = totalCells; i < cellsNeeded; i++) {
-			const dayCell = document.createElement('div');
-			dayCell.className = 'calendar-day other-month';
-			dayCell.textContent = nextMonthDay;
-			grid.appendChild(dayCell);
-			nextMonthDay++;
-		  }
-		}
+    function generateCalendar(year, month, day) {
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+      const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+      
+      // Update calendar header
+      document.getElementById('calendarHeader').textContent = `${monthNames[month-1]} ${year}`;
+      
+      // Clear and rebuild calendar grid
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+      
+      // Add day headers
+      dayNames.forEach(dayName => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'calendar-day-header';
+        dayHeader.textContent = dayName;
+        grid.appendChild(dayHeader);
+      });
+      
+      // Calculate calendar layout
+      const firstDay = new Date(year, month - 1, 1).getDay();
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const daysInPrevMonth = new Date(year, month - 1, 0).getDate();
+      
+      // Add empty cells for days before month starts
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day other-month';
+        dayCell.textContent = daysInPrevMonth - i;
+        grid.appendChild(dayCell);
+      }
+      
+      // Add days of current month
+      for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day';
+        dayCell.textContent = dayNum;
+        
+        // Highlight the current day
+        if (dayNum === day) {
+          dayCell.classList.add('current');
+        }
+        
+        grid.appendChild(dayCell);
+      }
+      
+      // Fill remaining cells with next month's days
+      const totalCells = grid.children.length;
+      const cellsNeeded = 49; // 7 rows * 7 days
+      let nextMonthDay = 1;
+      
+      for (let i = totalCells; i < cellsNeeded; i++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day other-month';
+        dayCell.textContent = nextMonthDay;
+        grid.appendChild(dayCell);
+        nextMonthDay++;
+      }
+    }
 
-		// Initialize calendar on page load
-		window.addEventListener('load', function() {
-		  generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
-		});
+    // Initialize calendar on page load
+    window.addEventListener('load', function() {
+      generateCalendar(currentVersion.year, currentVersion.month, currentVersion.day);
+    });
   </script>
 </body>
 </html>
